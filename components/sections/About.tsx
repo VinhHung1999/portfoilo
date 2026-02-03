@@ -62,18 +62,29 @@ export default function About() {
         <motion.div variants={photoReveal} className="mx-auto md:mx-0">
           <div className="relative">
             <div
-              className="w-52 h-52 md:w-72 md:h-72 rounded-3xl border-4 border-[color:var(--bg-tertiary)] overflow-hidden"
-              style={{ boxShadow: "var(--shadow-md)" }}
+              className="w-52 h-52 md:w-72 md:h-72 rounded-3xl border-4 overflow-hidden"
+              style={{
+                borderColor: "var(--bg-tertiary)",
+                boxShadow: "var(--shadow-md)",
+              }}
             >
               {/* Placeholder - Replace with actual photo */}
-              <div className="w-full h-full bg-gradient-to-br from-[color:var(--accent-primary)] to-[color:var(--accent-secondary)] flex items-center justify-center">
+              <div
+                className="w-full h-full flex items-center justify-center"
+                style={{
+                  background: "linear-gradient(135deg, #64ffda 0%, #5ccfb8 100%)",
+                }}
+              >
                 <span className="text-6xl md:text-8xl">👨‍💻</span>
               </div>
             </div>
             {/* Optional glow effect */}
             <div
-              className="absolute inset-0 rounded-3xl opacity-30"
-              style={{ boxShadow: "var(--shadow-glow)", zIndex: -1 }}
+              className="absolute inset-0 rounded-3xl opacity-40"
+              style={{
+                boxShadow: "0 0 40px rgba(100, 255, 218, 0.3)",
+                zIndex: -1,
+              }}
             />
           </div>
         </motion.div>

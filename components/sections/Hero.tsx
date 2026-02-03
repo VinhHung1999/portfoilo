@@ -91,10 +91,14 @@ export default function Hero() {
             href="#projects"
             whileHover={{
               scale: 1.02,
-              boxShadow: "0 0 30px rgba(59, 130, 246, 0.4)",
+              boxShadow: "0 0 30px rgba(100, 255, 218, 0.4)",
             }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 gradient-bg text-white font-medium rounded-2xl shadow-md transition-all"
+            className="px-8 py-4 font-medium rounded-2xl shadow-md transition-all"
+            style={{
+              backgroundColor: "#64ffda",
+              color: "#0a192f",
+            }}
           >
             View My Work
           </motion.a>
@@ -102,12 +106,13 @@ export default function Hero() {
             href="#contact"
             whileHover={{
               scale: 1.02,
+              boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)",
             }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 border-2 font-medium rounded-2xl transition-all"
+            className="px-8 py-4 border-2 font-medium rounded-2xl transition-all bg-transparent"
             style={{
-              borderColor: "var(--accent-primary)",
-              color: "var(--text-primary)",
+              borderColor: "#64ffda",
+              color: "#64ffda",
             }}
           >
             Get in Touch

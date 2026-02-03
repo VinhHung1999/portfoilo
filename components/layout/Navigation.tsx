@@ -27,9 +27,9 @@ export default function Navigation() {
       borderColor: "rgba(0, 0, 0, 0)",
     },
     scrolled: {
-      backgroundColor: "rgba(22, 27, 34, 0.8)",
+      backgroundColor: "rgba(17, 34, 64, 0.8)",
       backdropFilter: "blur(12px)",
-      borderColor: "rgba(33, 38, 45, 1)",
+      borderColor: "rgba(29, 53, 87, 1)",
     },
   };
 
@@ -91,14 +91,17 @@ export default function Navigation() {
                   color: "var(--text-secondary)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--text-primary)";
+                  e.currentTarget.style.color = "#64ffda";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = "var(--text-secondary)";
                 }}
               >
                 {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 gradient-bg group-hover:w-full transition-all duration-300" />
+                <span
+                  className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
+                  style={{ backgroundColor: "#64ffda" }}
+                />
               </a>
             ))}
           </div>
@@ -143,8 +146,14 @@ export default function Navigation() {
             variants={menuItemVariants}
             transition={{ delay: index * 0.1 }}
             onClick={() => setIsOpen(false)}
-            className="text-2xl font-semibold hover:gradient-text transition-all"
+            className="text-2xl font-semibold transition-all"
             style={{ color: "var(--text-primary)" }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#64ffda";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--text-primary)";
+            }}
           >
             {link.name}
           </motion.a>
