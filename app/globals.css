@@ -3,17 +3,17 @@
 
 @layer base {
   :root {
-    /* Colors */
-    --bg-primary: hsl(220, 20%, 6%);
-    --bg-secondary: hsl(220, 20%, 10%);
-    --bg-tertiary: hsl(220, 20%, 14%);
-    --text-primary: hsl(0, 0%, 100%);
-    --text-secondary: hsl(220, 10%, 75%);
-    --text-muted: hsl(220, 10%, 50%);
-    --accent-primary: hsl(210, 100%, 60%);
-    --accent-secondary: hsl(280, 80%, 65%);
-    --accent-success: hsl(142, 70%, 50%);
-    --accent-glow: hsl(210, 100%, 60%, 0.3);
+    /* Colors - Dark Slate Tech Theme */
+    --bg-primary: hsl(219, 62%, 11%);
+    --bg-secondary: hsl(219, 55%, 16%);
+    --bg-tertiary: hsl(213, 50%, 22%);
+    --text-primary: hsl(213, 100%, 96%);
+    --text-secondary: hsl(223, 24%, 74%);
+    --text-muted: hsl(222, 16%, 62%);
+    --accent-primary: hsl(166, 100%, 70%);
+    --accent-hover: hsl(166, 100%, 80%);
+    --accent-success: hsl(166, 100%, 70%);
+    --accent-glow: hsla(166, 100%, 70%, 0.15);
 
     /* Spacing */
     --space-1: 4px;
@@ -72,7 +72,7 @@
 
 @layer utilities {
   .gradient-text {
-    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+    background: linear-gradient(90deg, #64ffda, #9effea, #64ffda);
     background-size: 200% auto;
     background-clip: text;
     -webkit-background-clip: text;
@@ -81,7 +81,11 @@
   }
 
   .gradient-bg {
-    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    background: linear-gradient(135deg, #64ffda 0%, #5ccfb8 100%);
+  }
+
+  .gradient-subtle {
+    background: linear-gradient(180deg, transparent 0%, rgba(100, 255, 218, 0.03) 100%);
   }
 
   @keyframes gradient-shift {
