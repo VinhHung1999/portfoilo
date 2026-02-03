@@ -23,8 +23,8 @@ export default function Navigation() {
 
   const headerVariants = {
     top: {
-      backgroundColor: "transparent",
-      borderColor: "transparent",
+      backgroundColor: "rgba(0, 0, 0, 0)",
+      borderColor: "rgba(0, 0, 0, 0)",
     },
     scrolled: {
       backgroundColor: "rgba(22, 27, 34, 0.8)",
@@ -73,7 +73,8 @@ export default function Navigation() {
           {/* Logo */}
           <motion.a
             href="#hero"
-            className="text-xl font-bold text-[color:var(--text-primary)] hover:gradient-text transition-all"
+            className="text-xl font-bold hover:gradient-text transition-all"
+            style={{ color: "var(--text-primary)" }}
             whileHover={{ scale: 1.05 }}
           >
             HP
@@ -85,7 +86,16 @@ export default function Navigation() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium uppercase tracking-wider text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] transition-colors relative group"
+                className="text-sm font-medium uppercase tracking-wider transition-colors relative group"
+                style={{
+                  color: "var(--text-secondary)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--text-primary)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--text-secondary)";
+                }}
               >
                 {link.name}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 gradient-bg group-hover:w-full transition-all duration-300" />
@@ -101,15 +111,18 @@ export default function Navigation() {
           >
             <motion.span
               variants={hamburgerTop}
-              className="w-full h-0.5 bg-[color:var(--text-primary)] origin-center"
+              className="w-full h-0.5 origin-center"
+              style={{ backgroundColor: "var(--text-primary)" }}
             />
             <motion.span
               variants={hamburgerMid}
-              className="w-full h-0.5 bg-[color:var(--text-primary)]"
+              className="w-full h-0.5"
+              style={{ backgroundColor: "var(--text-primary)" }}
             />
             <motion.span
               variants={hamburgerBot}
-              className="w-full h-0.5 bg-[color:var(--text-primary)] origin-center"
+              className="w-full h-0.5 origin-center"
+              style={{ backgroundColor: "var(--text-primary)" }}
             />
           </motion.button>
         </nav>
@@ -120,7 +133,8 @@ export default function Navigation() {
         variants={mobileMenuVariants}
         initial="closed"
         animate={isOpen ? "open" : "closed"}
-        className="fixed top-0 right-0 bottom-0 w-80 bg-[color:var(--bg-primary)] z-40 md:hidden flex flex-col items-center justify-center gap-8 px-8"
+        className="fixed top-0 right-0 bottom-0 w-80 z-40 md:hidden flex flex-col items-center justify-center gap-8 px-8"
+        style={{ backgroundColor: "var(--bg-primary)" }}
       >
         {navLinks.map((link, index) => (
           <motion.a
@@ -129,7 +143,8 @@ export default function Navigation() {
             variants={menuItemVariants}
             transition={{ delay: index * 0.1 }}
             onClick={() => setIsOpen(false)}
-            className="text-2xl font-semibold text-[color:var(--text-primary)] hover:gradient-text transition-all"
+            className="text-2xl font-semibold hover:gradient-text transition-all"
+            style={{ color: "var(--text-primary)" }}
           >
             {link.name}
           </motion.a>

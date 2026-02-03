@@ -80,11 +80,17 @@ export default function About() {
 
         {/* Content */}
         <motion.div variants={textReveal} className="space-y-6">
-          <h2 className="text-3xl md:text-5xl font-bold text-[color:var(--text-primary)]">
+          <h2
+            className="text-3xl md:text-5xl font-bold"
+            style={{ color: "var(--text-primary)" }}
+          >
             About Me
           </h2>
 
-          <div className="space-y-6 text-base md:text-lg text-[color:var(--text-secondary)] leading-relaxed">
+          <div
+            className="space-y-6 text-base md:text-lg leading-relaxed"
+            style={{ color: "var(--text-secondary)" }}
+          >
             <p>
               I&apos;m a full-stack developer based in Vietnam with a passion
               for creating interactive digital experiences. With several years
@@ -113,10 +119,16 @@ export default function About() {
               >
                 <span className="text-2xl">{fact.icon}</span>
                 <div>
-                  <p className="text-sm text-[color:var(--text-muted)] font-medium">
+                  <p
+                    className="text-sm font-medium"
+                    style={{ color: "var(--text-muted)" }}
+                  >
                     {fact.label}
                   </p>
-                  <p className="text-base text-[color:var(--text-secondary)]">
+                  <p
+                    className="text-base"
+                    style={{ color: "var(--text-secondary)" }}
+                  >
                     {fact.value}
                   </p>
                 </div>

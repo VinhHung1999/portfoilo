@@ -9,10 +9,10 @@
 
 | Role | Status | Current Task | Last Update |
 |------|--------|--------------|-------------|
-| PM   | Active | Coordinating Sprint 1 | 16:11 |
+| PM   | Active | Coordinating Sprint 1 fixes | 16:40 |
 | DS   | Complete | Design specs delivered | 16:15 |
-| DEV  | Ready | DS specs available | 16:15 |
-| QA   | Idle   | - | - |
+| DEV  | Assigned | Fix QA issues (Hero, Nav) | 16:40 |
+| QA   | Waiting | Retest after DEV fixes | 16:40 |
 
 ---
 
@@ -52,11 +52,15 @@
 - [x] DS: Create detailed design specs for Hero section (layout, copy, animations)
 - [x] DS: Create detailed design specs for Navigation (sticky header, menu, mobile)
 - [x] DS: Create detailed design specs for About section (layout, content structure)
-- [ ] DEV: Initialize Next.js project with approved tech stack
-- [ ] DEV: Implement Hero section per DS specs
-- [ ] DEV: Implement Navigation per DS specs
-- [ ] DEV: Implement About section per DS specs
-- [ ] QA: Black-box test all sections (visual, responsive, animations)
+- [x] DEV: Initialize Next.js project with approved tech stack [16:18 - f164e8e]
+- [x] DEV: Implement Hero section per DS specs [16:35 - 5af9f53]
+- [x] DEV: Implement Navigation per DS specs [16:35 - 32f2ab1]
+- [x] DEV: Implement About section per DS specs [16:35 - e38284a]
+- [x] QA: Black-box test all sections [16:40 - ISSUES FOUND]
+- [ ] DEV: Fix Hero CTA button visibility (desktop)
+- [ ] DEV: Implement mobile hamburger menu + mobile menu panel
+- [ ] DEV: Fix Motion.dev animation warnings (transparent issue)
+- [ ] QA: Retest after fixes
 
 ### Sprint 2: Content Sections (Planned)
 - [ ] Projects/Work showcase
@@ -585,7 +589,9 @@ viewport: { once: true, amount: 0.2 }
 
 | Role | Blocker | Reported | Status |
 |------|---------|----------|--------|
-| | | | |
+| QA | Hero CTA buttons not visible (desktop) | 16:40 | DEV assigned |
+| QA | Mobile hamburger menu missing | 16:40 | DEV assigned |
+| QA | Motion.dev animation warnings (20x) | 16:40 | DEV assigned |
 
 ---
 
