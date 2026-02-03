@@ -1,8 +1,8 @@
 # Portfolio Team Whiteboard
 
-**Sprint:** 1 (Core Structure) - CLOSED ✓✓✓
-**Goal:** Build Hero section, Navigation, and About section with animations
-**Boss Approved:** Deep Space Violet galaxy theme [18:00]
+**Sprint:** 2 (Content Sections)
+**Goal:** Build Projects showcase, Skills/Tech stack, and Contact sections
+**Started:** [18:10]
 
 ---
 
@@ -10,10 +10,10 @@
 
 | Role | Status | Current Task | Last Update |
 |------|--------|--------------|-------------|
-| PM   | Complete | Deep Space Violet APPROVED by Boss | 18:00 |
-| DS   | Complete | Full redesign specs delivered | 17:35 |
-| DEV  | Complete | Deep Space Violet implemented | 17:52 |
-| QA   | Complete | All tests passed | 17:57 |
+| PM   | Active | Coordinating Sprint 2 implementation | 18:16 |
+| DS   | Complete | Sprint 2 design specs delivered | 18:15 |
+| DEV  | Assigned | Implementing Projects, Skills, Contact | 18:16 |
+| QA   | Standby | Awaiting implementation | 18:16 |
 
 ---
 
@@ -69,10 +69,14 @@
 - About Section: PASS (8/8 tests)
 - Total: 23/23 tests passing ✓
 
-### Sprint 2: Content Sections (Planned)
-- [ ] Projects/Work showcase
-- [ ] Skills/Tech stack
-- [ ] Contact section
+### Sprint 2: Content Sections (ACTIVE)
+- [x] DS: Create design specs for Projects showcase section
+- [x] DS: Create design specs for Skills/Tech stack section
+- [x] DS: Create design specs for Contact section
+- [ ] DEV: Implement Projects showcase per DS specs
+- [ ] DEV: Implement Skills/Tech stack per DS specs
+- [ ] DEV: Implement Contact section per DS specs
+- [ ] QA: Test all three sections (visual, responsive, interactions)
 
 ### Sprint 3: Polish (Planned)
 - [ ] Page transitions
@@ -811,6 +815,424 @@ viewport: { once: true, amount: 0.2 }
 | < 768px | Single column, photo centered above text |
 | ≥ 768px | Two columns, photo left, text right |
 | Photo | 200px (mobile), 280px (tablet), 300px (desktop) |
+
+---
+
+## Sprint 2: Component Design Specs
+
+### 4. PROJECTS SHOWCASE SECTION
+
+**Purpose:** Display portfolio projects with filtering, detail views, and visual impact.
+
+#### Layout (Desktop)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│                    PROJECTS [H2]                            │
+│            "Selected work I'm proud of"                     │
+│                                                             │
+│   [All]  [Web]  [Mobile]  [AI/ML]  ← Filter tabs            │
+│                                                             │
+│   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│   │  Project 1  │  │  Project 2  │  │  Project 3  │        │
+│   │   [Image]   │  │   [Image]   │  │   [Image]   │        │
+│   │   Title     │  │   Title     │  │   Title     │        │
+│   │   Desc      │  │   Desc      │  │   Desc      │        │
+│   │   [Tags]    │  │   [Tags]    │  │   [Tags]    │        │
+│   └─────────────┘  └─────────────┘  └─────────────┘        │
+│                                                             │
+│   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│   │  Project 4  │  │  Project 5  │  │  Project 6  │        │
+│   │    ...      │  │    ...      │  │    ...      │        │
+│   └─────────────┘  └─────────────┘  └─────────────┘        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Layout (Mobile)
+- Single column, full-width cards
+- Filter tabs: horizontal scroll
+- 2x3 grid on tablet
+
+#### Project Card Structure
+```
+┌─────────────────────────────────────┐
+│  ┌───────────────────────────────┐  │
+│  │                               │  │
+│  │      PROJECT IMAGE            │  │
+│  │      (16:9 aspect ratio)      │  │
+│  │                               │  │
+│  └───────────────────────────────┘  │
+│                                     │
+│  Project Title                      │
+│  Short description (2 lines max)    │
+│                                     │
+│  [React] [TypeScript] [Tailwind]    │
+│                                     │
+│  [View Project →]                   │
+└─────────────────────────────────────┘
+```
+
+#### Project Modal/Detail View
+```
+┌─────────────────────────────────────────────────────────────┐
+│  ✕ Close                                                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │              LARGE PROJECT IMAGE                     │   │
+│  │              (Gallery if multiple)                   │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  Project Title                                              │
+│  [Web App]  [2024]                                          │
+│                                                             │
+│  Full description paragraph here. Explain the problem,      │
+│  the solution, your role, and the outcome.                  │
+│                                                             │
+│  **Tech Stack:**                                            │
+│  [React] [Next.js] [TypeScript] [PostgreSQL] [AWS]          │
+│                                                             │
+│  **Key Features:**                                          │
+│  • Feature one description                                  │
+│  • Feature two description                                  │
+│  • Feature three description                                │
+│                                                             │
+│  [Live Demo →]  [View Code →]                               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Styling (Deep Space Violet)
+| Element | Style |
+|---------|-------|
+| Section | `--bg-primary` (#000000), 100vh min, scroll-snap-align: start |
+| Section Title | H2, `--text-primary` (#ffffff), centered |
+| Subtitle | `--text-muted` (#808080), 16px, centered |
+| Filter Tabs | `--bg-secondary` (#101010) container, rounded-full |
+| Tab (inactive) | `--text-secondary` (#bfbfbf), 14px |
+| Tab (active) | `--accent-primary` (#7B337D) bg, white text |
+| Card Grid | 3 columns (desktop), 2 (tablet), 1 (mobile), gap 24px |
+| Card | `--bg-secondary` (#101010), border 1px `--bg-tertiary` (#1a1a1a), radius-lg |
+| Card Image | 16:9 aspect, radius-md, overflow hidden |
+| Card Title | `--text-primary` (#ffffff), 18px, weight 600 |
+| Card Description | `--text-secondary` (#bfbfbf), 14px, 2 line clamp |
+| Tech Tags | `--bg-tertiary` (#1a1a1a), `--accent-primary` (#7B337D) text, 12px, radius-full |
+| Card Hover | Lift -8px, violet glow shadow, image slight zoom (1.02) |
+| Modal | `--bg-secondary` (#101010), max-width 900px, centered, backdrop blur |
+
+#### Animations
+```jsx
+// Card reveal - stagger grid
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  })
+};
+
+// Card hover
+whileHover={{
+  y: -8,
+  boxShadow: "0 20px 40px rgba(123, 51, 125, 0.2)",
+  transition: { duration: 0.3 }
+}}
+
+// Filter tab switch - content fade
+const filterSwitch = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.3 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } }
+};
+
+// Modal open
+const modalVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+
+// Backdrop
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 }
+};
+```
+
+#### Sample Project Data Structure
+```typescript
+interface Project {
+  id: string;
+  title: string;
+  shortDescription: string;
+  fullDescription: string;
+  category: 'web' | 'mobile' | 'ai';
+  year: number;
+  thumbnail: string;
+  images: string[];
+  techStack: string[];
+  features: string[];
+  liveUrl?: string;
+  codeUrl?: string;
+}
+```
+
+---
+
+### 5. SKILLS/TECH STACK SECTION
+
+**Purpose:** Showcase technical expertise with visual hierarchy and categorization.
+
+#### Layout (Desktop)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│                    SKILLS [H2]                              │
+│          "Technologies I work with"                         │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │  FRONTEND                                            │   │
+│  │  ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐         │   │
+│  │  │React│ │Next│ │TS  │ │Vue │ │Tail│ │Frm │         │   │
+│  │  └────┘ └────┘ └────┘ └────┘ └────┘ └────┘         │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │  BACKEND                                             │   │
+│  │  ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐                 │   │
+│  │  │Node│ │Pyth│ │Fast│ │Post│ │Redis│                 │   │
+│  │  └────┘ └────┘ └────┘ └────┘ └────┘                 │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │  AI/ML & TOOLS                                       │   │
+│  │  ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐         │   │
+│  │  │Lang│ │Open│ │PyTo│ │Git │ │Dock│ │AWS │         │   │
+│  │  └────┘ └────┘ └────┘ └────┘ └────┘ └────┘         │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Skill Item Structure
+```
+┌──────────────────┐
+│    [ICON]        │  ← Tech logo/icon (32x32 or 40x40)
+│                  │
+│    Tech Name     │  ← Name below icon
+└──────────────────┘
+```
+
+#### Styling (Deep Space Violet)
+| Element | Style |
+|---------|-------|
+| Section | `--bg-primary` (#000000), 100vh, scroll-snap-align: start |
+| Section Title | H2, `--text-primary` (#ffffff), centered |
+| Subtitle | `--text-muted` (#808080), 16px, centered |
+| Category Container | `--bg-secondary` (#101010), padding 32px, radius-xl, margin-bottom 24px |
+| Category Title | `--text-muted` (#808080), 12px, uppercase, tracking-wider, margin-bottom 16px |
+| Skill Grid | Flex wrap, gap 16px, centered |
+| Skill Item | `--bg-tertiary` (#1a1a1a), padding 16px 24px, radius-lg, flex column align-center |
+| Skill Icon | 32px, grayscale(0.3), hover → grayscale(0) + violet tint |
+| Skill Name | `--text-secondary` (#bfbfbf), 14px, weight 500 |
+| Skill Hover | Border `--accent-primary` (#7B337D), icon full color, subtle lift |
+
+#### Skill Categories
+1. **Frontend:** React, Next.js, TypeScript, Vue.js, Tailwind CSS, Framer Motion
+2. **Backend:** Node.js, Python, FastAPI, PostgreSQL, Redis, GraphQL
+3. **AI/ML & Tools:** LangChain, OpenAI, PyTorch, Git, Docker, AWS
+
+#### Animations
+```jsx
+// Category reveal - stagger
+const categoryVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { staggerChildren: 0.05, delayChildren: 0.1 }
+  }
+};
+
+// Skill item reveal
+const skillVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+
+// Skill hover - subtle lift + border glow
+whileHover={{
+  y: -4,
+  borderColor: "#7B337D",
+  transition: { duration: 0.2 }
+}}
+
+// Icon hover - remove grayscale
+const iconHover = {
+  filter: "grayscale(0)",
+  scale: 1.1
+};
+```
+
+#### Icon Recommendations
+- Use Simple Icons (simpleicons.org) for tech logos
+- Or Devicon (devicon.dev) for developer icons
+- Consistent sizing: 32x32 or 40x40
+- Monochrome by default, color on hover
+
+---
+
+### 6. CONTACT SECTION
+
+**Purpose:** Clear call-to-action for potential clients/employers to reach out.
+
+#### Layout (Desktop)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│                  GET IN TOUCH [H2]                          │
+│        "Have a project in mind? Let's talk."                │
+│                                                             │
+│   ┌─────────────────────┐    ┌─────────────────────────┐   │
+│   │                     │    │                         │   │
+│   │    CONTACT FORM     │    │    CONTACT INFO         │   │
+│   │                     │    │                         │   │
+│   │   Name              │    │    📧 Email             │   │
+│   │   [____________]    │    │    hello@example.com    │   │
+│   │                     │    │                         │   │
+│   │   Email             │    │    📍 Location          │   │
+│   │   [____________]    │    │    Ho Chi Minh, Vietnam │   │
+│   │                     │    │                         │   │
+│   │   Message           │    │    💼 Status            │   │
+│   │   [____________]    │    │    Open to work         │   │
+│   │   [____________]    │    │                         │   │
+│   │   [____________]    │    │    ─────────────────    │   │
+│   │                     │    │                         │   │
+│   │   [Send Message →]  │    │    SOCIAL LINKS         │   │
+│   │                     │    │    [GitHub] [LinkedIn]  │   │
+│   │                     │    │    [Twitter] [Email]    │   │
+│   └─────────────────────┘    └─────────────────────────┘   │
+│                                                             │
+│                    © 2024 Hung Pham                         │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Layout (Mobile)
+- Single column: Info first, then form
+- Social icons in a row
+- Full-width form inputs
+
+#### Form Fields
+1. **Name** - text input, required
+2. **Email** - email input, required
+3. **Message** - textarea (4 rows), required
+4. **Submit** - "Send Message →"
+
+#### Styling (Deep Space Violet)
+| Element | Style |
+|---------|-------|
+| Section | `--bg-primary` (#000000), 100vh, scroll-snap-align: start |
+| Section Title | H2, `--text-primary` (#ffffff), centered |
+| Subtitle | `--text-muted` (#808080), 16px, centered |
+| Content Grid | 2 columns equal (desktop), 1 column (mobile), gap 48px |
+| Form Container | `--bg-secondary` (#101010), padding 32px, radius-xl |
+| Input Label | `--text-muted` (#808080), 12px, uppercase, tracking-wider |
+| Input Field | `--bg-tertiary` (#1a1a1a), border 1px `--bg-tertiary`, `--text-primary` text, padding 16px, radius-md |
+| Input Focus | Border `--accent-primary` (#7B337D), subtle glow |
+| Textarea | Same as input, min-height 120px, resize vertical |
+| Submit Button | `--accent-primary` (#7B337D) bg, white text, full width, padding 16px, radius-md |
+| Submit Hover | `--accent-light` (#a34da6), subtle glow |
+| Info Container | No bg, text-aligned |
+| Info Label | `--text-muted` (#808080), 14px |
+| Info Value | `--text-primary` (#ffffff), 18px, weight 500 |
+| Social Icons | 40x40, `--bg-tertiary` (#1a1a1a), radius-full, centered icon |
+| Social Hover | `--accent-primary` (#7B337D) bg, white icon |
+| Footer | `--text-muted` (#808080), 14px, centered, margin-top 48px |
+
+#### Contact Info
+- Email: hello@hungpham.dev (example)
+- Location: Ho Chi Minh City, Vietnam
+- Status: Open to opportunities
+
+#### Social Links
+- GitHub: github.com/hungson175
+- LinkedIn: linkedin.com/in/hungpham
+- Twitter/X: optional
+- Email: mailto link
+
+#### Animations
+```jsx
+// Section reveal
+const contactReveal = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+// Form slide in from left
+const formReveal = {
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+
+// Info slide in from right
+const infoReveal = {
+  hidden: { opacity: 0, x: 30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+
+// Input focus animation
+const inputFocus = {
+  borderColor: "#7B337D",
+  boxShadow: "0 0 0 3px rgba(123, 51, 125, 0.1)"
+};
+
+// Social icon hover
+whileHover={{
+  backgroundColor: "#7B337D",
+  scale: 1.05,
+  transition: { duration: 0.2 }
+}}
+
+// Submit button
+whileHover={{ backgroundColor: "#a34da6" }}
+whileTap={{ scale: 0.98 }}
+```
+
+#### Form Validation
+- Client-side validation with visual feedback
+- Error state: red border (NOT violet to differentiate)
+- Success state: green checkmark
+- Disabled state during submission: loading spinner
+
+#### Form Submission (DEV to implement)
+- Options: Formspree, EmailJS, custom API endpoint
+- Show success/error toast notification after submission
+- Clear form on success
 
 ---
 
