@@ -27,9 +27,9 @@ export default function Navigation() {
       borderColor: "rgba(0, 0, 0, 0)",
     },
     scrolled: {
-      backgroundColor: "rgba(17, 34, 64, 0.8)",
+      backgroundColor: "rgba(16, 16, 16, 0.8)",
       backdropFilter: "blur(12px)",
-      borderColor: "rgba(29, 53, 87, 1)",
+      borderColor: "rgba(26, 26, 26, 1)",
     },
   };
 
@@ -91,7 +91,7 @@ export default function Navigation() {
                   color: "var(--text-secondary)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#64ffda";
+                  e.currentTarget.style.color = "#a34da6";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = "var(--text-secondary)";
@@ -100,7 +100,7 @@ export default function Navigation() {
                 {link.name}
                 <span
                   className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
-                  style={{ backgroundColor: "#64ffda" }}
+                  style={{ backgroundColor: "#7B337D" }}
                 />
               </a>
             ))}
@@ -149,7 +149,7 @@ export default function Navigation() {
             className="text-2xl font-semibold transition-all"
             style={{ color: "var(--text-primary)" }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#64ffda";
+              e.currentTarget.style.color = "#a34da6";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.color = "var(--text-primary)";

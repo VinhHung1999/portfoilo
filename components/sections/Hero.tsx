@@ -12,32 +12,34 @@ export default function Hero() {
   };
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
     show: {
       opacity: 1,
       y: 0,
+      filter: "blur(0px)",
       transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
   const nameReveal = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
     show: {
       opacity: 1,
-      scale: 1,
+      y: 0,
+      filter: "blur(0px)",
       transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
-  const bounce = {
-    y: [0, 10, 0],
-    transition: { duration: 1.5, repeat: Infinity, ease: "easeInOut" as const },
+  const floatSubtle = {
+    y: [0, -8, 0],
+    transition: { duration: 4, repeat: Infinity, ease: [0.25, 0.46, 0.45, 0.94] as const },
   };
 
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center relative"
+      className="h-full flex items-center justify-center relative"
     >
       <motion.div
         variants={container}
@@ -90,14 +92,15 @@ export default function Hero() {
           <motion.a
             href="#projects"
             whileHover={{
-              scale: 1.02,
-              boxShadow: "0 0 30px rgba(100, 255, 218, 0.4)",
+              backgroundColor: "#a34da6",
+              boxShadow: "0 0 30px rgba(123, 51, 125, 0.4)",
             }}
-            whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 font-medium rounded-2xl shadow-md transition-all"
+            whileTap={{ backgroundColor: "#552357" }}
+            transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="px-8 py-4 font-medium rounded-2xl shadow-md"
             style={{
-              backgroundColor: "#64ffda",
-              color: "#0a192f",
+              backgroundColor: "#7B337D",
+              color: "#ffffff",
             }}
           >
             View My Work
@@ -105,14 +108,16 @@ export default function Hero() {
           <motion.a
             href="#contact"
             whileHover={{
-              scale: 1.02,
-              boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)",
+              borderColor: "#a34da6",
+              color: "#a34da6",
+              boxShadow: "0 0 20px rgba(123, 51, 125, 0.2)",
             }}
-            whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 border-2 font-medium rounded-2xl transition-all bg-transparent"
+            whileTap={{ borderColor: "#552357", color: "#552357" }}
+            transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="px-8 py-4 border-2 font-medium rounded-2xl bg-transparent"
             style={{
-              borderColor: "#64ffda",
-              color: "#64ffda",
+              borderColor: "#7B337D",
+              color: "#7B337D",
             }}
           >
             Get in Touch
@@ -122,7 +127,7 @@ export default function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div
-        animate={bounce}
+        animate={floatSubtle}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         style={{ color: "var(--text-muted)" }}
       >
