@@ -15,7 +15,10 @@ export default function Home() {
           id="projects"
           className="min-h-screen flex items-center justify-center"
         >
-          <h2 className="text-4xl font-bold text-[color:var(--text-primary)]">
+          <h2
+            className="text-4xl font-bold"
+            style={{ color: "var(--text-primary)" }}
+          >
             Projects (Coming Soon)
           </h2>
         </section>
@@ -24,7 +27,10 @@ export default function Home() {
           id="skills"
           className="min-h-screen flex items-center justify-center"
         >
-          <h2 className="text-4xl font-bold text-[color:var(--text-primary)]">
+          <h2
+            className="text-4xl font-bold"
+            style={{ color: "var(--text-primary)" }}
+          >
             Skills (Coming Soon)
           </h2>
         </section>
@@ -33,7 +39,10 @@ export default function Home() {
           id="contact"
           className="min-h-screen flex items-center justify-center"
         >
-          <h2 className="text-4xl font-bold text-[color:var(--text-primary)]">
+          <h2
+            className="text-4xl font-bold"
+            style={{ color: "var(--text-primary)" }}
+          >
             Contact (Coming Soon)
           </h2>
         </section>

@@ -48,7 +48,8 @@ export default function Hero() {
         {/* Greeting */}
         <motion.p
           variants={fadeInUp}
-          className="text-lg md:text-xl text-[color:var(--text-muted)] font-medium mb-4"
+          className="text-lg md:text-xl font-medium mb-4"
+          style={{ color: "var(--text-muted)" }}
         >
           Hi, I&apos;m
         </motion.p>
@@ -64,7 +65,8 @@ export default function Hero() {
         {/* Tagline */}
         <motion.h2
           variants={fadeInUp}
-          className="text-2xl md:text-4xl font-semibold text-[color:var(--text-primary)] mb-6"
+          className="text-2xl md:text-4xl font-semibold mb-6"
+          style={{ color: "var(--text-primary)" }}
         >
           Full-Stack Developer & Creative Technologist
         </motion.h2>
@@ -72,7 +74,8 @@ export default function Hero() {
         {/* Description */}
         <motion.p
           variants={fadeInUp}
-          className="text-base md:text-lg text-[color:var(--text-secondary)] max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-base md:text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
+          style={{ color: "var(--text-secondary)" }}
         >
           I craft interactive digital experiences that merge elegant design with
           robust engineering. Passionate about AI, web technologies, and
@@ -99,11 +102,13 @@ export default function Hero() {
             href="#contact"
             whileHover={{
               scale: 1.02,
-              borderColor: "var(--accent-primary)",
-              color: "var(--accent-primary)",
             }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 border-2 border-[color:var(--accent-primary)] text-[color:var(--text-primary)] font-medium rounded-2xl transition-all"
+            className="px-8 py-4 border-2 font-medium rounded-2xl transition-all"
+            style={{
+              borderColor: "var(--accent-primary)",
+              color: "var(--text-primary)",
+            }}
           >
             Get in Touch
           </motion.a>
@@ -113,7 +118,8 @@ export default function Hero() {
       {/* Scroll Indicator */}
       <motion.div
         animate={bounce}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-[color:var(--text-muted)]"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        style={{ color: "var(--text-muted)" }}
       >
         <svg
           className="w-6 h-6"
