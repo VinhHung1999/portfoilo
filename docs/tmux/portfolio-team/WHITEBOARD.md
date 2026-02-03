@@ -9,10 +9,10 @@
 
 | Role | Status | Current Task | Last Update |
 |------|--------|--------------|-------------|
-| PM   | Active | Coordinating color implementation | 17:09 |
-| DS   | Complete | Dark Slate Tech design system | 17:07 |
-| DEV  | Assigned | Implement new color system | 17:09 |
-| QA   | Standby | Will retest after color update | 17:09 |
+| PM   | Active | Coordinating implementation | 17:37 |
+| DS   | Complete | Full redesign specs delivered | 17:35 |
+| DEV  | Assigned | Implementing Deep Space Violet redesign | 17:37 |
+| QA   | Standby | Will test after implementation | 17:37 |
 
 ---
 
@@ -99,34 +99,41 @@
 
 ### Color Palette
 
-**Theme: Dark Slate Tech (Boss Approved [17:06])**
+**Theme: Deep Space Violet (Boss Approved [17:33])**
 
-*Inspired by Brittany Chiang's developer portfolio aesthetic - deep navy with electric teal accent.*
+*Galaxy/space aesthetic - true black with sophisticated muted violet accent.*
 
 | Token | HSL | Hex | Usage |
 |-------|-----|-----|-------|
-| `--bg-primary` | hsl(219, 62%, 11%) | `#0a192f` | Main background |
-| `--bg-secondary` | hsl(219, 55%, 16%) | `#112240` | Cards, sections |
-| `--bg-tertiary` | hsl(213, 50%, 22%) | `#1d3557` | Hover states |
-| `--text-primary` | hsl(213, 100%, 96%) | `#e6f1ff` | Headings |
-| `--text-secondary` | hsl(223, 24%, 74%) | `#a8b2d1` | Body text |
-| `--text-muted` | hsl(222, 16%, 62%) | `#8892b0` | Captions, hints |
-| `--accent-primary` | hsl(166, 100%, 70%) | `#64ffda` | Primary CTA, links |
-| `--accent-hover` | hsl(166, 100%, 80%) | `#9effea` | Hover states |
-| `--accent-success` | hsl(166, 100%, 70%) | `#64ffda` | Success (same as accent) |
-| `--accent-glow` | hsla(166, 100%, 70%, 0.15) | `#64ffda26` | Neon glow effects |
+| `--bg-primary` | hsl(0, 0%, 0%) | `#000000` | True black background |
+| `--bg-secondary` | hsl(300, 5%, 6%) | `#101010` | Cards, elevated surfaces |
+| `--bg-tertiary` | hsl(300, 5%, 10%) | `#1a1a1a` | Hover states, borders |
+| `--text-primary` | hsl(0, 0%, 100%) | `#ffffff` | Headings |
+| `--text-secondary` | hsl(0, 0%, 75%) | `#bfbfbf` | Body text |
+| `--text-muted` | hsl(0, 0%, 50%) | `#808080` | Captions, hints |
+| `--accent-primary` | hsl(298, 40%, 35%) | `#7B337D` | Primary accent (muted violet) |
+| `--accent-light` | hsl(298, 40%, 50%) | `#a34da6` | Hover states, highlights |
+| `--accent-dark` | hsl(298, 40%, 25%) | `#552357` | Pressed states, depth |
+| `--accent-glow` | hsla(298, 40%, 35%, 0.3) | `#7B337D4d` | Subtle glow effects |
 
-**Gradient (Teal Variations - No Purple):**
+**Gradients (Violet Space Theme):**
 ```css
---gradient-hero: linear-gradient(135deg, #64ffda 0%, #5ccfb8 100%);
---gradient-text: linear-gradient(90deg, #64ffda, #9effea, #64ffda);
---gradient-subtle: linear-gradient(180deg, transparent 0%, rgba(100, 255, 218, 0.03) 100%);
+--gradient-hero: linear-gradient(135deg, #7B337D 0%, #552357 100%);
+--gradient-text: linear-gradient(90deg, #a34da6, #7B337D, #a34da6);
+--gradient-space: radial-gradient(ellipse at top, #1a1a1a 0%, #000000 100%);
+--gradient-subtle: linear-gradient(180deg, transparent 0%, rgba(123, 51, 125, 0.05) 100%);
 ```
 
-**Button Styling Update:**
-- Primary CTA: Solid `#64ffda` background, `#0a192f` text (dark on light)
-- Secondary CTA: Transparent, `#64ffda` border, `#64ffda` text
-- Hover: Glow effect with `--accent-glow`
+**Button Styling (Deep Space Violet):**
+- Primary CTA: Solid `--accent-primary` (#7B337D) bg, white text
+- Secondary CTA: Transparent, `--accent-primary` border, violet text
+- Hover: Lighten to `--accent-light` (#a34da6) + subtle glow
+- Pressed: Darken to `--accent-dark` (#552357)
+
+**Galaxy Effects (Optional Enhancements):**
+- Starfield: Subtle CSS star particles on hero background
+- Nebula glow: Soft violet radial gradient behind key elements
+- Space dust: Micro-particles floating animation (very subtle)
 
 ---
 
@@ -196,38 +203,228 @@
 
 ---
 
-### Animation Specs
+### Animation Specs (Professional Galaxy Theme)
 
-**Timing Functions:**
+**Design Philosophy:**
+- Elegant, refined motion - NO bouncy/playful effects
+- Subtle reveals that feel premium
+- Consistent timing across all elements
+- Space-like floating sensation
+
+---
+
+#### Timing Functions (Professional Only)
 ```css
---ease-out: cubic-bezier(0.16, 1, 0.3, 1);
---ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
---spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+/* Primary - smooth deceleration */
+--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+/* Secondary - symmetric smooth */
+--ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+
+/* Subtle - gentle motion */
+--ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+/* DO NOT USE: spring, bounce, elastic - too playful */
 ```
 
 **Durations:**
-| Type | Duration |
-|------|----------|
-| Micro (hover) | 150ms |
-| Small (buttons) | 200ms |
-| Medium (cards) | 300ms |
-| Large (sections) | 500ms |
-| Page transition | 600ms |
+| Type | Duration | Usage |
+|------|----------|-------|
+| Micro | 150ms | Hover color changes |
+| Small | 250ms | Button states |
+| Medium | 400ms | Element reveals |
+| Large | 600ms | Section transitions |
+| Page snap | 800ms | Scroll snap animation |
 
-**Micro-interactions:**
-- Button hover: scale(1.02), glow effect
-- Card hover: translateY(-4px), shadow-lg
-- Link hover: gradient underline animation
-- Scroll reveal: fadeInUp with stagger 100ms
+---
 
-**Scroll Animations (Framer Motion):**
+#### Pagination Scroll System
+
+**Structure:**
+```css
+/* Container */
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* Each Section */
+.section {
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+```
+
+**Section Order:**
+1. Hero (100vh) - snap point
+2. About (100vh) - snap point
+3. Projects (100vh or more) - snap point
+4. Skills (100vh) - snap point
+5. Contact (100vh) - snap point
+
+**Framer Motion Integration:**
 ```jsx
-// Fade in up on scroll
-{ opacity: 0, y: 40 } → { opacity: 1, y: 0 }
-duration: 0.6, ease: [0.16, 1, 0.3, 1]
+// Wrap with scroll snap container
+<motion.main className="snap-y snap-mandatory h-screen overflow-y-scroll">
+  <section className="snap-start h-screen">Hero</section>
+  <section className="snap-start h-screen">About</section>
+  ...
+</motion.main>
+```
 
-// Stagger children
-staggerChildren: 0.1
+---
+
+#### Progressive Reveal System
+
+**Principle:** Content is INVISIBLE until user scrolls to section. No content visible on load except Hero.
+
+**Hidden State (Before Scroll):**
+```jsx
+const hidden = {
+  opacity: 0,
+  y: 60,        // Start below
+  filter: "blur(4px)"  // Subtle blur
+};
+```
+
+**Visible State (After Scroll Trigger):**
+```jsx
+const visible = {
+  opacity: 1,
+  y: 0,
+  filter: "blur(0px)",
+  transition: {
+    duration: 0.6,
+    ease: [0.16, 1, 0.3, 1]
+  }
+};
+```
+
+**Trigger Configuration:**
+```jsx
+// Framer Motion useInView
+const ref = useRef(null);
+const isInView = useInView(ref, {
+  once: true,           // Only animate once
+  amount: 0.3,          // Trigger when 30% visible
+  margin: "-100px"      // Start slightly before in view
+});
+
+// Apply animation
+<motion.div
+  ref={ref}
+  initial="hidden"
+  animate={isInView ? "visible" : "hidden"}
+  variants={{ hidden, visible }}
+/>
+```
+
+**Stagger Children (Within Sections):**
+```jsx
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,  // 150ms between each child
+      delayChildren: 0.1      // Wait 100ms before starting
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+```
+
+---
+
+#### Professional Micro-interactions
+
+**Button Hover (Subtle):**
+```jsx
+whileHover={{
+  backgroundColor: "#a34da6",  // accent-light
+  transition: { duration: 0.25 }
+}}
+whileTap={{
+  scale: 0.98,
+  backgroundColor: "#552357"   // accent-dark
+}}
+// NO scale on hover - too playful
+```
+
+**Card Hover (Elegant Lift):**
+```jsx
+whileHover={{
+  y: -8,
+  boxShadow: "0 20px 40px rgba(123, 51, 125, 0.15)",
+  transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
+}}
+```
+
+**Link Hover (Underline Reveal):**
+```jsx
+// Underline grows from left to right
+<motion.span
+  className="absolute bottom-0 left-0 h-[1px] bg-accent-primary"
+  initial={{ scaleX: 0, originX: 0 }}
+  whileHover={{ scaleX: 1 }}
+  transition={{ duration: 0.3 }}
+/>
+```
+
+**Text Reveal (Character by Character - Optional):**
+```jsx
+// For hero name - elegant letter reveal
+const letterVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.03, duration: 0.4 }
+  })
+};
+```
+
+---
+
+#### Galaxy Background Effects
+
+**Starfield (CSS Only):**
+```css
+.starfield {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.6), transparent);
+  background-size: 200px 200px;
+  animation: twinkle 5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+```
+
+**Nebula Glow (Behind Hero Text):**
+```css
+.nebula-glow {
+  background: radial-gradient(
+    ellipse 600px 400px at center,
+    rgba(123, 51, 125, 0.15) 0%,
+    transparent 70%
+  );
+}
 ```
 
 ---
@@ -243,30 +440,41 @@ staggerChildren: 0.1
 
 ---
 
-### Component Guidelines
+### Component Guidelines (Deep Space Violet)
 
 **Hero Section:**
-- Full viewport height (100vh)
-- Teal gradient text for name/title (`--gradient-text`)
-- Subtle floating animation on decorative elements
-- CTA button with teal glow on hover
+- Full viewport height (100vh), snap point
+- True black bg (#000000) with optional starfield
+- Violet gradient text for name (`--gradient-text`)
+- Nebula glow effect behind text
+- Progressive reveal on load (staggered)
+- CTA button with violet hover state (NO scale, color change only)
 
 **Navigation:**
-- Sticky header, `--bg-secondary` with blur backdrop
-- Smooth scroll to sections
-- Links: `--text-secondary`, hover → `--accent-primary` (teal)
-- Mobile: hamburger with slide-in menu
+- Sticky header, `--bg-secondary` (#101010) with blur backdrop
+- Pagination dots (optional) showing current section
+- Links: `--text-secondary` (#bfbfbf), hover → `--accent-primary` (#7B337D)
+- Mobile: hamburger with slide-in menu (dark theme)
 
 **Cards (Projects):**
-- Background: `--bg-secondary`
-- Hover lift with teal glow shadow
-- Image with subtle zoom on hover
-- Tech stack tags: `--accent-primary` text
+- Background: `--bg-secondary` (#101010)
+- Border: 1px `--bg-tertiary` (#1a1a1a)
+- Hover: elegant lift (-8px) + violet glow shadow
+- Image: NO zoom on hover (keep professional)
+- Tech stack tags: `--accent-primary` (#7B337D) text
 
-**Buttons (Dark Slate Tech):**
-- Primary: `--accent-primary` (#64ffda) background, `--bg-primary` (#0a192f) text
+**Buttons (Deep Space Violet):**
+- Primary: `--accent-primary` (#7B337D) bg, white text
 - Secondary: transparent, `--accent-primary` border + text
-- Hover: scale(1.02) + teal glow (`0 0 20px rgba(100,255,218,0.4)`)
+- Hover: lighten to `--accent-light` (#a34da6), subtle glow
+- Pressed: darken to `--accent-dark` (#552357)
+- NO scale on hover (too playful)
+
+**Sections (General):**
+- Each section: 100vh, scroll-snap-align: start
+- Content hidden until scroll trigger (progressive reveal)
+- Stagger children animations within section
+- Consistent spacing: 96px padding desktop, 64px mobile
 
 ---
 
@@ -320,17 +528,19 @@ CTA Primary: "View My Work"
 CTA Secondary: "Get in Touch"
 ```
 
-#### Styling (Dark Slate Tech)
+#### Styling (Deep Space Violet)
 | Element | Style |
 |---------|-------|
-| Background | `--bg-primary` (#0a192f deep navy) |
-| Greeting | `--text-muted` (#8892b0), 18px, weight 500 |
-| Name | Teal gradient text (`--gradient-text` #64ffda→#9effea), Display size (64px/40px mobile), weight 800 |
-| Tagline | `--text-primary` (#e6f1ff), H2 (36px/28px mobile), weight 600 |
-| Description | `--text-secondary` (#a8b2d1), Body Large (18px), max-width 600px, centered |
-| CTA Primary | Solid `--accent-primary` (#64ffda) bg, `--bg-primary` (#0a192f) text, padding 16px 32px, radius-lg, teal glow on hover |
-| CTA Secondary | Transparent, border `--accent-primary` (#64ffda), teal text, padding 16px 32px, radius-lg |
-| Scroll Indicator | `--accent-primary` (#64ffda), bouncing chevron animation |
+| Background | `--bg-primary` (#000000 true black) + optional starfield |
+| Nebula Glow | Radial gradient behind name (rgba(123,51,125,0.15)) |
+| Greeting | `--text-muted` (#808080), 18px, weight 500 |
+| Name | Violet gradient text (`--gradient-text` #a34da6→#7B337D), Display size (64px/40px mobile), weight 800 |
+| Tagline | `--text-primary` (#ffffff), H2 (36px/28px mobile), weight 600 |
+| Description | `--text-secondary` (#bfbfbf), Body Large (18px), max-width 600px, centered |
+| CTA Primary | Solid `--accent-primary` (#7B337D) bg, white text, padding 16px 32px, radius-lg |
+| CTA Primary Hover | `--accent-light` (#a34da6), subtle violet glow, NO scale |
+| CTA Secondary | Transparent, border `--accent-primary` (#7B337D), violet text |
+| Scroll Indicator | `--text-muted` (#808080), subtle fade animation (not bouncing) |
 
 #### Animations (Framer Motion)
 ```jsx
@@ -419,35 +629,36 @@ whileTap: { scale: 0.98 }
 3. **Skills** → scrolls to #skills
 4. **Contact** → scrolls to #contact
 
-#### Styling (Dark Slate Tech)
+#### Styling (Deep Space Violet)
 | Element | Style |
 |---------|-------|
 | Header | Height 64px, sticky top-0, z-50 |
 | Background (default) | Transparent |
-| Background (scrolled) | `--bg-secondary` (#112240) with backdrop-blur-lg, border-bottom 1px `--bg-tertiary` (#1d3557) |
-| Logo/Name | `--text-primary` (#e6f1ff), 20px, weight 700, teal gradient on hover |
-| Nav Links | `--text-secondary` (#a8b2d1), 14px, weight 500, uppercase, letter-spacing 0.5px |
-| Nav Link Hover | `--accent-primary` (#64ffda), teal underline animation |
-| Active Link | `--accent-primary` (#64ffda) |
-| Hamburger | 24x24px, 3 lines, `--text-primary` (#e6f1ff) |
-| Mobile Menu | Full height, `--bg-primary` (#0a192f), slide from right 300px wide |
+| Background (scrolled) | `--bg-secondary` (#101010) with backdrop-blur-lg, border-bottom 1px `--bg-tertiary` (#1a1a1a) |
+| Logo/Name | `--text-primary` (#ffffff), 20px, weight 700, violet color on hover |
+| Nav Links | `--text-secondary` (#bfbfbf), 14px, weight 500, uppercase, letter-spacing 0.5px |
+| Nav Link Hover | `--accent-primary` (#7B337D), violet underline animation |
+| Active Link | `--accent-primary` (#7B337D) |
+| Hamburger | 24x24px, 3 lines, `--text-primary` (#ffffff) |
+| Mobile Menu | Full height, `--bg-primary` (#000000), slide from right 300px wide |
 
 #### Animations
 ```jsx
-// Header background transition on scroll (Dark Slate Tech)
+// Header background transition on scroll (Deep Space Violet)
 const headerVariants = {
   top: { backgroundColor: "transparent", borderColor: "transparent" },
   scrolled: {
-    backgroundColor: "rgba(17, 34, 64, 0.85)", // #112240 with opacity
+    backgroundColor: "rgba(16, 16, 16, 0.9)", // #101010 with opacity
     backdropFilter: "blur(12px)",
-    borderColor: "rgba(29, 53, 87, 1)" // #1d3557
+    borderColor: "rgba(26, 26, 26, 1)" // #1a1a1a
   }
 };
 
-// Nav link hover - gradient underline
+// Nav link hover - violet underline (grows from left)
 const linkHover = {
   scaleX: [0, 1],
-  transition: { duration: 0.3 }
+  originX: 0,
+  transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
 };
 
 // Mobile menu
@@ -540,18 +751,19 @@ contributing to open source, or learning about AI and machine learning."
 • 🌐 Languages: Vietnamese, English
 ```
 
-#### Styling (Dark Slate Tech)
+#### Styling (Deep Space Violet)
 | Element | Style |
 |---------|-------|
-| Section | `--bg-primary` (#0a192f), padding 96px 0 (desktop), 64px 0 (mobile) |
-| Container | max-width 1200px, grid 2 cols (desktop), 1 col (mobile) |
-| Section Title | H2 style, `--text-primary` (#e6f1ff), margin-bottom 32px |
-| Photo | 300x300 (desktop), 200x200 (mobile), `--radius-xl`, border 4px `--accent-primary` (#64ffda) |
-| Photo Container | Optional: teal glow effect (`0 0 30px rgba(100,255,218,0.2)`) |
-| Bio Text | `--text-secondary` (#a8b2d1), Body Large (18px), line-height 1.7 |
+| Section | `--bg-primary` (#000000), 100vh, scroll-snap-align: start |
+| Container | max-width 1200px, grid 2 cols (desktop), 1 col (mobile), centered vertically |
+| Section Title | H2 style, `--text-primary` (#ffffff), margin-bottom 32px |
+| Photo | 300x300 (desktop), 200x200 (mobile), `--radius-xl`, border 2px `--accent-primary` (#7B337D) |
+| Photo Container | Subtle violet glow (`0 0 40px rgba(123,51,125,0.2)`) |
+| Bio Text | `--text-secondary` (#bfbfbf), Body Large (18px), line-height 1.7 |
 | Paragraph Gap | 24px between paragraphs |
-| Quick Facts | `--text-secondary` (#a8b2d1), 16px, icon + text pairs |
-| Icons | Lucide icons or emoji, `--accent-primary` (#64ffda) |
+| Quick Facts | `--text-secondary` (#bfbfbf), 16px, icon + text pairs |
+| Icons | Lucide icons, `--accent-primary` (#7B337D) |
+| Progressive Reveal | Content hidden until scroll, fade+slide animation |
 
 #### Animations
 ```jsx
@@ -608,7 +820,11 @@ viewport: { once: true, amount: 0.2 }
 | QA | Hero CTA buttons not visible (desktop) | 16:40 | RESOLVED [16:48] |
 | QA | Mobile hamburger menu missing | 16:40 | RESOLVED [16:48] |
 | QA | Motion.dev animation warnings (20x) | 16:40 | RESOLVED [16:48] |
-| Boss | Gradient colors unprofessional | 16:55 | RESOLVED - Option 1 selected [17:06] |
+| Boss | Gradient colors unprofessional | 16:55 | RESOLVED - Dark Slate Tech COMPLETE [17:20] |
+| Boss | Teal color looks childish | 17:23 | RESOLVED - Deep Space Violet selected [17:33] |
+| Boss | Animations need to be more professional | 17:23 | RESOLVED - DS redesign [17:35] |
+| Boss | Need pagination-style scroll snapping | 17:27 | RESOLVED - DS redesign [17:35] |
+| Boss | Progressive reveal on scroll | 17:27 | RESOLVED - DS redesign [17:35] |
 
 ---
 
@@ -617,9 +833,17 @@ viewport: { once: true, amount: 0.2 }
 **[16:56] Boss Feedback:** Current gradient (blue→purple) needs improvement for professionalism.
 **[17:03] Research Complete:** 3 verified palettes delivered by research-team.
 **[17:06] Boss Decision:** Option 1 - DARK SLATE TECH selected.
-**[17:07] DS Complete:** Design system fully updated with Dark Slate Tech palette.
-  - BG: #0a192f (deep navy) | Accent: #64ffda (electric teal)
-  - All color tokens, gradients, component styles revised
+**[17:07] DS Complete:** Dark Slate Tech palette implemented.
+**[17:23] Boss Feedback:** Teal looks childish, need true black + galaxy theme + professional animations.
+**[17:30] Research Complete:** 3 galaxy palettes from research-team (Deep Space Violet recommended).
+**[17:33] Boss Decision:** Option 1 - DEEP SPACE VIOLET selected.
+**[17:35] DS FULL REDESIGN COMPLETE:**
+  - Color Palette: True black (#000000) + muted violet (#7B337D)
+  - Pagination Scroll: 100vh snap sections
+  - Progressive Reveal: Content hidden until scroll trigger
+  - Professional Animations: Refined easing, no bouncy effects
+  - Galaxy Effects: Starfield, nebula glow specs included
+  - All component specs updated (Hero, Nav, About)
   - Ready for DEV implementation.
 
 ---

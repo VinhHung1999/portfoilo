@@ -1,41 +1,53 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function About() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    amount: 0.3,
+    margin: "-100px",
+  });
+
   const sectionReveal = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.2 },
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
     },
   };
 
   const photoReveal = {
-    hidden: { opacity: 0, scale: 0.8, rotate: -5 },
+    hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
     visible: {
       opacity: 1,
-      scale: 1,
-      rotate: 0,
+      y: 0,
+      filter: "blur(0px)",
       transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
   const textReveal = {
-    hidden: { opacity: 0, x: 30 },
+    hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
     visible: {
       opacity: 1,
-      x: 0,
+      y: 0,
+      filter: "blur(0px)",
       transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
   const factItem = {
-    hidden: { opacity: 0, x: 20 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
-      x: 0,
-      transition: { duration: 0.4 },
+      y: 0,
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
@@ -49,13 +61,13 @@ export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center justify-center py-24 px-6 md:px-12"
+      className="h-full flex items-center justify-center px-6 md:px-12"
     >
       <motion.div
+        ref={ref}
         variants={sectionReveal}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        animate={isInView ? "visible" : "hidden"}
         className="max-w-6xl w-full grid md:grid-cols-[300px_1fr] gap-12 items-center"
       >
         {/* Photo */}
@@ -72,7 +84,7 @@ export default function About() {
               <div
                 className="w-full h-full flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(135deg, #64ffda 0%, #5ccfb8 100%)",
+                  background: "linear-gradient(135deg, #7B337D 0%, #552357 100%)",
                 }}
               >
                 <span className="text-6xl md:text-8xl">👨‍💻</span>
@@ -82,7 +94,7 @@ export default function About() {
             <div
               className="absolute inset-0 rounded-3xl opacity-40"
               style={{
-                boxShadow: "0 0 40px rgba(100, 255, 218, 0.3)",
+                boxShadow: "0 0 40px rgba(123, 51, 125, 0.3)",
                 zIndex: -1,
               }}
             />
