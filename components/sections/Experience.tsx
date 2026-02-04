@@ -125,7 +125,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-full flex flex-col px-6 md:px-12 mt-16 relative"
+      className="h-full flex flex-col px-6 md:px-12 pt-16 relative"
     >
 
       <motion.div
