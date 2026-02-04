@@ -13,13 +13,19 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    setIsSubmitting(true);
+
+    // Simulate async form submission
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     console.log("Form submitted:", formData);
     alert("Thank you for your message! I'll get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(false);
   };
 
   const socialLinks = [
@@ -169,18 +175,21 @@ export default function Contact() {
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                whileHover={{
+                disabled={isSubmitting}
+                whileHover={!isSubmitting ? {
                   backgroundColor: "#a34da6",
                   boxShadow: "0 0 20px rgba(123, 51, 125, 0.3)",
-                }}
-                whileTap={{ scale: 0.98 }}
+                } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 className="w-full py-4 rounded-lg font-medium transition-all"
                 style={{
-                  backgroundColor: "#7B337D",
+                  backgroundColor: isSubmitting ? "#552357" : "#7B337D",
                   color: "#ffffff",
+                  opacity: isSubmitting ? 0.7 : 1,
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
                 }}
               >
-                Send Message →
+                {isSubmitting ? "Sending..." : "Send Message →"}
               </motion.button>
             </form>
           </motion.div>
