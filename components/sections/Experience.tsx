@@ -118,7 +118,7 @@ export default function Experience() {
           <div className="relative pl-8 md:pl-16 md:flex-1 md:overflow-y-auto pr-2 pb-8 experience-scroll"
             style={{
               scrollbarWidth: "thin",
-              scrollbarColor: "#7B337D transparent"
+              scrollbarColor: "#2563EB transparent"
             }}>
           {/* Timeline Line */}
           <motion.div
