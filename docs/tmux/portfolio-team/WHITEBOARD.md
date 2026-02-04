@@ -10,10 +10,10 @@
 
 | Role | Status | Current Task | Last Update |
 |------|--------|--------------|-------------|
-| PM   | Active | Coordinating Experience scroll fix | 19:06 |
-| DS   | Standby | Design consultation if needed | 19:06 |
-| DEV  | Assigned | FIX Experience scroll/header overlap | 19:06 |
-| QA   | Standby | Will retest after fix | 19:06 |
+| PM   | Active | Coordinating scroll fix QA | 19:11 |
+| DS   | Complete | Scroll solution design delivered | 19:08 |
+| DEV  | Complete | Scroll fix implemented | 19:11 |
+| QA   | Assigned | Testing Experience scroll fix | 19:11 |
 
 ---
 
