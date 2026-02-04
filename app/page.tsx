@@ -1,6 +1,7 @@
 import Navigation from "@/components/layout/Navigation";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
+import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
 import Contact from "@/components/sections/Contact";
@@ -20,17 +21,22 @@ export default function Home() {
           <About />
         </section>
 
-        {/* Section 3: Projects - 100vh snap point */}
+        {/* Section 3: Experience - 100vh snap point */}
+        <section className="h-screen snap-start snap-always">
+          <Experience />
+        </section>
+
+        {/* Section 4: Projects - 100vh snap point */}
         <section className="h-screen snap-start snap-always">
           <Projects />
         </section>
 
-        {/* Section 4: Skills - 100vh snap point */}
+        {/* Section 5: Skills - 100vh snap point */}
         <section className="h-screen snap-start snap-always">
           <Skills />
         </section>
 
-        {/* Section 5: Contact - 100vh snap point */}
+        {/* Section 6: Contact - 100vh snap point */}
         <section className="h-screen snap-start snap-always">
           <Contact />
         </section>
