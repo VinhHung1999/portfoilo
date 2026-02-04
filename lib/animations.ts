@@ -130,10 +130,11 @@ export const scrollIndicatorVariants = {
 };
 
 // Viewport settings for useInView
+// Mobile-friendly: Lower threshold, no margin shrink
 export const viewportConfig = {
   once: true,
-  amount: 0.3,
-  margin: "-50px"
+  amount: 0.1,  // Only need 10% visible (was 0.3)
+  margin: "0px"  // No viewport shrink (was -50px)
 };
 
 // Helper to get variants based on reduced motion preference
