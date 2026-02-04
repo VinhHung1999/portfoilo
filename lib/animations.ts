@@ -3,6 +3,29 @@
  * Sprint 3: Polish & Performance
  */
 
+// Reduced motion variants (opacity-only, faster)
+export const sectionVariantsReduced = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.2,
+      when: "beforeChildren",
+      staggerChildren: 0.05
+    }
+  }
+};
+
+export const itemVariantsReduced = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.2
+    }
+  }
+};
+
 // Section wrapper - triggers on viewport entry
 export const sectionVariants = {
   hidden: { opacity: 0 },
@@ -112,3 +135,9 @@ export const viewportConfig = {
   amount: 0.3,
   margin: "-50px"
 };
+
+// Helper to get variants based on reduced motion preference
+export const getVariants = (prefersReducedMotion: boolean) => ({
+  section: prefersReducedMotion ? sectionVariantsReduced : sectionVariants,
+  item: prefersReducedMotion ? itemVariantsReduced : itemVariants,
+});
