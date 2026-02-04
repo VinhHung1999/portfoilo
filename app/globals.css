@@ -26,6 +26,13 @@
     --accent-light: #3F3F46;
     --accent-dark: #09090B;
 
+    /* Section separator */
+    --bg-separator: #E4E4E7;
+
+    /* Violet to Blue gradient colors */
+    --gradient-start: #7C3AED;
+    --gradient-end: #2563EB;
+
     /* Spacing */
     --space-1: 4px;
     --space-2: 8px;
@@ -63,23 +70,28 @@
     --bg-primary: #09090B;
     --bg-secondary: #18181B;
     --bg-tertiary: #27272A;
-    --bg-alternate: #09090B; /* Same as primary - pure black throughout */
+    --bg-alternate: #000000; /* True black for section separation */
+    --bg-separator: #000000; /* Section dividers */
 
     /* Text Colors */
     --text-primary: #FAFAFA;
     --text-secondary: #D4D4D8;
     --text-muted: #71717A;
 
-    /* UI Colors */
+    /* UI Colors - Violet to Blue transition */
     --border: #3F3F46;
     --cta: #3B82F6;
     --cta-hover: #60A5FA;
     --cta-glow: rgba(59, 130, 246, 0.3);
 
-    /* Accent (for highlights) */
+    /* Accent (Violet - for gradients) */
     --accent-primary: #7B337D;
     --accent-light: #a34da6;
     --accent-dark: #552357;
+
+    /* Violet to Blue gradient colors */
+    --gradient-start: #7B337D;
+    --gradient-end: #3B82F6;
   }
 
   * {
@@ -108,24 +120,47 @@
 }
 
 @layer utilities {
-  /* Professional gradient - subtle, no animation */
+  /* Violet → Blue gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, var(--cta) 0%, var(--accent-primary) 100%);
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
+  /* Violet → Blue gradient background */
   .gradient-bg {
-    background: linear-gradient(135deg, var(--cta) 0%, var(--cta-hover) 100%);
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
   }
 
+  /* Subtle gradient overlay */
   .gradient-subtle {
     background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.02) 100%);
   }
 
   [data-theme="dark"] .gradient-subtle {
     background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.02) 100%);
+  }
+
+  /* Section separator - dark strip between sections */
+  .section-separator {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%);
+  }
+
+  [data-theme="dark"] .section-separator {
+    background: linear-gradient(90deg, transparent 0%, var(--gradient-start) 25%, var(--gradient-end) 75%, transparent 100%);
+    height: 2px;
+    opacity: 0.5;
+  }
+
+  /* Alternating section backgrounds */
+  .section-dark {
+    background-color: var(--bg-alternate);
+  }
+
+  .section-light {
+    background-color: var(--bg-primary);
   }
 
   /* Skeleton shimmer animation */
@@ -164,8 +199,12 @@
 
   /* Touch feedback */
   .touch-feedback:active {
-    background-color: rgba(123, 51, 125, 0.1);
+    background-color: rgba(59, 130, 246, 0.1);
     transition: background-color 0.1s;
+  }
+
+  [data-theme="dark"] .touch-feedback:active {
+    background-color: rgba(123, 51, 125, 0.1);
   }
 
   /* Mobile-specific optimizations */
