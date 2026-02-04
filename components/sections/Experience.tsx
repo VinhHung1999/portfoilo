@@ -54,58 +54,6 @@ const experiences: Experience[] = [
     ],
     techStack: ["Vue.js", "Python", "Flask", "MongoDB", "Stripe"],
   },
-  {
-    id: "4",
-    company: "Digital Agency",
-    role: "Junior Developer",
-    startDate: "Jan 2017",
-    endDate: "May 2018",
-    achievements: [
-      "Built responsive websites for 15+ clients across various industries",
-      "Maintained and updated legacy codebases with modern best practices",
-      "Participated in code reviews and agile sprint ceremonies",
-    ],
-    techStack: ["JavaScript", "jQuery", "PHP", "MySQL", "Bootstrap"],
-  },
-  {
-    id: "5",
-    company: "Tech Solutions Group",
-    role: "Junior Developer",
-    startDate: "Jul 2015",
-    endDate: "Dec 2016",
-    achievements: [
-      "Developed internal tools and dashboards for enterprise clients",
-      "Collaborated with senior developers on ERP system integration",
-      "Automated repetitive tasks saving 15+ hours per week",
-    ],
-    techStack: ["Java", "Spring", "Angular", "Oracle", "Git"],
-  },
-  {
-    id: "6",
-    company: "WebForge Studio",
-    role: "Frontend Developer",
-    startDate: "Feb 2014",
-    endDate: "Jun 2015",
-    achievements: [
-      "Created pixel-perfect landing pages and marketing websites",
-      "Implemented cross-browser compatible solutions for IE8+",
-      "Worked with designers to translate mockups into functional interfaces",
-    ],
-    techStack: ["HTML5", "CSS3", "JavaScript", "SASS", "Grunt"],
-  },
-  {
-    id: "7",
-    company: "Code Academy",
-    role: "Software Development Intern",
-    startDate: "Aug 2013",
-    endDate: "Jan 2014",
-    achievements: [
-      "Assisted in developing educational platform features and bug fixes",
-      "Wrote unit tests achieving 80% code coverage for new modules",
-      "Gained hands-on experience with agile methodologies and version control",
-    ],
-    techStack: ["Python", "Django", "JavaScript", "PostgreSQL", "Git"],
-  },
 ];
 
 export default function Experience() {
