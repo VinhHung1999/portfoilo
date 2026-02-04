@@ -164,8 +164,8 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-full max-h-screen flex flex-col px-6 md:px-12 relative"
-      style={{ paddingTop: '64px' }}
+      className="h-screen flex flex-col px-6 md:px-12 relative"
+      style={{ paddingTop: 64 }}
     >
 
       <motion.div
