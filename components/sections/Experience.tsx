@@ -86,20 +86,17 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="flex flex-col relative py-16 md:py-24"
+      className="flex flex-col relative py-16 md:py-20"
     >
-      {/* 64px Spacer for Navigation - Desktop only for pagination */}
-      <div className="hidden md:block md:h-16 md:flex-shrink-0" />
-
-      {/* Content Area with Explicit Height on Desktop */}
+      {/* Content Area - flows naturally */}
       <div
-        className="px-6 md:px-12 flex flex-col md:h-[calc(100vh-64px)]"
+        className="px-6 md:px-12 flex flex-col"
       >
         <motion.div
           ref={ref}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="max-w-4xl w-full mx-auto flex flex-col md:h-full"
+          className="max-w-4xl w-full mx-auto flex flex-col"
         >
           {/* Header - Fixed at top */}
           <div className="text-center mb-8 flex-shrink-0">
@@ -114,12 +111,8 @@ export default function Experience() {
             </p>
           </div>
 
-          {/* Timeline - Scrollable on desktop, flows on mobile */}
-          <div className="relative pl-8 md:pl-16 md:flex-1 md:overflow-y-auto pr-2 pb-8 experience-scroll"
-            style={{
-              scrollbarWidth: "thin",
-              scrollbarColor: "#7B337D transparent"
-            }}>
+          {/* Timeline - flows naturally */}
+          <div className="relative pl-8 md:pl-16 pb-8">
           {/* Timeline Line */}
           <motion.div
             variants={lineVariants}
@@ -141,7 +134,7 @@ export default function Experience() {
                   whileHover={{ scale: 1.2 }}
                   className="absolute -left-[26px] md:-left-[34px] top-6 w-3 h-3 rounded-full border-4"
                   style={{
-                    backgroundColor: "#7B337D",
+                    backgroundColor: "var(--cta)",
                     borderColor: "var(--bg-primary)",
                   }}
                 />
@@ -149,14 +142,19 @@ export default function Experience() {
                 {/* Experience Card */}
                 <motion.div
                   whileHover={{
-                    borderColor: "#7B337D",
-                    boxShadow: "0 0 20px rgba(123, 51, 125, 0.1)",
+                    boxShadow: "0 0 20px var(--cta-glow)",
                     transition: { duration: 0.2 },
                   }}
-                  className="rounded-2xl border p-6 md:p-8"
+                  className="rounded-2xl border p-6 md:p-8 transition-all"
                   style={{
                     backgroundColor: "var(--bg-secondary)",
-                    borderColor: "var(--bg-tertiary)",
+                    borderColor: "var(--border)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "var(--cta)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "var(--border)";
                   }}
                 >
                   {/* Header */}
@@ -170,7 +168,7 @@ export default function Experience() {
                       </h3>
                       <p
                         className="text-base font-medium"
-                        style={{ color: "#7B337D" }}
+                        style={{ color: "var(--cta)" }}
                       >
                         {exp.role}
                       </p>
@@ -191,7 +189,7 @@ export default function Experience() {
                         className="text-sm md:text-base flex items-start gap-2"
                         style={{ color: "var(--text-secondary)" }}
                       >
-                        <span style={{ color: "#7B337D" }}>•</span>
+                        <span style={{ color: "var(--cta)" }}>•</span>
                         <span className="leading-relaxed">{achievement}</span>
                       </li>
                     ))}
@@ -205,7 +203,7 @@ export default function Experience() {
                         className="px-3 py-1 rounded-full text-xs"
                         style={{
                           backgroundColor: "var(--bg-tertiary)",
-                          color: "#7B337D",
+                          color: "var(--cta)",
                         }}
                       >
                         {tech}
@@ -218,13 +216,6 @@ export default function Experience() {
           </motion.div>
         </div>
 
-        {/* Fade gradient at bottom - indicates more content */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-          style={{
-            background: "linear-gradient(to top, var(--bg-primary) 0%, transparent 100%)",
-          }}
-        />
       </motion.div>
       </div>
     </section>

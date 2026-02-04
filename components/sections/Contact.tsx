@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Mail, MapPin, Briefcase, Github, Linkedin, Twitter } from "lucide-react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 
 export default function Contact() {
@@ -9,16 +10,17 @@ export default function Contact() {
   const isInView = useInView(ref, viewportConfig);
 
   const socialLinks = [
-    { name: "GitHub", icon: "📦", url: "https://github.com/hungson175" },
-    { name: "LinkedIn", icon: "💼", url: "https://linkedin.com/in/hungpham" },
-    { name: "Twitter", icon: "🐦", url: "https://twitter.com" },
-    { name: "Email", icon: "📧", url: "mailto:hello@hungpham.dev" },
+    { name: "GitHub", icon: Github, url: "https://github.com/hungson175" },
+    { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/in/hungpham" },
+    { name: "Twitter", icon: Twitter, url: "https://twitter.com" },
+    { name: "Email", icon: Mail, url: "mailto:hello@hungpham.dev" },
   ];
 
   return (
     <section
       id="contact"
-      className="h-full flex flex-col py-16 md:py-32 md:items-center md:justify-center px-6 md:px-12"
+      className="flex flex-col py-16 md:py-20 md:items-center md:justify-center px-6 md:px-12"
+      style={{ backgroundColor: "var(--bg-alternate)" }}
     >
       <motion.div
         ref={ref}
@@ -44,16 +46,22 @@ export default function Contact() {
         <motion.div variants={itemVariants} className="space-y-8 max-w-md mx-auto">
           {/* Email */}
           <div className="text-center">
-            <p
-              className="text-sm mb-2"
-              style={{ color: "var(--text-muted)" }}
-            >
-              📧 Email
-            </p>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Mail className="w-4 h-4" style={{ color: "var(--cta)" }} />
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+                Email
+              </p>
+            </div>
             <a
               href="mailto:hello@hungpham.dev"
-              className="text-xl font-medium hover:text-[#7B337D] transition-colors"
+              className="text-xl font-medium transition-colors cursor-pointer"
               style={{ color: "var(--text-primary)" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--cta)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--text-primary)";
+              }}
             >
               hello@hungpham.dev
             </a>
@@ -61,12 +69,12 @@ export default function Contact() {
 
           {/* Location */}
           <div className="text-center">
-            <p
-              className="text-sm mb-2"
-              style={{ color: "var(--text-muted)" }}
-            >
-              📍 Location
-            </p>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <MapPin className="w-4 h-4" style={{ color: "var(--cta)" }} />
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+                Location
+              </p>
+            </div>
             <p
               className="text-xl font-medium"
               style={{ color: "var(--text-primary)" }}
@@ -77,12 +85,12 @@ export default function Contact() {
 
           {/* Status */}
           <div className="text-center">
-            <p
-              className="text-sm mb-2"
-              style={{ color: "var(--text-muted)" }}
-            >
-              💼 Status
-            </p>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Briefcase className="w-4 h-4" style={{ color: "var(--cta)" }} />
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+                Status
+              </p>
+            </div>
             <p
               className="text-xl font-medium"
               style={{ color: "var(--text-primary)" }}
@@ -103,27 +111,38 @@ export default function Contact() {
             </p>
 
             <div className="flex gap-4 justify-center">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{
-                    backgroundColor: "#7B337D",
-                    scale: 1.1,
-                    transition: { duration: 0.2 },
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-14 h-14 rounded-full flex items-center justify-center text-2xl"
-                  style={{
-                    backgroundColor: "var(--bg-tertiary)",
-                  }}
-                  title={social.name}
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
+              {socialLinks.map((social) => {
+                const IconComponent = social.icon;
+                return (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { duration: 0.2 },
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-all"
+                    style={{
+                      backgroundColor: "var(--bg-tertiary)",
+                      color: "var(--text-secondary)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "var(--cta)";
+                      e.currentTarget.style.color = "#ffffff";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "var(--bg-tertiary)";
+                      e.currentTarget.style.color = "var(--text-secondary)";
+                    }}
+                    title={social.name}
+                  >
+                    <IconComponent className="w-6 h-6" />
+                  </motion.a>
+                );
+              })}
             </div>
           </div>
         </motion.div>

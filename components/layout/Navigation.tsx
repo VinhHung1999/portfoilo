@@ -3,11 +3,14 @@
 import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
 import { scrollToSection as scrollTo } from "@/lib/scroll";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+import { useTheme } from "@/lib/theme";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const { theme } = useTheme();
 
   useEffect(() => {
     return scrollY.on("change", (latest) => {
@@ -29,15 +32,18 @@ export default function Navigation() {
     { name: "Contact", href: "#contact" },
   ];
 
+  // Theme-aware header colors
+  const isLightMode = theme === "light";
+
   const headerVariants = {
     top: {
       backgroundColor: "rgba(0, 0, 0, 0)",
       borderColor: "rgba(0, 0, 0, 0)",
     },
     scrolled: {
-      backgroundColor: "rgba(16, 16, 16, 0.8)",
+      backgroundColor: isLightMode ? "rgba(255, 255, 255, 0.8)" : "rgba(16, 16, 16, 0.8)",
       backdropFilter: "blur(12px)",
-      borderColor: "rgba(26, 26, 26, 1)",
+      borderColor: isLightMode ? "rgba(228, 228, 231, 1)" : "rgba(26, 26, 26, 1)",
     },
   };
 
@@ -89,17 +95,17 @@ export default function Navigation() {
           </motion.button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href.substring(1))}
-                className="text-sm font-medium uppercase tracking-wider transition-colors relative group py-3 px-4"
+                className="text-sm font-medium uppercase tracking-wider transition-colors relative group py-3 px-4 cursor-pointer"
                 style={{
                   color: "var(--text-secondary)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#a34da6";
+                  e.currentTarget.style.color = "var(--cta)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = "var(--text-secondary)";
@@ -108,11 +114,18 @@ export default function Navigation() {
                 {link.name}
                 <span
                   className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
-                  style={{ backgroundColor: "#7B337D" }}
+                  style={{ backgroundColor: "var(--cta)" }}
                 />
               </button>
             ))}
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
           </div>
+
+          {/* Mobile: Theme Toggle + Hamburger */}
+          <div className="md:hidden flex items-center gap-4">
+            <ThemeToggle />
 
           {/* Mobile Hamburger */}
           <motion.button
@@ -136,6 +149,7 @@ export default function Navigation() {
               style={{ backgroundColor: "var(--text-primary)" }}
             />
           </motion.button>
+          </div>
         </nav>
       </motion.header>
 
@@ -156,7 +170,7 @@ export default function Navigation() {
             className="text-2xl font-semibold transition-all py-4 px-6 min-h-[56px]"
             style={{ color: "var(--text-primary)" }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#a34da6";
+              e.currentTarget.style.color = "var(--cta)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.color = "var(--text-primary)";
