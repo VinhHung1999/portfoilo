@@ -258,6 +258,7 @@ export default function Contact() {
                       scale: 1.05,
                       transition: { duration: 0.2 },
                     }}
+                    whileTap={{ scale: 0.95 }}
                     className="w-12 h-12 rounded-full flex items-center justify-center text-xl"
                     style={{
                       backgroundColor: "var(--bg-tertiary)",

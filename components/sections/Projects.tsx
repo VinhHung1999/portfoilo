@@ -180,23 +180,27 @@ export default function Projects() {
                   animate="visible"
                   whileHover={{
                     y: -8,
-                    boxShadow: "0 20px 40px rgba(123, 51, 125, 0.2)",
-                    transition: { duration: 0.3 },
+                    boxShadow: "0 20px 40px rgba(123, 51, 125, 0.15)",
+                    transition: { duration: 0.3, ease: [0.33, 1, 0.68, 1] },
                   }}
                   onClick={() => setSelectedProject(project)}
-                  className="rounded-2xl border cursor-pointer overflow-hidden"
+                  className="rounded-2xl border cursor-pointer overflow-hidden group"
                   style={{
                     backgroundColor: "var(--bg-secondary)",
                     borderColor: "var(--bg-tertiary)",
                   }}
                 >
-                  {/* Image */}
-                  <div
+                  {/* Image with zoom effect */}
+                  <motion.div
+                    whileHover={{
+                      scale: 1.05,
+                      transition: { duration: 0.4, ease: [0.33, 1, 0.68, 1] }
+                    }}
                     className="aspect-video flex items-center justify-center text-6xl rounded-lg overflow-hidden"
                     style={{ backgroundColor: "var(--bg-tertiary)" }}
                   >
                     {project.thumbnail}
-                  </div>
+                  </motion.div>
 
                   {/* Content */}
                   <div className="p-6">
