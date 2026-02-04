@@ -2,6 +2,7 @@
 
 import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
+import { scrollToSection as scrollTo } from "@/lib/scroll";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,13 +15,9 @@ export default function Navigation() {
     });
   }, [scrollY]);
 
-  // Smooth scroll to section
+  // Smooth scroll to section and close mobile menu
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    scrollTo(sectionId);
     setIsOpen(false); // Close mobile menu if open
   };
 
