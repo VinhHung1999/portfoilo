@@ -2,6 +2,7 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import { Bot, Palette, ShoppingBag } from "lucide-react";
 import { sectionVariants, itemVariants, cardHoverVariants, viewportConfig } from "@/lib/animations";
 
 interface Project {
@@ -28,8 +29,8 @@ const projects: Project[] = [
       "Built a multi-agent system using LangChain where AI agents collaborate autonomously. Features include task delegation, inter-agent communication, and real-time progress tracking.",
     category: "ai",
     year: 2024,
-    thumbnail: "🤖",
-    images: ["🤖"],
+    thumbnail: "Bot",
+    images: ["Bot"],
     techStack: ["Python", "LangChain", "FastAPI", "React", "TypeScript"],
     features: [
       "Autonomous agent collaboration with role-based task distribution",
@@ -47,8 +48,8 @@ const projects: Project[] = [
       "Interactive portfolio website built with Next.js 14, featuring scroll-snap pagination, progressive reveal animations, and a sophisticated Deep Space Violet design system.",
     category: "web",
     year: 2024,
-    thumbnail: "🎨",
-    images: ["🎨"],
+    thumbnail: "Palette",
+    images: ["Palette"],
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     features: [
       "Pagination scroll with 100vh snap sections",
@@ -64,8 +65,8 @@ const projects: Project[] = [
       "Complete e-commerce solution with product catalog, shopping cart, secure checkout, and payment processing. Admin dashboard for inventory management.",
     category: "web",
     year: 2023,
-    thumbnail: "🛍️",
-    images: ["🛍️"],
+    thumbnail: "ShoppingBag",
+    images: ["ShoppingBag"],
     techStack: ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
     features: [
       "Secure payment processing with Stripe integration",
@@ -152,10 +153,10 @@ export default function Projects() {
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className="px-6 py-2 rounded-full text-sm font-medium transition-all capitalize"
+                  className="px-6 py-2 rounded-full text-sm font-medium transition-all capitalize cursor-pointer"
                   style={{
                     backgroundColor:
-                      activeFilter === filter ? "#7B337D" : "transparent",
+                      activeFilter === filter ? "var(--cta)" : "transparent",
                     color:
                       activeFilter === filter
                         ? "#ffffff"
@@ -180,15 +181,20 @@ export default function Projects() {
                   animate="visible"
                   exit={{ opacity: 0, scale: 0.95 }}
                   whileHover={{
-                    y: -8,
-                    boxShadow: "0 20px 40px rgba(123, 51, 125, 0.15)",
+                    boxShadow: "0 20px 40px var(--cta-glow)",
                     transition: { duration: 0.3, ease: [0.33, 1, 0.68, 1] },
                   }}
                   onClick={() => setSelectedProject(project)}
                   className="rounded-2xl border cursor-pointer overflow-hidden group"
                   style={{
                     backgroundColor: "var(--bg-secondary)",
-                    borderColor: "var(--bg-tertiary)",
+                    borderColor: "var(--border)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "var(--cta)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "var(--border)";
                   }}
                 >
                   {/* Image with zoom effect */}
@@ -197,10 +203,11 @@ export default function Projects() {
                       scale: 1.05,
                       transition: { duration: 0.4, ease: [0.33, 1, 0.68, 1] }
                     }}
-                    className="aspect-video flex items-center justify-center text-6xl rounded-lg overflow-hidden"
-                    style={{ backgroundColor: "var(--bg-tertiary)" }}
+                    className="aspect-video flex items-center justify-center rounded-lg overflow-hidden gradient-bg"
                   >
-                    {project.thumbnail}
+                    {project.thumbnail === "Bot" && <Bot className="w-20 h-20 text-white" />}
+                    {project.thumbnail === "Palette" && <Palette className="w-20 h-20 text-white" />}
+                    {project.thumbnail === "ShoppingBag" && <ShoppingBag className="w-20 h-20 text-white" />}
                   </motion.div>
 
                   {/* Content */}
@@ -226,7 +233,7 @@ export default function Projects() {
                           className="px-3 py-1 rounded-full text-xs"
                           style={{
                             backgroundColor: "var(--bg-tertiary)",
-                            color: "#7B337D",
+                            color: "var(--cta)",
                           }}
                         >
                           {tech}
@@ -236,7 +243,7 @@ export default function Projects() {
 
                     <button
                       className="text-sm font-medium"
-                      style={{ color: "#7B337D" }}
+                      style={{ color: "var(--cta)" }}
                     >
                       View Project →
                     </button>
@@ -290,10 +297,11 @@ export default function Projects() {
                 <div className="px-8 pb-8">
                   {/* Image */}
                   <div
-                    className="aspect-video flex items-center justify-center text-8xl rounded-xl mb-6"
-                    style={{ backgroundColor: "var(--bg-tertiary)" }}
+                    className="aspect-video flex items-center justify-center rounded-xl mb-6 gradient-bg"
                   >
-                    {selectedProject.thumbnail}
+                    {selectedProject.thumbnail === "Bot" && <Bot className="w-32 h-32 text-white" />}
+                    {selectedProject.thumbnail === "Palette" && <Palette className="w-32 h-32 text-white" />}
+                    {selectedProject.thumbnail === "ShoppingBag" && <ShoppingBag className="w-32 h-32 text-white" />}
                   </div>
 
                   {/* Title */}
@@ -343,7 +351,7 @@ export default function Projects() {
                           className="px-4 py-2 rounded-full text-sm"
                           style={{
                             backgroundColor: "var(--bg-tertiary)",
-                            color: "#7B337D",
+                            color: "var(--cta)",
                           }}
                         >
                           {tech}
@@ -381,14 +389,19 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{
-                          backgroundColor: "#a34da6",
-                          boxShadow: "0 0 20px rgba(123, 51, 125, 0.3)",
+                          boxShadow: "0 0 20px var(--cta-glow)",
                         }}
                         whileTap={{ scale: 0.98 }}
-                        className="px-6 py-3 rounded-lg font-medium"
+                        className="px-6 py-3 rounded-lg font-medium cursor-pointer transition-all"
                         style={{
-                          backgroundColor: "#7B337D",
+                          backgroundColor: "var(--cta)",
                           color: "#ffffff",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = "var(--cta-hover)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "var(--cta)";
                         }}
                       >
                         Live Demo →
@@ -400,15 +413,23 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{
-                          backgroundColor: "rgba(123, 51, 125, 0.1)",
-                          borderColor: "#a34da6",
-                          color: "#a34da6",
+                          boxShadow: "0 0 20px var(--cta-glow)",
                         }}
                         whileTap={{ scale: 0.98 }}
-                        className="px-6 py-3 rounded-lg font-medium border"
+                        className="px-6 py-3 rounded-lg font-medium border cursor-pointer transition-all"
                         style={{
-                          borderColor: "#7B337D",
-                          color: "#7B337D",
+                          borderColor: "var(--cta)",
+                          color: "var(--cta)",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = "var(--cta-hover)";
+                          e.currentTarget.style.color = "var(--cta-hover)";
+                          e.currentTarget.style.backgroundColor = "var(--cta-glow)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = "var(--cta)";
+                          e.currentTarget.style.color = "var(--cta)";
+                          e.currentTarget.style.backgroundColor = "transparent";
                         }}
                       >
                         View Code →
