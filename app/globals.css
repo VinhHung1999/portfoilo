@@ -171,11 +171,8 @@
       font-size: 0.85em;
     }
 
-    /* Mobile section padding */
-    section {
-      padding-top: 64px;
-      padding-bottom: 64px;
-    }
+    /* Mobile section padding - REMOVED for linear flow */
+    /* Sections flow seamlessly without gaps on mobile */
 
     /* Optimize touch targets */
     button, a {

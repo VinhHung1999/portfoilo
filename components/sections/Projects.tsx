@@ -120,7 +120,7 @@ export default function Projects() {
     <>
       <section
         id="projects"
-        className="h-full flex items-center justify-center px-6 md:px-12 overflow-hidden"
+        className="h-full flex flex-col py-16 md:py-0 md:items-center md:justify-center px-6 md:px-12 overflow-hidden"
       >
         <motion.div
           ref={ref}
@@ -130,7 +130,7 @@ export default function Projects() {
           className="max-w-6xl w-full"
         >
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-6 md:mb-12">
             <h2
               className="text-3xl md:text-5xl font-bold mb-4"
               style={{ color: "var(--text-primary)" }}
