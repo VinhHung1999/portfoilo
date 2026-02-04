@@ -1,8 +1,8 @@
 # Portfolio Team Whiteboard
 
-**Sprint:** 2 (Content Sections) - COMPLETE ✓
-**Goal:** Build Projects showcase, Skills/Tech stack, and Contact sections
-**Started:** [18:10] | **Completed:** [18:37]
+**Sprint:** 2 (Content Sections) - EXTENDED
+**Goal:** Build Projects showcase, Skills/Tech stack, Contact, and Work Experience sections
+**Started:** [18:10] | **Extended:** [18:51]
 
 ---
 
@@ -10,10 +10,10 @@
 
 | Role | Status | Current Task | Last Update |
 |------|--------|--------------|-------------|
-| PM   | Active | CSS loading issue - coordinating fix | 18:40 |
-| DS   | Standby | Awaiting fix | 18:40 |
-| DEV  | Assigned | FIX CSS loading issue URGENT | 18:40 |
-| QA   | Standby | Will retest after fix | 18:40 |
+| PM   | Active | Coordinating Work Experience implementation | 18:54 |
+| DS   | Complete | Work Experience specs delivered | 18:52 |
+| DEV  | Assigned | Implementing Work Experience section | 18:54 |
+| QA   | Standby | Awaiting implementation | 18:54 |
 
 ---
 
@@ -69,7 +69,7 @@
 - About Section: PASS (8/8 tests)
 - Total: 23/23 tests passing ✓
 
-### Sprint 2: Content Sections (COMPLETE ✓)
+### Sprint 2: Content Sections (ACTIVE - EXTENDED)
 - [x] DS: Create design specs for Projects showcase section
 - [x] DS: Create design specs for Skills/Tech stack section
 - [x] DS: Create design specs for Contact section
@@ -77,12 +77,14 @@
 - [x] DEV: Implement Skills/Tech stack per DS specs [18:32 - 6a27b32]
 - [x] DEV: Implement Contact section per DS specs [18:32 - 6a27b32]
 - [x] QA: Test all three sections [18:37 - ALL PASS]
+- [x] DS: Create design specs for Work Experience section [18:52]
+- [ ] DEV: Implement Work Experience section per DS specs
+- [ ] QA: Test Work Experience section
 
-**FINAL TEST RESULTS:**
+**COMPLETED SECTIONS:**
 - Projects Section: PASS (filters, cards, modal)
 - Skills Section: PASS (categories, 50+ tech icons)
 - Contact Section: PASS (form, validation, social links)
-- Total: All features passing ✓
 
 ### Sprint 3: Polish (Planned)
 - [ ] Page transitions
@@ -1239,6 +1241,267 @@ whileTap={{ scale: 0.98 }}
 - Options: Formspree, EmailJS, custom API endpoint
 - Show success/error toast notification after submission
 - Clear form on success
+
+---
+
+### 7. WORK EXPERIENCE SECTION
+
+**Purpose:** Showcase professional background with timeline format, highlighting roles and key achievements.
+
+#### Layout (Desktop)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│                   EXPERIENCE [H2]                           │
+│            "My professional journey"                        │
+│                                                             │
+│        ┌─────────────────────────────────────────────┐     │
+│        │                                             │     │
+│   ●────┤  COMPANY NAME                               │     │
+│   │    │  Job Title                    2022 - Present│     │
+│   │    │                                             │     │
+│   │    │  • Achievement/responsibility one           │     │
+│   │    │  • Achievement/responsibility two           │     │
+│   │    │  • Achievement/responsibility three         │     │
+│   │    │                                             │     │
+│   │    │  [React] [TypeScript] [AWS]                 │     │
+│   │    └─────────────────────────────────────────────┘     │
+│   │                                                         │
+│   │    ┌─────────────────────────────────────────────┐     │
+│   │    │                                             │     │
+│   ●────┤  PREVIOUS COMPANY                           │     │
+│   │    │  Senior Developer              2020 - 2022  │     │
+│   │    │                                             │     │
+│   │    │  • Achievement one                          │     │
+│   │    │  • Achievement two                          │     │
+│   │    │                                             │     │
+│   │    │  [Python] [FastAPI] [PostgreSQL]            │     │
+│   │    └─────────────────────────────────────────────┘     │
+│   │                                                         │
+│   │    ┌─────────────────────────────────────────────┐     │
+│   ●────┤  EARLIER COMPANY                            │     │
+│        │  Developer                     2018 - 2020  │     │
+│        │  ...                                        │     │
+│        └─────────────────────────────────────────────┘     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Layout (Mobile)
+```
+┌─────────────────────────────────────┐
+│                                     │
+│        EXPERIENCE [H2]              │
+│   "My professional journey"         │
+│                                     │
+│  ●  COMPANY NAME                    │
+│  │  Job Title                       │
+│  │  2022 - Present                  │
+│  │                                  │
+│  │  • Achievement one               │
+│  │  • Achievement two               │
+│  │                                  │
+│  │  [React] [TypeScript]            │
+│  │                                  │
+│  ●  PREVIOUS COMPANY                │
+│  │  Senior Developer                │
+│  │  2020 - 2022                     │
+│  │  ...                             │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+#### Timeline Structure
+- Vertical line on left side (desktop: offset, mobile: edge)
+- Circular dots (●) mark each position
+- Cards extend from timeline
+- Most recent position at top
+
+#### Experience Card Structure
+```
+┌─────────────────────────────────────────────────────────────┐
+│  COMPANY NAME                                    DATES      │
+│  Job Title / Role                                           │
+│─────────────────────────────────────────────────────────────│
+│                                                             │
+│  • Key achievement or responsibility                        │
+│  • Another significant accomplishment                       │
+│  • Third highlight (quantify if possible)                   │
+│                                                             │
+│  [Tech1] [Tech2] [Tech3] [Tech4]                            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Styling (Deep Space Violet)
+| Element | Style |
+|---------|-------|
+| Section | `--bg-primary` (#000000), 100vh min, scroll-snap-align: start |
+| Section Title | H2, `--text-primary` (#ffffff), centered |
+| Subtitle | `--text-muted` (#808080), 16px, centered |
+| Timeline Container | max-width 800px, centered, padding 48px 0 |
+| Timeline Line | 2px width, `--bg-tertiary` (#1a1a1a), absolute left |
+| Timeline Dot | 12px circle, `--accent-primary` (#7B337D), border 3px `--bg-primary` |
+| Timeline Dot (hover) | Scale 1.2, glow effect |
+| Card | `--bg-secondary` (#101010), border 1px `--bg-tertiary` (#1a1a1a), radius-lg, padding 24px 32px |
+| Card (hover) | Border `--accent-primary` (#7B337D), subtle glow |
+| Company Name | `--text-primary` (#ffffff), 20px, weight 700, uppercase tracking |
+| Job Title | `--accent-primary` (#7B337D), 16px, weight 500 |
+| Dates | `--text-muted` (#808080), 14px, weight 400 |
+| Achievements | `--text-secondary` (#bfbfbf), 15px, line-height 1.7 |
+| Bullet Points | `--accent-primary` (#7B337D) colored bullets |
+| Tech Tags | Same as Projects: `--bg-tertiary`, `--accent-primary` text, 12px |
+
+#### Timeline Positioning (CSS)
+```css
+/* Desktop */
+.timeline {
+  position: relative;
+  padding-left: 60px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #1a1a1a;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 15px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #7B337D;
+  border: 3px solid #000000;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 30px;
+  }
+  .timeline::before {
+    left: 8px;
+  }
+  .timeline-dot {
+    left: 3px;
+  }
+}
+```
+
+#### Animations
+```jsx
+// Timeline reveal - stagger cards from top
+const timelineVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
+
+// Card reveal - slide in from left
+const cardVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
+
+// Timeline dot - scale in
+const dotVariants = {
+  hidden: { scale: 0, opacity: 0 },
+  visible: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
+
+// Timeline line - draw down
+const lineVariants = {
+  hidden: { scaleY: 0, originY: 0 },
+  visible: {
+    scaleY: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
+
+// Card hover
+whileHover={{
+  borderColor: "#7B337D",
+  boxShadow: "0 0 20px rgba(123, 51, 125, 0.1)",
+  transition: { duration: 0.2 }
+}}
+```
+
+#### Sample Experience Data Structure
+```typescript
+interface Experience {
+  id: string;
+  company: string;
+  role: string;
+  startDate: string;      // "Jan 2022"
+  endDate: string | null; // null = "Present"
+  achievements: string[];
+  techStack: string[];
+}
+
+// Example
+const experiences: Experience[] = [
+  {
+    id: "1",
+    company: "Tech Company Inc",
+    role: "Senior Full-Stack Developer",
+    startDate: "Jan 2022",
+    endDate: null,
+    achievements: [
+      "Led development of AI-powered feature serving 100K+ users",
+      "Reduced API response time by 60% through optimization",
+      "Mentored team of 4 junior developers"
+    ],
+    techStack: ["React", "TypeScript", "Node.js", "AWS"]
+  },
+  // ...more experiences
+];
+```
+
+#### Section Order Update
+With Work Experience added, suggested section order:
+1. Hero (100vh)
+2. About (100vh)
+3. **Experience (100vh)** ← NEW
+4. Projects (100vh+)
+5. Skills (100vh)
+6. Contact (100vh)
+
+*Experience before Projects shows professional credibility first.*
+
+#### Responsive Breakpoints
+| Breakpoint | Adjustments |
+|------------|-------------|
+| Desktop (≥1024px) | Timeline offset 60px, card max-width 700px |
+| Tablet (768-1023px) | Timeline offset 40px, card full width |
+| Mobile (<768px) | Timeline offset 30px, dates below title, stacked layout |
 
 ---
 
