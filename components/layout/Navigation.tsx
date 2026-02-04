@@ -14,6 +14,16 @@ export default function Navigation() {
     });
   }, [scrollY]);
 
+  // Smooth scroll to section
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+    setIsOpen(false); // Close mobile menu if open
+  };
+
   const navLinks = [
     { name: "About", href: "#about" },
     { name: "Experience", href: "#experience" },
@@ -72,21 +82,21 @@ export default function Navigation() {
       >
         <nav className="max-w-7xl mx-auto px-6 md:px-12 h-full flex items-center justify-between">
           {/* Logo */}
-          <motion.a
-            href="#hero"
+          <motion.button
+            onClick={() => scrollToSection('hero')}
             className="text-xl font-bold hover:gradient-text transition-all"
             style={{ color: "var(--text-primary)" }}
             whileHover={{ scale: 1.05 }}
           >
             HP
-          </motion.a>
+          </motion.button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.name}
-                href={link.href}
+                onClick={() => scrollToSection(link.href.substring(1))}
                 className="text-sm font-medium uppercase tracking-wider transition-colors relative group"
                 style={{
                   color: "var(--text-secondary)",
@@ -103,7 +113,7 @@ export default function Navigation() {
                   className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
                   style={{ backgroundColor: "#7B337D" }}
                 />
-              </a>
+              </button>
             ))}
           </div>
 
@@ -141,12 +151,11 @@ export default function Navigation() {
         style={{ backgroundColor: "var(--bg-primary)" }}
       >
         {navLinks.map((link, index) => (
-          <motion.a
+          <motion.button
             key={link.name}
-            href={link.href}
+            onClick={() => scrollToSection(link.href.substring(1))}
             variants={menuItemVariants}
             transition={{ delay: index * 0.1 }}
-            onClick={() => setIsOpen(false)}
             className="text-2xl font-semibold transition-all"
             style={{ color: "var(--text-primary)" }}
             onMouseEnter={(e) => {
@@ -157,7 +166,7 @@ export default function Navigation() {
             }}
           >
             {link.name}
-          </motion.a>
+          </motion.button>
         ))}
       </motion.div>
 

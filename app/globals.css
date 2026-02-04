@@ -114,4 +114,26 @@
   .experience-scroll::-webkit-scrollbar-thumb:hover {
     background: #a34da6;
   }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Remove default tap highlight on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* GPU acceleration for animated elements */
+  .animated-element {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+
+  /* Touch feedback */
+  .touch-feedback:active {
+    background-color: rgba(123, 51, 125, 0.1);
+    transition: background-color 0.1s;
+  }
 }
