@@ -77,7 +77,7 @@ export default function Hero() {
         {/* Name */}
         <motion.h1
           variants={nameReveal}
-          className="text-5xl md:text-7xl font-extrabold mb-6 gradient-text"
+          className="text-5xl md:text-7xl font-bold mb-6 gradient-text"
         >
           Hung Pham
         </motion.h1>
@@ -110,15 +110,20 @@ export default function Hero() {
           <motion.button
             onClick={() => scrollToSection('projects')}
             whileHover={{
-              backgroundColor: "#a34da6",
-              boxShadow: "0 0 30px rgba(123, 51, 125, 0.4)",
+              boxShadow: "0 0 30px var(--cta-glow)",
             }}
-            whileTap={{ scale: 0.98, backgroundColor: "#552357" }}
+            whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="px-8 py-4 font-medium rounded-2xl shadow-md min-h-[48px]"
+            className="px-8 py-4 font-medium rounded-2xl shadow-md min-h-[48px] cursor-pointer transition-all"
             style={{
-              backgroundColor: "#7B337D",
+              backgroundColor: "var(--cta)",
               color: "#ffffff",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--cta-hover)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--cta)";
             }}
           >
             View My Work
@@ -126,16 +131,22 @@ export default function Hero() {
           <motion.button
             onClick={() => scrollToSection('contact')}
             whileHover={{
-              borderColor: "#a34da6",
-              color: "#a34da6",
-              boxShadow: "0 0 20px rgba(123, 51, 125, 0.2)",
+              boxShadow: "0 0 20px var(--cta-glow)",
             }}
-            whileTap={{ scale: 0.98, borderColor: "#552357", color: "#552357" }}
+            whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="px-8 py-4 border-2 font-medium rounded-2xl bg-transparent min-h-[48px]"
+            className="px-8 py-4 border-2 font-medium rounded-2xl bg-transparent min-h-[48px] cursor-pointer transition-all"
             style={{
-              borderColor: "#7B337D",
-              color: "#7B337D",
+              borderColor: "var(--cta)",
+              color: "var(--cta)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--cta-hover)";
+              e.currentTarget.style.color = "var(--cta-hover)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--cta)";
+              e.currentTarget.style.color = "var(--cta)";
             }}
           >
             Get in Touch

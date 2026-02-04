@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { MapPin, Target, Briefcase, Globe, User } from "lucide-react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 
 export default function About() {
@@ -9,10 +10,10 @@ export default function About() {
   const isInView = useInView(ref, viewportConfig);
 
   const quickFacts = [
-    { icon: "📍", label: "Location", value: "Ho Chi Minh City, Vietnam" },
-    { icon: "🎯", label: "Focus", value: "Full-Stack Development, AI/ML" },
-    { icon: "💼", label: "Status", value: "Open to opportunities" },
-    { icon: "🌐", label: "Languages", value: "Vietnamese, English" },
+    { icon: MapPin, label: "Location", value: "Ho Chi Minh City, Vietnam" },
+    { icon: Target, label: "Focus", value: "Full-Stack Development, AI/ML" },
+    { icon: Briefcase, label: "Status", value: "Open to opportunities" },
+    { icon: Globe, label: "Languages", value: "Vietnamese, English" },
   ];
 
   return (
@@ -37,14 +38,11 @@ export default function About() {
                 boxShadow: "var(--shadow-md)",
               }}
             >
-              {/* Placeholder - Replace with actual photo */}
+              {/* Professional placeholder */}
               <div
-                className="w-full h-full flex items-center justify-center"
-                style={{
-                  background: "linear-gradient(135deg, #7B337D 0%, #552357 100%)",
-                }}
+                className="w-full h-full flex items-center justify-center gradient-bg"
               >
-                <span className="text-6xl md:text-8xl">👨‍💻</span>
+                <User className="w-24 h-24 md:w-32 md:h-32" style={{ color: "#ffffff" }} />
               </div>
             </div>
             {/* Optional glow effect */}
@@ -91,29 +89,37 @@ export default function About() {
             variants={sectionVariants}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6"
           >
-            {quickFacts.map((fact, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="flex items-start gap-3"
-              >
-                <span className="text-2xl">{fact.icon}</span>
-                <div>
-                  <p
-                    className="text-sm font-medium"
-                    style={{ color: "var(--text-muted)" }}
+            {quickFacts.map((fact, index) => {
+              const IconComponent = fact.icon;
+              return (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="flex items-start gap-3"
+                >
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: "var(--bg-tertiary)" }}
                   >
-                    {fact.label}
-                  </p>
-                  <p
-                    className="text-base"
-                    style={{ color: "var(--text-secondary)" }}
-                  >
-                    {fact.value}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                    <IconComponent className="w-5 h-5" style={{ color: "var(--cta)" }} />
+                  </div>
+                  <div>
+                    <p
+                      className="text-sm font-medium"
+                      style={{ color: "var(--text-muted)" }}
+                    >
+                      {fact.label}
+                    </p>
+                    <p
+                      className="text-base"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      {fact.value}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </motion.div>
       </motion.div>

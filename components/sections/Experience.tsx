@@ -141,7 +141,7 @@ export default function Experience() {
                   whileHover={{ scale: 1.2 }}
                   className="absolute -left-[26px] md:-left-[34px] top-6 w-3 h-3 rounded-full border-4"
                   style={{
-                    backgroundColor: "#7B337D",
+                    backgroundColor: "var(--cta)",
                     borderColor: "var(--bg-primary)",
                   }}
                 />
@@ -149,14 +149,19 @@ export default function Experience() {
                 {/* Experience Card */}
                 <motion.div
                   whileHover={{
-                    borderColor: "#7B337D",
-                    boxShadow: "0 0 20px rgba(123, 51, 125, 0.1)",
+                    boxShadow: "0 0 20px var(--cta-glow)",
                     transition: { duration: 0.2 },
                   }}
-                  className="rounded-2xl border p-6 md:p-8"
+                  className="rounded-2xl border p-6 md:p-8 transition-all"
                   style={{
                     backgroundColor: "var(--bg-secondary)",
-                    borderColor: "var(--bg-tertiary)",
+                    borderColor: "var(--border)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "var(--cta)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "var(--border)";
                   }}
                 >
                   {/* Header */}
@@ -170,7 +175,7 @@ export default function Experience() {
                       </h3>
                       <p
                         className="text-base font-medium"
-                        style={{ color: "#7B337D" }}
+                        style={{ color: "var(--cta)" }}
                       >
                         {exp.role}
                       </p>
@@ -191,7 +196,7 @@ export default function Experience() {
                         className="text-sm md:text-base flex items-start gap-2"
                         style={{ color: "var(--text-secondary)" }}
                       >
-                        <span style={{ color: "#7B337D" }}>•</span>
+                        <span style={{ color: "var(--cta)" }}>•</span>
                         <span className="leading-relaxed">{achievement}</span>
                       </li>
                     ))}
@@ -205,7 +210,7 @@ export default function Experience() {
                         className="px-3 py-1 rounded-full text-xs"
                         style={{
                           backgroundColor: "var(--bg-tertiary)",
-                          color: "#7B337D",
+                          color: "var(--cta)",
                         }}
                       >
                         {tech}

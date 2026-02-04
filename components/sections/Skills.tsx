@@ -71,14 +71,21 @@ export default function Skills() {
                   <motion.div
                     key={skill}
                     whileHover={{
-                      borderColor: "#7B337D",
                       scale: 1.05,
                       transition: { duration: 0.2 },
                     }}
-                    className="px-4 py-2 rounded-lg border"
+                    className="px-4 py-2 rounded-lg border cursor-pointer transition-all"
                     style={{
-                      borderColor: "var(--bg-tertiary)",
+                      borderColor: "var(--border)",
                       color: "var(--text-secondary)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "var(--cta)";
+                      e.currentTarget.style.color = "var(--cta)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "var(--border)";
+                      e.currentTarget.style.color = "var(--text-secondary)";
                     }}
                   >
                     {skill}
