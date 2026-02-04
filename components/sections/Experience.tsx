@@ -112,16 +112,16 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-full flex items-center justify-center px-6 md:px-12 overflow-hidden"
+      className="h-full flex flex-col px-6 md:px-12"
     >
       <motion.div
         ref={ref}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="max-w-4xl w-full py-12"
+        className="max-w-4xl w-full mx-auto flex flex-col h-full py-8"
       >
-        {/* Header */}
-        <div className="text-center mb-16">
+        {/* Header - Fixed at top */}
+        <div className="text-center mb-8 flex-shrink-0">
           <h2
             className="text-3xl md:text-5xl font-bold mb-4"
             style={{ color: "var(--text-primary)" }}
@@ -133,8 +133,12 @@ export default function Experience() {
           </p>
         </div>
 
-        {/* Timeline */}
-        <div className="relative pl-8 md:pl-16">
+        {/* Timeline - Scrollable container */}
+        <div className="relative pl-8 md:pl-16 flex-1 overflow-y-auto pr-2 experience-scroll"
+          style={{
+            scrollbarWidth: "thin",
+            scrollbarColor: "#7B337D transparent"
+          }}>
           {/* Timeline Line */}
           <motion.div
             variants={lineVariants}
