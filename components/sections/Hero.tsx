@@ -3,9 +3,18 @@
 import { motion } from "framer-motion";
 import { scrollToSection } from "@/lib/scroll";
 import { scrollIndicatorVariants } from "@/lib/animations";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function Hero() {
-  const container = {
+  const prefersReducedMotion = useReducedMotion();
+
+  const container = prefersReducedMotion ? {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    },
+  } : {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -13,7 +22,13 @@ export default function Hero() {
     },
   };
 
-  const fadeInUp = {
+  const fadeInUp = prefersReducedMotion ? {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { duration: 0.3 },
+    },
+  } : {
     hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
     show: {
       opacity: 1,
@@ -23,7 +38,13 @@ export default function Hero() {
     },
   };
 
-  const nameReveal = {
+  const nameReveal = prefersReducedMotion ? {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { duration: 0.3 },
+    },
+  } : {
     hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
     show: {
       opacity: 1,
