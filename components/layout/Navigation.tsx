@@ -94,7 +94,7 @@ export default function Navigation() {
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href.substring(1))}
-                className="text-sm font-medium uppercase tracking-wider transition-colors relative group"
+                className="text-sm font-medium uppercase tracking-wider transition-colors relative group py-3 px-4"
                 style={{
                   color: "var(--text-secondary)",
                 }}
@@ -116,7 +116,7 @@ export default function Navigation() {
 
           {/* Mobile Hamburger */}
           <motion.button
-            className="md:hidden flex flex-col gap-1.5 w-6 h-6 relative z-50"
+            className="md:hidden flex flex-col gap-1.5 w-6 h-6 p-3 -m-3 relative z-50"
             onClick={() => setIsOpen(!isOpen)}
             animate={isOpen ? "open" : "closed"}
           >
@@ -153,7 +153,7 @@ export default function Navigation() {
             onClick={() => scrollToSection(link.href.substring(1))}
             variants={menuItemVariants}
             transition={{ delay: index * 0.1 }}
-            className="text-2xl font-semibold transition-all"
+            className="text-2xl font-semibold transition-all py-4 px-6 min-h-[56px]"
             style={{ color: "var(--text-primary)" }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "#a34da6";
