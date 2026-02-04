@@ -136,4 +136,33 @@
     background-color: rgba(123, 51, 125, 0.1);
     transition: background-color 0.1s;
   }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    /* Reduce motion for better mobile performance */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Mobile typography scaling */
+    h1, .text-5xl, .text-7xl {
+      font-size: 0.85em;
+    }
+
+    /* Mobile section padding */
+    section {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    /* Optimize touch targets */
+    button, a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
 }
