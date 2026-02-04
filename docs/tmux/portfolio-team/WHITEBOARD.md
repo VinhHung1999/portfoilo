@@ -1,8 +1,8 @@
 # Portfolio Team Whiteboard
 
-**Sprint:** 2 (Content Sections) - COMPLETE ✓✓✓
+**Sprint:** 2 (Content Sections) - ✅ CLOSED & VERIFIED BY BOSS
 **Goal:** Build Projects showcase, Skills/Tech stack, Contact, and Work Experience sections
-**Started:** [18:10] | **Extended:** [18:51] | **Completed:** [19:02]
+**Started:** [18:10] | **Extended:** [18:51] | **Completed:** [19:02] | **Boss Verified:** [20:01]
 
 ---
 
@@ -10,10 +10,10 @@
 
 | Role | Status | Current Task | Last Update |
 |------|--------|--------------|-------------|
-| PM   | Waiting | Reported Sprint 2 completion to Boss, awaiting directive | 19:30 |
-| DS   | Standby | Ready for next design task | 19:30 |
-| DEV  | Standby | feature/sprint2-content ready for merge | 19:21 |
-| QA   | Standby | All verification docs ready, awaiting Boss review | 19:30 |
+| PM   | Active | Sprint 2 CLOSED - Awaiting merge directive from Boss | 20:01 |
+| DS   | Standby | Sprint 2 complete, ready for Sprint 3 design tasks | 20:01 |
+| DEV  | Complete | Experience scroll fixed (5628ae9), ready for merge | 20:01 |
+| QA   | Complete | Sprint 2 verified, ready for Sprint 3 assignments | 20:01 |
 
 ---
 
@@ -85,8 +85,10 @@
 - Projects Section: PASS (filters, cards, modal)
 - Skills Section: PASS (categories, 50+ tech icons)
 - Contact Section: PASS (form, validation, social links)
-- Work Experience Section: PASS (timeline, 9 companies, 42 descriptions, 85 tech tags, animations)
+- Work Experience Section: PASS (timeline, 7 companies, scrollable with violet scrollbar)
+- Experience Scroll Fix: PASS (spacer + calc heights approach)
 - Total: All 4 content sections passing ✓✓✓
+- **BOSS VERIFIED & APPROVED:** [20:01] "Tôi thấy khá ổn rồi á" ✅
 
 ### Sprint 3: Polish (Planned)
 - [ ] Page transitions
