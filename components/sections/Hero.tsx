@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { scrollToSection } from "@/lib/scroll";
+import { scrollIndicatorVariants } from "@/lib/animations";
 
 export default function Hero() {
   const container = {
@@ -29,11 +31,6 @@ export default function Hero() {
       filter: "blur(0px)",
       transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
     },
-  };
-
-  const floatSubtle = {
-    y: [0, -8, 0],
-    transition: { duration: 4, repeat: Infinity, ease: [0.25, 0.46, 0.45, 0.94] as const },
   };
 
   return (
@@ -89,45 +86,46 @@ export default function Hero() {
           variants={fadeInUp}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <motion.a
-            href="#projects"
+          <motion.button
+            onClick={() => scrollToSection('projects')}
             whileHover={{
               backgroundColor: "#a34da6",
               boxShadow: "0 0 30px rgba(123, 51, 125, 0.4)",
             }}
-            whileTap={{ backgroundColor: "#552357" }}
+            whileTap={{ scale: 0.98, backgroundColor: "#552357" }}
             transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="px-8 py-4 font-medium rounded-2xl shadow-md"
+            className="px-8 py-4 font-medium rounded-2xl shadow-md min-h-[48px]"
             style={{
               backgroundColor: "#7B337D",
               color: "#ffffff",
             }}
           >
             View My Work
-          </motion.a>
-          <motion.a
-            href="#contact"
+          </motion.button>
+          <motion.button
+            onClick={() => scrollToSection('contact')}
             whileHover={{
               borderColor: "#a34da6",
               color: "#a34da6",
               boxShadow: "0 0 20px rgba(123, 51, 125, 0.2)",
             }}
-            whileTap={{ borderColor: "#552357", color: "#552357" }}
+            whileTap={{ scale: 0.98, borderColor: "#552357", color: "#552357" }}
             transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="px-8 py-4 border-2 font-medium rounded-2xl bg-transparent"
+            className="px-8 py-4 border-2 font-medium rounded-2xl bg-transparent min-h-[48px]"
             style={{
               borderColor: "#7B337D",
               color: "#7B337D",
             }}
           >
             Get in Touch
-          </motion.a>
+          </motion.button>
         </motion.div>
       </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div
-        animate={floatSubtle}
+        variants={scrollIndicatorVariants}
+        animate="animate"
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         style={{ color: "var(--text-muted)" }}
       >
