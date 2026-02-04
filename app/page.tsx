@@ -13,32 +13,32 @@ export default function Home() {
       {/* Desktop: pagination scroll | Mobile: normal scroll */}
       <main className="h-screen overflow-y-scroll md:snap-y md:snap-mandatory">
         {/* Section 1: Hero */}
-        <section className="min-h-screen md:h-screen md:snap-start md:snap-always">
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Hero />
         </section>
 
         {/* Section 2: About */}
-        <section className="min-h-screen md:h-screen md:snap-start md:snap-always">
+        <section className="md:h-screen md:snap-start md:snap-always">
           <About />
         </section>
 
         {/* Section 3: Experience */}
-        <section className="min-h-screen md:h-screen md:snap-start md:snap-always">
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Experience />
         </section>
 
         {/* Section 4: Projects */}
-        <section className="min-h-screen md:h-screen md:snap-start md:snap-always">
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Projects />
         </section>
 
         {/* Section 5: Skills */}
-        <section className="min-h-screen md:h-screen md:snap-start md:snap-always">
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Skills />
         </section>
 
         {/* Section 6: Contact */}
-        <section className="min-h-screen md:h-screen md:snap-start md:snap-always">
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Contact />
         </section>
       </main>
