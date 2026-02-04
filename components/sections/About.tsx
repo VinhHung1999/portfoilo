@@ -18,7 +18,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="h-full flex flex-col py-16 md:items-center md:justify-center px-6 md:px-12"
+      className="h-full flex flex-col py-16 md:py-24 md:items-center md:justify-center px-6 md:px-12"
     >
       <motion.div
         ref={ref}

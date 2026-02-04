@@ -138,7 +138,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="flex flex-col relative py-16"
+      className="flex flex-col relative py-16 md:py-24"
     >
       {/* 64px Spacer for Navigation - Desktop only for pagination */}
       <div className="hidden md:block md:h-16 md:flex-shrink-0" />
