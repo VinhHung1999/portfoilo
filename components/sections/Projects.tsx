@@ -2,6 +2,7 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import { sectionVariants, itemVariants, cardHoverVariants, viewportConfig } from "@/lib/animations";
 
 interface Project {
   id: string;
@@ -77,11 +78,7 @@ const projects: Project[] = [
 
 export default function Projects() {
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
+  const isInView = useInView(ref, viewportConfig);
 
   const [activeFilter, setActiveFilter] = useState<"all" | "web" | "mobile" | "ai">("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -91,15 +88,8 @@ export default function Projects() {
       ? projects
       : projects.filter((p) => p.category === activeFilter);
 
-  const sectionReveal = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-    },
-  };
-
-  const cardVariants = {
+  // Custom card variants with index-based delay
+  const cardVariantsWithDelay = {
     hidden: { opacity: 0, y: 40 },
     visible: (i: number) => ({
       opacity: 1,
@@ -134,7 +124,7 @@ export default function Projects() {
       >
         <motion.div
           ref={ref}
-          variants={sectionReveal}
+          variants={sectionVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="max-w-6xl w-full"
@@ -185,7 +175,7 @@ export default function Projects() {
                 <motion.div
                   key={project.id}
                   custom={index}
-                  variants={cardVariants}
+                  variants={cardVariantsWithDelay}
                   initial="hidden"
                   animate="visible"
                   whileHover={{
