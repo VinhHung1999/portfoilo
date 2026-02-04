@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 
 interface Experience {
   id: string;
@@ -109,34 +110,7 @@ const experiences: Experience[] = [
 
 export default function Experience() {
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
-
-  const timelineVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    },
-  };
+  const isInView = useInView(ref, viewportConfig);
 
   const dotVariants = {
     hidden: { scale: 0, opacity: 0 },
@@ -207,11 +181,11 @@ export default function Experience() {
           />
 
           {/* Experience Items */}
-          <motion.div variants={timelineVariants} className="space-y-12">
+          <motion.div variants={sectionVariants} className="space-y-12">
             {experiences.map((exp, index) => (
               <motion.div
                 key={exp.id}
-                variants={cardVariants}
+                variants={itemVariants}
                 className="relative"
               >
                 {/* Timeline Dot */}
