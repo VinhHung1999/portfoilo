@@ -112,10 +112,8 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-full flex flex-col px-6 md:px-12 relative"
+      className="h-full flex flex-col px-6 md:px-12 mt-16 relative"
     >
-      {/* Header clearance spacer */}
-      <div className="h-16 flex-shrink-0" />
 
       <motion.div
         ref={ref}
