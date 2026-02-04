@@ -170,7 +170,7 @@ export default function Projects() {
 
           {/* Project Grid */}
           <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {filteredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
@@ -178,6 +178,7 @@ export default function Projects() {
                   variants={cardVariantsWithDelay}
                   initial="hidden"
                   animate="visible"
+                  exit={{ opacity: 0, scale: 0.95 }}
                   whileHover={{
                     y: -8,
                     boxShadow: "0 20px 40px rgba(123, 51, 125, 0.15)",
@@ -375,10 +376,15 @@ export default function Projects() {
                   {/* Links */}
                   <div className="flex gap-4">
                     {selectedProject.liveUrl && (
-                      <a
+                      <motion.a
                         href={selectedProject.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        whileHover={{
+                          backgroundColor: "#a34da6",
+                          boxShadow: "0 0 20px rgba(123, 51, 125, 0.3)",
+                        }}
+                        whileTap={{ scale: 0.98 }}
                         className="px-6 py-3 rounded-lg font-medium"
                         style={{
                           backgroundColor: "#7B337D",
@@ -386,13 +392,19 @@ export default function Projects() {
                         }}
                       >
                         Live Demo →
-                      </a>
+                      </motion.a>
                     )}
                     {selectedProject.codeUrl && (
-                      <a
+                      <motion.a
                         href={selectedProject.codeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        whileHover={{
+                          backgroundColor: "rgba(123, 51, 125, 0.1)",
+                          borderColor: "#a34da6",
+                          color: "#a34da6",
+                        }}
+                        whileTap={{ scale: 0.98 }}
                         className="px-6 py-3 rounded-lg font-medium border"
                         style={{
                           borderColor: "#7B337D",
@@ -400,7 +412,7 @@ export default function Projects() {
                         }}
                       >
                         View Code →
-                      </a>
+                      </motion.a>
                     )}
                   </div>
                 </div>
