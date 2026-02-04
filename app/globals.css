@@ -2,18 +2,29 @@
 @import "tailwindcss";
 
 @layer base {
+  /* Light Mode - Default (Professional Portfolio) */
   :root {
-    /* Colors - Deep Space Violet Theme */
-    --bg-primary: hsl(0, 0%, 0%);
-    --bg-secondary: hsl(300, 5%, 6%);
-    --bg-tertiary: hsl(300, 5%, 10%);
-    --text-primary: hsl(0, 0%, 100%);
-    --text-secondary: hsl(0, 0%, 75%);
-    --text-muted: hsl(0, 0%, 50%);
-    --accent-primary: hsl(298, 40%, 35%);
-    --accent-light: hsl(298, 40%, 50%);
-    --accent-dark: hsl(298, 40%, 25%);
-    --accent-glow: hsla(298, 40%, 35%, 0.3);
+    /* Background Colors */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #FAFAFA;
+    --bg-tertiary: #F4F4F5;
+    --bg-alternate: #F8F8FA; /* Subtle alternate for visual rhythm */
+
+    /* Text Colors */
+    --text-primary: #09090B;
+    --text-secondary: #3F3F46;
+    --text-muted: #71717A;
+
+    /* UI Colors */
+    --border: #E4E4E7;
+    --cta: #2563EB;
+    --cta-hover: #1D4ED8;
+    --cta-glow: rgba(37, 99, 235, 0.3);
+
+    /* Accent (for highlights) */
+    --accent-primary: #18181B;
+    --accent-light: #3F3F46;
+    --accent-dark: #09090B;
 
     /* Spacing */
     --space-1: 4px;
@@ -46,6 +57,31 @@
     --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
+  /* Dark Mode - Professional Developer Theme */
+  [data-theme="dark"] {
+    /* Background Colors */
+    --bg-primary: #09090B;
+    --bg-secondary: #18181B;
+    --bg-tertiary: #27272A;
+    --bg-alternate: #09090B; /* Same as primary - pure black throughout */
+
+    /* Text Colors */
+    --text-primary: #FAFAFA;
+    --text-secondary: #D4D4D8;
+    --text-muted: #71717A;
+
+    /* UI Colors */
+    --border: #3F3F46;
+    --cta: #3B82F6;
+    --cta-hover: #60A5FA;
+    --cta-glow: rgba(59, 130, 246, 0.3);
+
+    /* Accent (for highlights) */
+    --accent-primary: #7B337D;
+    --accent-light: #a34da6;
+    --accent-dark: #552357;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -58,6 +94,7 @@
     color: var(--text-secondary);
     line-height: 1.6;
     scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -71,30 +108,24 @@
 }
 
 @layer utilities {
+  /* Professional gradient - subtle, no animation */
   .gradient-text {
-    background: linear-gradient(90deg, #a34da6, #7B337D, #a34da6);
-    background-size: 200% auto;
+    background: linear-gradient(135deg, var(--cta) 0%, var(--accent-primary) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: gradient-shift 3s linear infinite;
   }
 
   .gradient-bg {
-    background: linear-gradient(135deg, #7B337D 0%, #552357 100%);
-  }
-
-  .gradient-space {
-    background: radial-gradient(ellipse at top, #1a1a1a 0%, #000000 100%);
+    background: linear-gradient(135deg, var(--cta) 0%, var(--cta-hover) 100%);
   }
 
   .gradient-subtle {
-    background: linear-gradient(180deg, transparent 0%, rgba(123, 51, 125, 0.05) 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.02) 100%);
   }
 
-  @keyframes gradient-shift {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+  [data-theme="dark"] .gradient-subtle {
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.02) 100%);
   }
 
   /* Skeleton shimmer animation */
@@ -113,24 +144,6 @@
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: 8px;
-  }
-
-  /* Custom scrollbar styling for Experience section */
-  .experience-scroll::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .experience-scroll::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .experience-scroll::-webkit-scrollbar-thumb {
-    background: #7B337D;
-    border-radius: 3px;
-  }
-
-  .experience-scroll::-webkit-scrollbar-thumb:hover {
-    background: #a34da6;
   }
 
   /* Smooth scroll behavior */

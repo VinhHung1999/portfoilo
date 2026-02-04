@@ -10,35 +10,35 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      {/* Desktop: pagination scroll | Mobile: normal scroll */}
-      <main className="h-screen overflow-y-scroll md:snap-y md:snap-mandatory">
+      {/* Linear scroll for all devices - no pagination */}
+      <main className="overflow-y-auto">
         {/* Section 1: Hero */}
-        <section className="md:h-screen md:snap-start md:snap-always">
+        <section>
           <Hero />
         </section>
 
         {/* Section 2: About */}
-        <section className="md:h-screen md:snap-start md:snap-always">
+        <section>
           <About />
         </section>
 
         {/* Section 3: Experience */}
-        <section className="md:h-screen md:snap-start md:snap-always">
+        <section>
           <Experience />
         </section>
 
         {/* Section 4: Projects */}
-        <section className="md:h-screen md:snap-start md:snap-always">
+        <section>
           <Projects />
         </section>
 
         {/* Section 5: Skills */}
-        <section className="md:h-screen md:snap-start md:snap-always">
+        <section>
           <Skills />
         </section>
 
         {/* Section 6: Contact */}
-        <section className="md:h-screen md:snap-start md:snap-always">
+        <section>
           <Contact />
         </section>
       </main>
