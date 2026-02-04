@@ -53,6 +53,19 @@ const experiences: Experience[] = [
     ],
     techStack: ["Vue.js", "Python", "Flask", "MongoDB", "Stripe"],
   },
+  {
+    id: "4",
+    company: "Digital Agency",
+    role: "Junior Developer",
+    startDate: "Jan 2017",
+    endDate: "May 2018",
+    achievements: [
+      "Built responsive websites for 15+ clients across various industries",
+      "Maintained and updated legacy codebases with modern best practices",
+      "Participated in code reviews and agile sprint ceremonies",
+    ],
+    techStack: ["JavaScript", "jQuery", "PHP", "MySQL", "Bootstrap"],
+  },
 ];
 
 export default function Experience() {

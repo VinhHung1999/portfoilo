@@ -10,10 +10,10 @@
 
 | Role | Status | Current Task | Last Update |
 |------|--------|--------------|-------------|
-| PM   | Active | Coordinating scroll fix QA | 19:11 |
-| DS   | Complete | Scroll solution design delivered | 19:08 |
-| DEV  | Complete | Scroll fix implemented | 19:11 |
-| QA   | Assigned | Testing Experience scroll fix | 19:11 |
+| PM   | Waiting | Reported Sprint 2 completion to Boss, awaiting directive | 19:30 |
+| DS   | Standby | Ready for next design task | 19:30 |
+| DEV  | Standby | feature/sprint2-content ready for merge | 19:21 |
+| QA   | Standby | All verification docs ready, awaiting Boss review | 19:30 |
 
 ---
 
