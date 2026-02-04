@@ -154,12 +154,12 @@
   }
 
   .experience-scroll::-webkit-scrollbar-thumb {
-    background: #7B337D;
+    background: #2563EB;
     border-radius: 3px;
   }
 
   .experience-scroll::-webkit-scrollbar-thumb:hover {
-    background: #a34da6;
+    background: #3B82F6;
   }
 
   /* Smooth scroll behavior */
