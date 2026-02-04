@@ -4,26 +4,24 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 
-// Simplified flat skills list - no icons, no categories
-const skills = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Vue.js",
-  "Tailwind CSS",
-  "Framer Motion",
-  "Node.js",
-  "Python",
-  "FastAPI",
-  "PostgreSQL",
-  "Redis",
-  "GraphQL",
-  "LangChain",
-  "OpenAI",
-  "PyTorch",
-  "Git",
-  "Docker",
-  "AWS",
+// Boss requirement: Keep categories, but simple bordered design (no icons)
+const skillCategories = [
+  {
+    title: "Languages",
+    skills: ["TypeScript", "Python", "JavaScript", "Java", "SQL"],
+  },
+  {
+    title: "AI/ML & LLM",
+    skills: ["LangChain", "Claude API", "OpenAI", "PyTorch", "TensorFlow"],
+  },
+  {
+    title: "Framework & Tools",
+    skills: ["React", "Next.js", "Vue.js", "Node.js", "FastAPI", "PostgreSQL", "Redis", "Docker", "AWS"],
+  },
+  {
+    title: "Method & Leadership",
+    skills: ["Agile", "Scrum", "Team Leadership", "Code Review", "Mentoring"],
+  },
 ];
 
 export default function Skills() {
@@ -55,30 +53,41 @@ export default function Skills() {
           </p>
         </div>
 
-        {/* Simple flat skills grid - no icons, clean borders */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap justify-center gap-3"
-        >
-          {skills.map((skill) => (
-            <motion.div
-              key={skill}
-              variants={itemVariants}
-              whileHover={{
-                borderColor: "#7B337D",
-                scale: 1.05,
-                transition: { duration: 0.2 },
-              }}
-              className="px-6 py-3 rounded-lg border"
-              style={{
-                borderColor: "var(--bg-tertiary)",
-                color: "var(--text-secondary)",
-              }}
-            >
-              {skill}
+        {/* Categories with simple bordered skills - no icons */}
+        <div className="space-y-8">
+          {skillCategories.map((category) => (
+            <motion.div key={category.title} variants={itemVariants}>
+              {/* Category Title */}
+              <h3
+                className="text-sm uppercase tracking-wider font-medium mb-4"
+                style={{ color: "var(--text-muted)" }}
+              >
+                {category.title}
+              </h3>
+
+              {/* Skills - Simple bordered tags */}
+              <div className="flex flex-wrap gap-3">
+                {category.skills.map((skill) => (
+                  <motion.div
+                    key={skill}
+                    whileHover={{
+                      borderColor: "#7B337D",
+                      scale: 1.05,
+                      transition: { duration: 0.2 },
+                    }}
+                    className="px-4 py-2 rounded-lg border"
+                    style={{
+                      borderColor: "var(--bg-tertiary)",
+                      color: "var(--text-secondary)",
+                    }}
+                  >
+                    {skill}
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );
