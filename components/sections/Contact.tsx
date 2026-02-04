@@ -19,7 +19,8 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="h-full flex flex-col py-16 md:py-32 md:items-center md:justify-center px-6 md:px-12"
+      className="flex flex-col py-16 md:py-20 md:items-center md:justify-center px-6 md:px-12"
+      style={{ backgroundColor: "var(--bg-alternate)" }}
     >
       <motion.div
         ref={ref}

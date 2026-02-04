@@ -57,7 +57,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="h-full flex items-start md:items-center md:justify-center relative py-16 md:py-24"
+      className="min-h-[80vh] flex items-start md:items-center md:justify-center relative py-16 md:py-20"
     >
       <motion.div
         variants={container}
