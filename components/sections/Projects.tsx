@@ -2,6 +2,7 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import { sectionVariants, itemVariants, cardHoverVariants, viewportConfig } from "@/lib/animations";
 
 interface Project {
   id: string;
@@ -77,11 +78,7 @@ const projects: Project[] = [
 
 export default function Projects() {
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
+  const isInView = useInView(ref, viewportConfig);
 
   const [activeFilter, setActiveFilter] = useState<"all" | "web" | "mobile" | "ai">("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -91,15 +88,8 @@ export default function Projects() {
       ? projects
       : projects.filter((p) => p.category === activeFilter);
 
-  const sectionReveal = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-    },
-  };
-
-  const cardVariants = {
+  // Custom card variants with index-based delay
+  const cardVariantsWithDelay = {
     hidden: { opacity: 0, y: 40 },
     visible: (i: number) => ({
       opacity: 1,
@@ -130,17 +120,17 @@ export default function Projects() {
     <>
       <section
         id="projects"
-        className="h-full flex items-center justify-center px-6 md:px-12 overflow-hidden"
+        className="h-full flex flex-col py-16 md:py-32 md:items-center md:justify-center px-6 md:px-12 overflow-hidden"
       >
         <motion.div
           ref={ref}
-          variants={sectionReveal}
+          variants={sectionVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="max-w-6xl w-full"
         >
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-6 md:mb-12">
             <h2
               className="text-3xl md:text-5xl font-bold mb-4"
               style={{ color: "var(--text-primary)" }}
@@ -180,33 +170,38 @@ export default function Projects() {
 
           {/* Project Grid */}
           <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {filteredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
                   custom={index}
-                  variants={cardVariants}
+                  variants={cardVariantsWithDelay}
                   initial="hidden"
                   animate="visible"
+                  exit={{ opacity: 0, scale: 0.95 }}
                   whileHover={{
                     y: -8,
-                    boxShadow: "0 20px 40px rgba(123, 51, 125, 0.2)",
-                    transition: { duration: 0.3 },
+                    boxShadow: "0 20px 40px rgba(123, 51, 125, 0.15)",
+                    transition: { duration: 0.3, ease: [0.33, 1, 0.68, 1] },
                   }}
                   onClick={() => setSelectedProject(project)}
-                  className="rounded-2xl border cursor-pointer overflow-hidden"
+                  className="rounded-2xl border cursor-pointer overflow-hidden group"
                   style={{
                     backgroundColor: "var(--bg-secondary)",
                     borderColor: "var(--bg-tertiary)",
                   }}
                 >
-                  {/* Image */}
-                  <div
+                  {/* Image with zoom effect */}
+                  <motion.div
+                    whileHover={{
+                      scale: 1.05,
+                      transition: { duration: 0.4, ease: [0.33, 1, 0.68, 1] }
+                    }}
                     className="aspect-video flex items-center justify-center text-6xl rounded-lg overflow-hidden"
                     style={{ backgroundColor: "var(--bg-tertiary)" }}
                   >
                     {project.thumbnail}
-                  </div>
+                  </motion.div>
 
                   {/* Content */}
                   <div className="p-6">
@@ -381,10 +376,15 @@ export default function Projects() {
                   {/* Links */}
                   <div className="flex gap-4">
                     {selectedProject.liveUrl && (
-                      <a
+                      <motion.a
                         href={selectedProject.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        whileHover={{
+                          backgroundColor: "#a34da6",
+                          boxShadow: "0 0 20px rgba(123, 51, 125, 0.3)",
+                        }}
+                        whileTap={{ scale: 0.98 }}
                         className="px-6 py-3 rounded-lg font-medium"
                         style={{
                           backgroundColor: "#7B337D",
@@ -392,13 +392,19 @@ export default function Projects() {
                         }}
                       >
                         Live Demo →
-                      </a>
+                      </motion.a>
                     )}
                     {selectedProject.codeUrl && (
-                      <a
+                      <motion.a
                         href={selectedProject.codeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        whileHover={{
+                          backgroundColor: "rgba(123, 51, 125, 0.1)",
+                          borderColor: "#a34da6",
+                          color: "#a34da6",
+                        }}
+                        whileTap={{ scale: 0.98 }}
                         className="px-6 py-3 rounded-lg font-medium border"
                         style={{
                           borderColor: "#7B337D",
@@ -406,7 +412,7 @@ export default function Projects() {
                         }}
                       >
                         View Code →
-                      </a>
+                      </motion.a>
                     )}
                   </div>
                 </div>

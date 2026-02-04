@@ -10,10 +10,10 @@
 
 | Role | Status | Current Task | Last Update |
 |------|--------|--------------|-------------|
-| PM   | Active | Sprint 2 CLOSED - Awaiting merge directive from Boss | 20:01 |
-| DS   | Standby | Sprint 2 complete, ready for Sprint 3 design tasks | 20:01 |
-| DEV  | Complete | Experience scroll fixed (5628ae9), ready for merge | 20:01 |
-| QA   | Complete | Sprint 2 verified, ready for Sprint 3 assignments | 20:01 |
+| PM   | Active | Sprint 3 - Coordinating polish & performance | 20:04 |
+| DS   | Complete | Sprint 3 polish specs delivered | 20:08 |
+| DEV  | Ready | DS specs available for implementation | 20:08 |
+| QA   | Standby | Ready for Sprint 3 testing assignments | 20:04 |
 
 ---
 
@@ -90,11 +90,21 @@
 - Total: All 4 content sections passing ✓✓✓
 - **BOSS VERIFIED & APPROVED:** [20:01] "Tôi thấy khá ổn rồi á" ✅
 
-### Sprint 3: Polish (Planned)
-- [ ] Page transitions
-- [ ] Loading animations
-- [ ] Performance optimization
-- [ ] Mobile polish
+### Sprint 3: Polish & Performance (IN PROGRESS 🚀)
+**Goal:** Polish animations, optimize performance, enhance mobile UX
+**Started:** [20:04]
+
+**Scope:**
+- [x] DS: Page transitions design specs (timing, easing, effects) [20:08]
+- [x] DS: Loading animations design (initial load, lazy loading) [20:08]
+- [x] DS: Micro-interactions guidelines (buttons, links, cards) [20:08]
+- [x] DS: Mobile-specific polish patterns [20:08]
+- [ ] DEV: Implement transitions and animations
+- [ ] DEV: Performance optimization (code splitting, lazy loading)
+- [ ] DEV: Mobile UX improvements
+- [ ] QA: Animation smoothness testing (60fps)
+- [ ] QA: Performance benchmarks (Lighthouse 90+)
+- [ ] QA: Mobile device testing
 
 ---
 
@@ -1506,6 +1516,511 @@ With Work Experience added, suggested section order:
 | Desktop (≥1024px) | Timeline offset 60px, card max-width 700px |
 | Tablet (768-1023px) | Timeline offset 40px, card full width |
 | Mobile (<768px) | Timeline offset 30px, dates below title, stacked layout |
+
+---
+
+## Sprint 3: Polish Design Specs
+
+### 1. PAGE TRANSITIONS
+
+**Purpose:** Smooth, professional transitions between snap sections during scroll.
+
+#### Transition Philosophy
+- **Subtle over dramatic** - users scroll frequently, transitions shouldn't fatigue
+- **Performance-first** - use GPU-accelerated properties (transform, opacity)
+- **Consistent timing** - same easing across all transitions
+- **No bounce/spring** - professional, refined motion only
+
+#### Section Entry Animations
+
+| Element | Animation | Duration | Easing |
+|---------|-----------|----------|--------|
+| Section container | Fade in | 400ms | ease-out-cubic |
+| Section title | Fade + slide up (20px) | 500ms | ease-out-expo |
+| Section subtitle | Fade + slide up (20px) | 500ms, 100ms delay | ease-out-expo |
+| Content blocks | Stagger fade + slide | 400ms each, 80ms stagger | ease-out-expo |
+
+#### Scroll Snap Transition
+```css
+/* Smooth snap scrolling */
+.scroll-container {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+/* Section snap */
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+```
+
+#### Framer Motion Implementation
+```jsx
+// Section wrapper - triggers on viewport entry
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: [0.33, 1, 0.68, 1], // ease-out-cubic
+      when: "beforeChildren",
+      staggerChildren: 0.08
+    }
+  }
+};
+
+// Content items
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.16, 1, 0.3, 1] // ease-out-expo
+    }
+  }
+};
+
+// Usage
+<motion.section
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.3 }}
+  variants={sectionVariants}
+>
+  <motion.h2 variants={itemVariants}>Title</motion.h2>
+  <motion.p variants={itemVariants}>Content</motion.p>
+</motion.section>
+```
+
+#### Navigation Scroll (Click to Section)
+```jsx
+// Smooth scroll to section on nav click
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  element?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+};
+```
+
+---
+
+### 2. LOADING ANIMATIONS
+
+**Purpose:** Elegant loading states that maintain user engagement without being distracting.
+
+#### Initial Page Load
+
+**Sequence (Total: ~1.5s):**
+1. **0-300ms:** Black screen with centered logo/name fade in
+2. **300-600ms:** Logo subtle pulse (opacity 0.7 → 1)
+3. **600-1000ms:** Logo fades out, content begins reveal
+4. **1000-1500ms:** Hero section staggers in
+
+```jsx
+// Initial loader
+const loaderVariants = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: [0, 1, 1, 0],
+    transition: {
+      duration: 1.2,
+      times: [0, 0.25, 0.75, 1],
+      ease: "easeInOut"
+    }
+  }
+};
+
+// Logo pulse
+const pulseVariants = {
+  animate: {
+    opacity: [0.7, 1, 0.7],
+    transition: {
+      duration: 1,
+      repeat: 2,
+      ease: "easeInOut"
+    }
+  }
+};
+```
+
+#### Skeleton Screens (Lazy Content)
+
+**Style (Deep Space Violet):**
+```css
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #101010 0%,
+    #1a1a1a 50%,
+    #101010 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+```
+
+**Skeleton Components:**
+| Element | Skeleton Shape |
+|---------|----------------|
+| Project card image | Rectangle 16:9 |
+| Project card title | Rectangle 60% width, 20px height |
+| Project card desc | 2 rectangles 100%/80% width, 14px height |
+| Skill icon | Circle 40px |
+| Experience card | Rectangle full width, 150px height |
+
+#### Image Lazy Loading
+```jsx
+// Next.js Image with blur placeholder
+<Image
+  src={imageSrc}
+  alt={alt}
+  placeholder="blur"
+  blurDataURL={blurDataUrl} // Low-res base64
+  loading="lazy"
+  onLoadingComplete={() => setLoaded(true)}
+  className={`transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+/>
+```
+
+#### Content Fade-In After Load
+```jsx
+const fadeInOnLoad = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
+```
+
+---
+
+### 3. MICRO-INTERACTIONS
+
+**Purpose:** Subtle feedback that makes the interface feel responsive and polished.
+
+#### Button States
+
+**Primary Button:**
+| State | Style |
+|-------|-------|
+| Default | bg: #7B337D, text: white |
+| Hover | bg: #a34da6, subtle glow (0 0 20px rgba(123,51,125,0.3)) |
+| Active/Pressed | bg: #552357, scale: 0.98 |
+| Focus | Ring: 2px #7B337D offset 2px |
+| Disabled | bg: #3d1a3e, text: #808080, cursor: not-allowed |
+
+```jsx
+const buttonVariants = {
+  hover: {
+    backgroundColor: "#a34da6",
+    boxShadow: "0 0 20px rgba(123, 51, 125, 0.3)",
+    transition: { duration: 0.2 }
+  },
+  tap: {
+    scale: 0.98,
+    backgroundColor: "#552357",
+    transition: { duration: 0.1 }
+  }
+};
+```
+
+**Secondary Button:**
+| State | Style |
+|-------|-------|
+| Default | bg: transparent, border: 1px #7B337D, text: #7B337D |
+| Hover | bg: rgba(123,51,125,0.1), border: #a34da6, text: #a34da6 |
+| Active | bg: rgba(123,51,125,0.2), scale: 0.98 |
+
+#### Link Hover Effects
+
+**Underline Reveal:**
+```jsx
+// Underline grows from left
+<span className="relative">
+  Link Text
+  <motion.span
+    className="absolute bottom-0 left-0 h-[1px] w-full bg-violet-500 origin-left"
+    initial={{ scaleX: 0 }}
+    whileHover={{ scaleX: 1 }}
+    transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+  />
+</span>
+```
+
+**Nav Link:**
+```jsx
+// Color transition + underline
+whileHover={{
+  color: "#7B337D",
+  transition: { duration: 0.2 }
+}}
+```
+
+#### Card Interactions
+
+**Project Card:**
+```jsx
+const cardVariants = {
+  rest: {
+    y: 0,
+    boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+  },
+  hover: {
+    y: -8,
+    boxShadow: "0 20px 40px rgba(123, 51, 125, 0.15)",
+    transition: { duration: 0.3, ease: [0.33, 1, 0.68, 1] }
+  }
+};
+
+// Image zoom on card hover
+const imageVariants = {
+  rest: { scale: 1 },
+  hover: {
+    scale: 1.03,
+    transition: { duration: 0.4, ease: [0.33, 1, 0.68, 1] }
+  }
+};
+```
+
+**Skill Item:**
+```jsx
+whileHover={{
+  y: -4,
+  borderColor: "#7B337D",
+  transition: { duration: 0.2 }
+}}
+// Icon: grayscale(0) on hover
+```
+
+**Experience Card:**
+```jsx
+whileHover={{
+  borderColor: "#7B337D",
+  boxShadow: "0 0 20px rgba(123, 51, 125, 0.1)",
+  transition: { duration: 0.2 }
+}}
+```
+
+#### Form Input Focus
+```jsx
+const inputFocus = {
+  borderColor: "#7B337D",
+  boxShadow: "0 0 0 3px rgba(123, 51, 125, 0.1)",
+  transition: { duration: 0.2 }
+};
+```
+
+#### Icon Hover (Social Links)
+```jsx
+whileHover={{
+  backgroundColor: "#7B337D",
+  color: "#ffffff",
+  scale: 1.05,
+  transition: { duration: 0.2 }
+}}
+whileTap={{ scale: 0.95 }}
+```
+
+#### Scroll Indicator Pulse
+```jsx
+// Gentle opacity pulse (hero section)
+const scrollIndicator = {
+  animate: {
+    opacity: [0.5, 1, 0.5],
+    y: [0, 5, 0],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+```
+
+---
+
+### 4. MOBILE POLISH PATTERNS
+
+**Purpose:** Ensure touch interactions feel native and responsive on mobile devices.
+
+#### Touch Targets
+- Minimum touch target: **44x44px** (Apple HIG)
+- Buttons: min-height 48px on mobile
+- Nav links: padding 12px 16px minimum
+- Social icons: 48x48px touch area
+
+#### Mobile-Specific Animations
+
+**Reduced Motion:**
+```jsx
+// Respect user preference
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const mobileVariants = prefersReducedMotion ? {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.2 } }
+} : {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+};
+```
+
+**Simplified Animations on Mobile:**
+```jsx
+// Detect mobile
+const isMobile = window.innerWidth < 768;
+
+// Simpler animations for mobile
+const cardHover = isMobile ? {} : {
+  y: -8,
+  boxShadow: "0 20px 40px rgba(123, 51, 125, 0.15)"
+};
+```
+
+#### Mobile Navigation
+
+**Hamburger Animation:**
+```jsx
+const hamburgerVariants = {
+  closed: {
+    rotate: 0,
+    y: 0
+  },
+  open: {
+    rotate: 45,
+    y: 6
+  }
+};
+
+// Top line rotates to X
+// Middle line fades out
+// Bottom line rotates opposite
+```
+
+**Mobile Menu Slide:**
+```jsx
+const mobileMenuVariants = {
+  closed: {
+    x: "100%",
+    transition: { type: "tween", duration: 0.3 }
+  },
+  open: {
+    x: 0,
+    transition: { type: "tween", duration: 0.3 }
+  }
+};
+
+// Menu items stagger
+const menuItemVariants = {
+  closed: { opacity: 0, x: 20 },
+  open: (i) => ({
+    opacity: 1,
+    x: 0,
+    transition: { delay: i * 0.1, duration: 0.3 }
+  })
+};
+```
+
+#### Touch Feedback
+
+**Tap Highlight:**
+```css
+/* Remove default tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom tap feedback */
+.touch-feedback:active {
+  background-color: rgba(123, 51, 125, 0.1);
+  transition: background-color 0.1s;
+}
+```
+
+**Button Press:**
+```jsx
+whileTap={{ scale: 0.97 }}
+```
+
+#### Swipe Gestures (Optional Enhancement)
+
+**Project Cards Carousel (Mobile):**
+```jsx
+// Horizontal swipe on mobile
+<motion.div
+  drag="x"
+  dragConstraints={{ left: -width, right: 0 }}
+  dragElastic={0.1}
+>
+  {projects.map(project => <ProjectCard />)}
+</motion.div>
+```
+
+#### Performance Optimizations
+
+**GPU Acceleration:**
+```css
+.animated-element {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force GPU layer */
+}
+```
+
+**Debounce Scroll Events:**
+```jsx
+// Don't animate on every scroll frame
+const [isScrolling, setIsScrolling] = useState(false);
+useEffect(() => {
+  let timeout;
+  const handleScroll = () => {
+    setIsScrolling(true);
+    clearTimeout(timeout);
+    timeout = setTimeout(() => setIsScrolling(false), 150);
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+```
+
+#### Mobile-Specific Layout Adjustments
+
+| Element | Desktop | Mobile |
+|---------|---------|--------|
+| Section padding | 96px | 64px |
+| Typography scale | 1x | 0.85x for display |
+| Card grid | 3 columns | 1 column |
+| Timeline offset | 60px | 30px |
+| Button height | 48px | 52px |
+| Touch targets | 40px | 48px min |
+
+---
+
+### Polish Checklist (for QA)
+
+- [ ] Page transitions smooth at 60fps
+- [ ] No layout shift during animations
+- [ ] Skeleton screens show before content loads
+- [ ] All buttons have hover/active/focus states
+- [ ] Cards lift on hover (desktop only)
+- [ ] Links have underline animation
+- [ ] Mobile menu slides smoothly
+- [ ] Touch targets ≥44px on mobile
+- [ ] Reduced motion preference respected
+- [ ] No janky scroll on mobile
+- [ ] Images lazy load with fade-in
 
 ---
 

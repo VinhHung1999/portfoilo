@@ -2,54 +2,11 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 
 export default function About() {
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.3,
-    margin: "-100px",
-  });
-
-  const sectionReveal = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const photoReveal = {
-    hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
-
-  const textReveal = {
-    hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
-
-  const factItem = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
+  const isInView = useInView(ref, viewportConfig);
 
   const quickFacts = [
     { icon: "📍", label: "Location", value: "Ho Chi Minh City, Vietnam" },
@@ -61,17 +18,17 @@ export default function About() {
   return (
     <section
       id="about"
-      className="h-full flex items-center justify-center px-6 md:px-12"
+      className="h-full flex flex-col py-16 md:py-24 md:items-center md:justify-center px-6 md:px-12"
     >
       <motion.div
         ref={ref}
-        variants={sectionReveal}
+        variants={sectionVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         className="max-w-6xl w-full grid md:grid-cols-[300px_1fr] gap-12 items-center"
       >
         {/* Photo */}
-        <motion.div variants={photoReveal} className="mx-auto md:mx-0">
+        <motion.div variants={itemVariants} className="mx-auto md:mx-0">
           <div className="relative">
             <div
               className="w-52 h-52 md:w-72 md:h-72 rounded-3xl border-4 overflow-hidden"
@@ -102,7 +59,7 @@ export default function About() {
         </motion.div>
 
         {/* Content */}
-        <motion.div variants={textReveal} className="space-y-6">
+        <motion.div variants={itemVariants} className="space-y-6">
           <h2
             className="text-3xl md:text-5xl font-bold"
             style={{ color: "var(--text-primary)" }}
@@ -131,13 +88,13 @@ export default function About() {
 
           {/* Quick Facts */}
           <motion.div
-            variants={sectionReveal}
+            variants={sectionVariants}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6"
           >
             {quickFacts.map((fact, index) => (
               <motion.div
                 key={index}
-                variants={factItem}
+                variants={itemVariants}
                 className="flex items-start gap-3"
               >
                 <span className="text-2xl">{fact.icon}</span>

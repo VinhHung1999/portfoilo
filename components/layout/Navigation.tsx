@@ -2,6 +2,7 @@
 
 import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
+import { scrollToSection as scrollTo } from "@/lib/scroll";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,12 @@ export default function Navigation() {
       setIsScrolled(latest > 50);
     });
   }, [scrollY]);
+
+  // Smooth scroll to section and close mobile menu
+  const scrollToSection = (sectionId: string) => {
+    scrollTo(sectionId);
+    setIsOpen(false); // Close mobile menu if open
+  };
 
   const navLinks = [
     { name: "About", href: "#about" },
@@ -72,22 +79,22 @@ export default function Navigation() {
       >
         <nav className="max-w-7xl mx-auto px-6 md:px-12 h-full flex items-center justify-between">
           {/* Logo */}
-          <motion.a
-            href="#hero"
+          <motion.button
+            onClick={() => scrollToSection('hero')}
             className="text-xl font-bold hover:gradient-text transition-all"
             style={{ color: "var(--text-primary)" }}
             whileHover={{ scale: 1.05 }}
           >
             HP
-          </motion.a>
+          </motion.button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.name}
-                href={link.href}
-                className="text-sm font-medium uppercase tracking-wider transition-colors relative group"
+                onClick={() => scrollToSection(link.href.substring(1))}
+                className="text-sm font-medium uppercase tracking-wider transition-colors relative group py-3 px-4"
                 style={{
                   color: "var(--text-secondary)",
                 }}
@@ -103,13 +110,13 @@ export default function Navigation() {
                   className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
                   style={{ backgroundColor: "#7B337D" }}
                 />
-              </a>
+              </button>
             ))}
           </div>
 
           {/* Mobile Hamburger */}
           <motion.button
-            className="md:hidden flex flex-col gap-1.5 w-6 h-6 relative z-50"
+            className="md:hidden flex flex-col gap-1.5 w-6 h-6 p-3 -m-3 relative z-50"
             onClick={() => setIsOpen(!isOpen)}
             animate={isOpen ? "open" : "closed"}
           >
@@ -141,13 +148,12 @@ export default function Navigation() {
         style={{ backgroundColor: "var(--bg-primary)" }}
       >
         {navLinks.map((link, index) => (
-          <motion.a
+          <motion.button
             key={link.name}
-            href={link.href}
+            onClick={() => scrollToSection(link.href.substring(1))}
             variants={menuItemVariants}
             transition={{ delay: index * 0.1 }}
-            onClick={() => setIsOpen(false)}
-            className="text-2xl font-semibold transition-all"
+            className="text-2xl font-semibold transition-all py-4 px-6 min-h-[56px]"
             style={{ color: "var(--text-primary)" }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "#a34da6";
@@ -157,7 +163,7 @@ export default function Navigation() {
             }}
           >
             {link.name}
-          </motion.a>
+          </motion.button>
         ))}
       </motion.div>
 
