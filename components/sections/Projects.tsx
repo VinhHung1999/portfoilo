@@ -120,7 +120,7 @@ export default function Projects() {
     <>
       <section
         id="projects"
-        className="h-full flex flex-col py-16 md:py-24 md:items-center md:justify-center px-6 md:px-12 overflow-hidden"
+        className="h-full flex flex-col py-16 md:py-32 md:items-center md:justify-center px-6 md:px-12 overflow-hidden"
       >
         <motion.div
           ref={ref}
