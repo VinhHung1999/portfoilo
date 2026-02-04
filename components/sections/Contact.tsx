@@ -2,14 +2,11 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 
 export default function Contact() {
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
+  const isInView = useInView(ref, viewportConfig);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,32 +20,6 @@ export default function Contact() {
     console.log("Form submitted:", formData);
     alert("Thank you for your message! I'll get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
-  };
-
-  const sectionReveal = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 },
-    },
-  };
-
-  const formReveal = {
-    hidden: { opacity: 0, x: -30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
-
-  const infoReveal = {
-    hidden: { opacity: 0, x: 30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
-    },
   };
 
   const socialLinks = [
@@ -65,7 +36,7 @@ export default function Contact() {
     >
       <motion.div
         ref={ref}
-        variants={sectionReveal}
+        variants={sectionVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         className="max-w-6xl w-full"
@@ -86,7 +57,7 @@ export default function Contact() {
         {/* Content Grid */}
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <motion.div variants={formReveal}>
+          <motion.div variants={itemVariants}>
             <form
               onSubmit={handleSubmit}
               className="p-8 rounded-3xl space-y-6"
@@ -215,7 +186,7 @@ export default function Contact() {
           </motion.div>
 
           {/* Contact Info */}
-          <motion.div variants={infoReveal} className="space-y-8">
+          <motion.div variants={itemVariants} className="space-y-8">
             {/* Email */}
             <div>
               <p
