@@ -8,6 +8,7 @@
     --bg-primary: #FFFFFF;
     --bg-secondary: #FAFAFA;
     --bg-tertiary: #F4F4F5;
+    --bg-alternate: #F8F8FA; /* Subtle alternate for visual rhythm */
 
     /* Text Colors */
     --text-primary: #09090B;
@@ -62,6 +63,7 @@
     --bg-primary: #09090B;
     --bg-secondary: #18181B;
     --bg-tertiary: #27272A;
+    --bg-alternate: #09090B; /* Same as primary - pure black throughout */
 
     /* Text Colors */
     --text-primary: #FAFAFA;
@@ -142,24 +144,6 @@
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: 8px;
-  }
-
-  /* Custom scrollbar styling for Experience section */
-  .experience-scroll::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .experience-scroll::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .experience-scroll::-webkit-scrollbar-thumb {
-    background: #2563EB;
-    border-radius: 3px;
-  }
-
-  .experience-scroll::-webkit-scrollbar-thumb:hover {
-    background: #3B82F6;
   }
 
   /* Smooth scroll behavior */

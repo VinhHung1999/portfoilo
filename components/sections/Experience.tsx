@@ -86,20 +86,17 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="flex flex-col relative py-16 md:py-24"
+      className="flex flex-col relative py-16 md:py-20"
     >
-      {/* 64px Spacer for Navigation - Desktop only for pagination */}
-      <div className="hidden md:block md:h-16 md:flex-shrink-0" />
-
-      {/* Content Area with Explicit Height on Desktop */}
+      {/* Content Area - flows naturally */}
       <div
-        className="px-6 md:px-12 flex flex-col md:h-[calc(100vh-64px)]"
+        className="px-6 md:px-12 flex flex-col"
       >
         <motion.div
           ref={ref}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="max-w-4xl w-full mx-auto flex flex-col md:h-full"
+          className="max-w-4xl w-full mx-auto flex flex-col"
         >
           {/* Header - Fixed at top */}
           <div className="text-center mb-8 flex-shrink-0">
@@ -114,12 +111,8 @@ export default function Experience() {
             </p>
           </div>
 
-          {/* Timeline - Scrollable on desktop, flows on mobile */}
-          <div className="relative pl-8 md:pl-16 md:flex-1 md:overflow-y-auto pr-2 pb-8 experience-scroll"
-            style={{
-              scrollbarWidth: "thin",
-              scrollbarColor: "#2563EB transparent"
-            }}>
+          {/* Timeline - flows naturally */}
+          <div className="relative pl-8 md:pl-16 pb-8">
           {/* Timeline Line */}
           <motion.div
             variants={lineVariants}
@@ -223,13 +216,6 @@ export default function Experience() {
           </motion.div>
         </div>
 
-        {/* Fade gradient at bottom - indicates more content */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-          style={{
-            background: "linear-gradient(to top, var(--bg-primary) 0%, transparent 100%)",
-          }}
-        />
       </motion.div>
       </div>
     </section>

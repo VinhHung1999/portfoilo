@@ -4,11 +4,13 @@ import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
 import { scrollToSection as scrollTo } from "@/lib/scroll";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import { useTheme } from "@/lib/theme";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const { theme } = useTheme();
 
   useEffect(() => {
     return scrollY.on("change", (latest) => {
@@ -30,15 +32,18 @@ export default function Navigation() {
     { name: "Contact", href: "#contact" },
   ];
 
+  // Theme-aware header colors
+  const isLightMode = theme === "light";
+
   const headerVariants = {
     top: {
       backgroundColor: "rgba(0, 0, 0, 0)",
       borderColor: "rgba(0, 0, 0, 0)",
     },
     scrolled: {
-      backgroundColor: "rgba(16, 16, 16, 0.8)",
+      backgroundColor: isLightMode ? "rgba(255, 255, 255, 0.8)" : "rgba(16, 16, 16, 0.8)",
       backdropFilter: "blur(12px)",
-      borderColor: "rgba(26, 26, 26, 1)",
+      borderColor: isLightMode ? "rgba(228, 228, 231, 1)" : "rgba(26, 26, 26, 1)",
     },
   };
 
