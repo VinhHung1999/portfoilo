@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 
 interface Experience {
   id: string;
@@ -53,90 +54,11 @@ const experiences: Experience[] = [
     ],
     techStack: ["Vue.js", "Python", "Flask", "MongoDB", "Stripe"],
   },
-  {
-    id: "4",
-    company: "Digital Agency",
-    role: "Junior Developer",
-    startDate: "Jan 2017",
-    endDate: "May 2018",
-    achievements: [
-      "Built responsive websites for 15+ clients across various industries",
-      "Maintained and updated legacy codebases with modern best practices",
-      "Participated in code reviews and agile sprint ceremonies",
-    ],
-    techStack: ["JavaScript", "jQuery", "PHP", "MySQL", "Bootstrap"],
-  },
-  {
-    id: "5",
-    company: "Tech Solutions Group",
-    role: "Junior Developer",
-    startDate: "Jul 2015",
-    endDate: "Dec 2016",
-    achievements: [
-      "Developed internal tools and dashboards for enterprise clients",
-      "Collaborated with senior developers on ERP system integration",
-      "Automated repetitive tasks saving 15+ hours per week",
-    ],
-    techStack: ["Java", "Spring", "Angular", "Oracle", "Git"],
-  },
-  {
-    id: "6",
-    company: "WebForge Studio",
-    role: "Frontend Developer",
-    startDate: "Feb 2014",
-    endDate: "Jun 2015",
-    achievements: [
-      "Created pixel-perfect landing pages and marketing websites",
-      "Implemented cross-browser compatible solutions for IE8+",
-      "Worked with designers to translate mockups into functional interfaces",
-    ],
-    techStack: ["HTML5", "CSS3", "JavaScript", "SASS", "Grunt"],
-  },
-  {
-    id: "7",
-    company: "Code Academy",
-    role: "Software Development Intern",
-    startDate: "Aug 2013",
-    endDate: "Jan 2014",
-    achievements: [
-      "Assisted in developing educational platform features and bug fixes",
-      "Wrote unit tests achieving 80% code coverage for new modules",
-      "Gained hands-on experience with agile methodologies and version control",
-    ],
-    techStack: ["Python", "Django", "JavaScript", "PostgreSQL", "Git"],
-  },
 ];
 
 export default function Experience() {
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
-
-  const timelineVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    },
-  };
+  const isInView = useInView(ref, viewportConfig);
 
   const dotVariants = {
     hidden: { scale: 0, opacity: 0 },
@@ -164,21 +86,20 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-screen flex flex-col relative"
+      className="flex flex-col relative py-16 md:py-24"
     >
-      {/* 64px Spacer for Navigation */}
-      <div className="h-16 flex-shrink-0" />
+      {/* 64px Spacer for Navigation - Desktop only for pagination */}
+      <div className="hidden md:block md:h-16 md:flex-shrink-0" />
 
-      {/* Content Area with Explicit Height */}
+      {/* Content Area with Explicit Height on Desktop */}
       <div
-        className="px-6 md:px-12 flex flex-col"
-        style={{ height: 'calc(100vh - 64px)' }}
+        className="px-6 md:px-12 flex flex-col md:h-[calc(100vh-64px)]"
       >
         <motion.div
           ref={ref}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="max-w-4xl w-full mx-auto flex flex-col h-full"
+          className="max-w-4xl w-full mx-auto flex flex-col md:h-full"
         >
           {/* Header - Fixed at top */}
           <div className="text-center mb-8 flex-shrink-0">
@@ -193,8 +114,8 @@ export default function Experience() {
             </p>
           </div>
 
-          {/* Timeline - Scrollable container with explicit flex-1 */}
-          <div className="relative pl-8 md:pl-16 flex-1 overflow-y-auto pr-2 pb-8 experience-scroll"
+          {/* Timeline - Scrollable on desktop, flows on mobile */}
+          <div className="relative pl-8 md:pl-16 md:flex-1 md:overflow-y-auto pr-2 pb-8 experience-scroll"
             style={{
               scrollbarWidth: "thin",
               scrollbarColor: "#7B337D transparent"
@@ -207,11 +128,11 @@ export default function Experience() {
           />
 
           {/* Experience Items */}
-          <motion.div variants={timelineVariants} className="space-y-12">
+          <motion.div variants={sectionVariants} className="space-y-12">
             {experiences.map((exp, index) => (
               <motion.div
                 key={exp.id}
-                variants={cardVariants}
+                variants={itemVariants}
                 className="relative"
               >
                 {/* Timeline Dot */}

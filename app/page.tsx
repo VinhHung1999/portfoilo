@@ -10,34 +10,35 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main className="h-screen overflow-y-scroll snap-y snap-mandatory">
-        {/* Section 1: Hero - 100vh snap point */}
-        <section className="h-screen snap-start snap-always">
+      {/* Desktop: pagination scroll | Mobile: normal scroll */}
+      <main className="h-screen overflow-y-scroll md:snap-y md:snap-mandatory">
+        {/* Section 1: Hero */}
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Hero />
         </section>
 
-        {/* Section 2: About - 100vh snap point */}
-        <section className="h-screen snap-start snap-always">
+        {/* Section 2: About */}
+        <section className="md:h-screen md:snap-start md:snap-always">
           <About />
         </section>
 
-        {/* Section 3: Experience - 100vh snap point */}
-        <section className="h-screen snap-start snap-always">
+        {/* Section 3: Experience */}
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Experience />
         </section>
 
-        {/* Section 4: Projects - 100vh snap point */}
-        <section className="h-screen snap-start snap-always">
+        {/* Section 4: Projects */}
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Projects />
         </section>
 
-        {/* Section 5: Skills - 100vh snap point */}
-        <section className="h-screen snap-start snap-always">
+        {/* Section 5: Skills */}
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Skills />
         </section>
 
-        {/* Section 6: Contact - 100vh snap point */}
-        <section className="h-screen snap-start snap-always">
+        {/* Section 6: Contact */}
+        <section className="md:h-screen md:snap-start md:snap-always">
           <Contact />
         </section>
       </main>
