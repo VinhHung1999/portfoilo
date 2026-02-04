@@ -112,13 +112,13 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-full flex flex-col px-6 md:px-12"
+      className="h-full flex flex-col px-6 md:px-12 pt-16 relative"
     >
       <motion.div
         ref={ref}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="max-w-4xl w-full mx-auto flex flex-col h-full py-8"
+        className="max-w-4xl w-full mx-auto flex flex-col h-full pb-8"
       >
         {/* Header - Fixed at top */}
         <div className="text-center mb-8 flex-shrink-0">
@@ -236,6 +236,14 @@ export default function Experience() {
             ))}
           </motion.div>
         </div>
+
+        {/* Fade gradient at bottom - indicates more content */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, var(--bg-primary) 0%, transparent 100%)",
+          }}
+        />
       </motion.div>
     </section>
   );
