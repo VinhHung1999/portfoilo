@@ -138,7 +138,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-full flex flex-col relative"
+      className="flex flex-col relative"
     >
       {/* 64px Spacer for Navigation */}
       <div className="h-16 flex-shrink-0" />
