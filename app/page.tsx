@@ -17,25 +17,40 @@ export default function Home() {
           <Hero />
         </section>
 
+        {/* Separator: Violet → Blue gradient line */}
+        <div className="section-separator" />
+
         {/* Section 2: About */}
         <section>
           <About />
         </section>
+
+        {/* Separator */}
+        <div className="section-separator" />
 
         {/* Section 3: Experience */}
         <section>
           <Experience />
         </section>
 
+        {/* Separator */}
+        <div className="section-separator" />
+
         {/* Section 4: Projects */}
         <section>
           <Projects />
         </section>
 
+        {/* Separator */}
+        <div className="section-separator" />
+
         {/* Section 5: Skills */}
         <section>
           <Skills />
         </section>
+
+        {/* Separator */}
+        <div className="section-separator" />
 
         {/* Section 6: Contact */}
         <section>
