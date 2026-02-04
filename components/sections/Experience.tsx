@@ -164,35 +164,41 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-screen flex flex-col px-6 md:px-12 relative"
-      style={{ paddingTop: 64 }}
+      className="h-screen flex flex-col relative"
     >
+      {/* 64px Spacer for Navigation */}
+      <div className="h-16 flex-shrink-0" />
 
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="max-w-4xl w-full mx-auto flex flex-col flex-1 pb-8"
+      {/* Content Area with Explicit Height */}
+      <div
+        className="px-6 md:px-12 flex flex-col"
+        style={{ height: 'calc(100vh - 64px)' }}
       >
-        {/* Header - Fixed at top */}
-        <div className="text-center mb-8 flex-shrink-0">
-          <h2
-            className="text-3xl md:text-5xl font-bold mb-4"
-            style={{ color: "var(--text-primary)" }}
-          >
-            Experience
-          </h2>
-          <p className="text-base" style={{ color: "var(--text-muted)" }}>
-            My professional journey
-          </p>
-        </div>
+        <motion.div
+          ref={ref}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="max-w-4xl w-full mx-auto flex flex-col h-full"
+        >
+          {/* Header - Fixed at top */}
+          <div className="text-center mb-8 flex-shrink-0">
+            <h2
+              className="text-3xl md:text-5xl font-bold mb-4"
+              style={{ color: "var(--text-primary)" }}
+            >
+              Experience
+            </h2>
+            <p className="text-base" style={{ color: "var(--text-muted)" }}>
+              My professional journey
+            </p>
+          </div>
 
-        {/* Timeline - Scrollable container */}
-        <div className="relative pl-8 md:pl-16 flex-1 overflow-y-auto pr-2 experience-scroll"
-          style={{
-            scrollbarWidth: "thin",
-            scrollbarColor: "#7B337D transparent"
-          }}>
+          {/* Timeline - Scrollable container with explicit flex-1 */}
+          <div className="relative pl-8 md:pl-16 flex-1 overflow-y-auto pr-2 pb-8 experience-scroll"
+            style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "#7B337D transparent"
+            }}>
           {/* Timeline Line */}
           <motion.div
             variants={lineVariants}
@@ -299,6 +305,7 @@ export default function Experience() {
           }}
         />
       </motion.div>
+      </div>
     </section>
   );
 }
