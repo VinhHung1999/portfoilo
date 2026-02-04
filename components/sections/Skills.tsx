@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 
 interface Skill {
   name: string;
@@ -46,35 +47,10 @@ const skillCategories = [
 
 export default function Skills() {
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
+  const isInView = useInView(ref, viewportConfig);
 
-  const sectionReveal = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-    },
-  };
-
-  const categoryVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1] as const,
-        staggerChildren: 0.05,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const skillVariants = {
+  // Custom skill item with scale effect
+  const skillItemVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
@@ -90,7 +66,7 @@ export default function Skills() {
     >
       <motion.div
         ref={ref}
-        variants={sectionReveal}
+        variants={sectionVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         className="max-w-5xl w-full"
@@ -113,7 +89,7 @@ export default function Skills() {
           {skillCategories.map((category, idx) => (
             <motion.div
               key={category.title}
-              variants={categoryVariants}
+              variants={itemVariants}
               className="p-8 rounded-3xl"
               style={{ backgroundColor: "var(--bg-secondary)" }}
             >
@@ -130,7 +106,7 @@ export default function Skills() {
                 {category.skills.map((skill) => (
                   <motion.div
                     key={skill.name}
-                    variants={skillVariants}
+                    variants={skillItemVariants}
                     whileHover={{
                       y: -4,
                       borderColor: "#7B337D",
