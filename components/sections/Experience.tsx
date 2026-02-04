@@ -112,13 +112,16 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="h-full flex flex-col px-6 md:px-12 pt-16 relative"
+      className="h-full flex flex-col px-6 md:px-12 relative"
     >
+      {/* Header clearance spacer */}
+      <div className="h-16 flex-shrink-0" />
+
       <motion.div
         ref={ref}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="max-w-4xl w-full mx-auto flex flex-col h-full pb-8"
+        className="max-w-4xl w-full mx-auto flex flex-col flex-1 pb-8"
       >
         {/* Header - Fixed at top */}
         <div className="text-center mb-8 flex-shrink-0">
