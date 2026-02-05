@@ -4,17 +4,25 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail, MapPin, Briefcase, Github, Linkedin, Twitter } from "lucide-react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
+import { personalInfo } from "@/data/personal";
 
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, viewportConfig);
 
-  const socialLinks = [
-    { name: "GitHub", icon: Github, url: "https://github.com/hungson175" },
-    { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/in/hungpham" },
-    { name: "Twitter", icon: Twitter, url: "https://twitter.com" },
-    { name: "Email", icon: Mail, url: "mailto:hello@hungpham.dev" },
-  ];
+  // Map icon names to components
+  const iconMap: Record<string, typeof Github> = {
+    Github,
+    Linkedin,
+    Twitter,
+    Mail,
+  };
+
+  const socialLinks = personalInfo.socialLinks.map((link) => ({
+    name: link.name,
+    icon: iconMap[link.icon],
+    url: link.url,
+  }));
 
   return (
     <section

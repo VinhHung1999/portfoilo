@@ -5,6 +5,7 @@ import { MapPin, Target, Briefcase, Globe, User } from "lucide-react";
 import { scrollToSection } from "@/lib/scroll";
 import { scrollIndicatorVariants } from "@/lib/animations";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { personalInfo } from "@/data/personal";
 
 export default function HeroAbout() {
   const prefersReducedMotion = useReducedMotion();
@@ -79,12 +80,19 @@ export default function HeroAbout() {
         },
       };
 
-  const quickFacts = [
-    { icon: MapPin, label: "Location", value: "Ho Chi Minh City, Vietnam" },
-    { icon: Target, label: "Focus", value: "Full-Stack Development, AI/ML" },
-    { icon: Briefcase, label: "Status", value: "Open to opportunities" },
-    { icon: Globe, label: "Languages", value: "Vietnamese, English" },
-  ];
+  // Map icon names from data to actual icon components
+  const iconMap: Record<string, typeof MapPin> = {
+    MapPin,
+    Target,
+    Briefcase,
+    Globe,
+  };
+
+  const quickFacts = personalInfo.quickFacts.map((fact) => ({
+    icon: iconMap[fact.icon],
+    label: fact.label,
+    value: fact.value,
+  }));
 
   return (
     <section
@@ -131,7 +139,7 @@ export default function HeroAbout() {
               variants={nameReveal}
               className="text-5xl font-bold mb-4 gradient-text"
             >
-              Hung Pham
+              {personalInfo.name}
             </motion.h1>
 
             {/* Tagline */}
@@ -140,7 +148,7 @@ export default function HeroAbout() {
               className="text-2xl font-semibold mb-6"
               style={{ color: "var(--text-primary)" }}
             >
-              Full-Stack Developer & Creative Technologist
+              {personalInfo.tagline}
             </motion.h2>
 
             {/* Merged Bio */}
@@ -149,10 +157,7 @@ export default function HeroAbout() {
               className="text-base leading-relaxed mb-8"
               style={{ color: "var(--text-secondary)" }}
             >
-              I&apos;m a full-stack developer based in Ho Chi Minh City,
-              Vietnam. I craft interactive digital experiences that merge
-              elegant design with robust engineering - specializing in React,
-              Next.js, and AI technologies.
+              {personalInfo.bio}
             </motion.p>
 
             {/* Quick Facts - Mobile (2x2 Grid) */}
@@ -254,7 +259,7 @@ export default function HeroAbout() {
               variants={nameReveal}
               className="text-7xl font-bold mb-6 gradient-text"
             >
-              Hung Pham
+              {personalInfo.name}
             </motion.h1>
 
             {/* Tagline */}
@@ -263,7 +268,7 @@ export default function HeroAbout() {
               className="text-4xl font-semibold mb-6"
               style={{ color: "var(--text-primary)" }}
             >
-              Full-Stack Developer & Creative Technologist
+              {personalInfo.tagline}
             </motion.h2>
 
             {/* Merged Bio */}
@@ -272,10 +277,7 @@ export default function HeroAbout() {
               className="text-lg leading-relaxed mb-8"
               style={{ color: "var(--text-secondary)" }}
             >
-              I&apos;m a full-stack developer based in Ho Chi Minh City,
-              Vietnam. I craft interactive digital experiences that merge
-              elegant design with robust engineering - specializing in React,
-              Next.js, and AI technologies.
+              {personalInfo.bio}
             </motion.p>
 
             {/* Quick Facts - Desktop (2x2 Grid) */}

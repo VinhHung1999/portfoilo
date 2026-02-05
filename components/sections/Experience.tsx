@@ -3,58 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
-
-interface Experience {
-  id: string;
-  company: string;
-  role: string;
-  startDate: string;
-  endDate: string | null; // null = "Present"
-  achievements: string[];
-  techStack: string[];
-}
-
-const experiences: Experience[] = [
-  {
-    id: "1",
-    company: "Tech Company Inc",
-    role: "Senior Full-Stack Developer",
-    startDate: "Jan 2022",
-    endDate: null,
-    achievements: [
-      "Led development of AI-powered multi-agent system serving 10,000+ users",
-      "Architected microservices infrastructure reducing deployment time by 60%",
-      "Mentored team of 5 junior developers and established best practices",
-    ],
-    techStack: ["React", "Next.js", "TypeScript", "Python", "AWS", "PostgreSQL"],
-  },
-  {
-    id: "2",
-    company: "Innovation Labs",
-    role: "Full-Stack Developer",
-    startDate: "Mar 2020",
-    endDate: "Dec 2021",
-    achievements: [
-      "Built real-time collaboration platform with WebSocket integration",
-      "Implemented CI/CD pipeline increasing deployment frequency by 3x",
-      "Optimized database queries reducing response time by 40%",
-    ],
-    techStack: ["React", "Node.js", "FastAPI", "PostgreSQL", "Redis", "Docker"],
-  },
-  {
-    id: "3",
-    company: "StartUp Ventures",
-    role: "Software Developer",
-    startDate: "Jun 2018",
-    endDate: "Feb 2020",
-    achievements: [
-      "Developed core features for SaaS product from MVP to production",
-      "Integrated third-party APIs and payment processing systems",
-      "Collaborated with design team to implement responsive UI components",
-    ],
-    techStack: ["Vue.js", "Python", "Flask", "MongoDB", "Stripe"],
-  },
-];
+import { experiences } from "@/data/experience";
 
 export default function Experience() {
   const ref = useRef(null);
