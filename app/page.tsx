@@ -1,6 +1,5 @@
 import Navigation from "@/components/layout/Navigation";
-import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
+import HeroAbout from "@/components/sections/HeroAbout";
 import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
@@ -12,23 +11,15 @@ export default function Home() {
       <Navigation />
       {/* Linear scroll for all devices - no pagination */}
       <main className="overflow-y-auto">
-        {/* Section 1: Hero */}
+        {/* Section 1: Hero + About (Merged) */}
         <section>
-          <Hero />
+          <HeroAbout />
         </section>
 
         {/* Separator: Violet → Blue gradient line */}
         <div className="section-separator" />
 
-        {/* Section 2: About */}
-        <section>
-          <About />
-        </section>
-
-        {/* Separator */}
-        <div className="section-separator" />
-
-        {/* Section 3: Experience */}
+        {/* Section 2: Experience */}
         <section>
           <Experience />
         </section>
@@ -36,7 +27,7 @@ export default function Home() {
         {/* Separator */}
         <div className="section-separator" />
 
-        {/* Section 4: Projects */}
+        {/* Section 3: Projects */}
         <section>
           <Projects />
         </section>
@@ -44,7 +35,7 @@ export default function Home() {
         {/* Separator */}
         <div className="section-separator" />
 
-        {/* Section 5: Skills */}
+        {/* Section 4: Skills */}
         <section>
           <Skills />
         </section>
@@ -52,7 +43,7 @@ export default function Home() {
         {/* Separator */}
         <div className="section-separator" />
 
-        {/* Section 6: Contact */}
+        {/* Section 5: Contact */}
         <section>
           <Contact />
         </section>
