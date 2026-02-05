@@ -3,26 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
-
-// Boss requirement: Keep categories, but simple bordered design (no icons)
-const skillCategories = [
-  {
-    title: "Languages",
-    skills: ["TypeScript", "Python", "JavaScript", "Java", "SQL"],
-  },
-  {
-    title: "AI/ML & LLM",
-    skills: ["LangChain", "Claude API", "OpenAI", "PyTorch", "TensorFlow"],
-  },
-  {
-    title: "Framework & Tools",
-    skills: ["React", "Next.js", "Vue.js", "Node.js", "FastAPI", "PostgreSQL", "Redis", "Docker", "AWS"],
-  },
-  {
-    title: "Method & Leadership",
-    skills: ["Agile", "Scrum", "Team Leadership", "Code Review", "Mentoring"],
-  },
-];
+import { skillCategories } from "@/data/skills";
 
 export default function Skills() {
   const ref = useRef(null);
@@ -67,9 +48,9 @@ export default function Skills() {
 
               {/* Skills - Simple bordered tags */}
               <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill) => (
+                {category.skills.map((skill, skillIndex) => (
                   <motion.div
-                    key={skill}
+                    key={`${catIndex}-${skillIndex}`}
                     whileHover={{
                       scale: 1.05,
                       transition: { duration: 0.2 },
