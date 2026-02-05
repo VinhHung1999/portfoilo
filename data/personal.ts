@@ -1,0 +1,55 @@
+import { PersonalInfo } from "./types";
+
+export const personalInfo: PersonalInfo = {
+  name: "Hung Pham",
+  tagline: "Full-Stack Developer & Creative Technologist",
+  bio: "I'm a full-stack developer based in Ho Chi Minh City, Vietnam. I craft interactive digital experiences that merge elegant design with robust engineering - specializing in React, Next.js, and AI technologies.",
+  email: "hello@hungpham.dev",
+  location: "Ho Chi Minh City, Vietnam",
+  status: "Open to opportunities",
+  languages: "Vietnamese, English",
+  socialLinks: [
+    {
+      name: "GitHub",
+      url: "https://github.com/hungson175",
+      icon: "Github",
+    },
+    {
+      name: "LinkedIn",
+      url: "https://linkedin.com/in/hungpham",
+      icon: "Linkedin",
+    },
+    {
+      name: "Twitter",
+      url: "https://twitter.com/hungpham",
+      icon: "Twitter",
+    },
+    {
+      name: "Email",
+      url: "mailto:hello@hungpham.dev",
+      icon: "Mail",
+    },
+  ],
+  quickFacts: [
+    {
+      icon: "MapPin",
+      label: "Location",
+      value: "Ho Chi Minh City, Vietnam",
+    },
+    {
+      icon: "Target",
+      label: "Focus",
+      value: "Full-Stack Development, AI/ML",
+    },
+    {
+      icon: "Briefcase",
+      label: "Status",
+      value: "Open to opportunities",
+    },
+    {
+      icon: "Globe",
+      label: "Languages",
+      value: "Vietnamese, English",
+    },
+  ],
+};
