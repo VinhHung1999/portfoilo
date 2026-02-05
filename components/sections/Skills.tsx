@@ -36,14 +36,14 @@ export default function Skills() {
 
         {/* Categories with simple bordered skills - no icons */}
         <div className="space-y-8">
-          {skillCategories.map((category) => (
-            <motion.div key={category.title} variants={itemVariants}>
+          {skillCategories.map((category, catIndex) => (
+            <motion.div key={category.category} variants={itemVariants}>
               {/* Category Title */}
               <h3
                 className="text-sm uppercase tracking-wider font-medium mb-4"
                 style={{ color: "var(--text-muted)" }}
               >
-                {category.title}
+                {category.category}
               </h3>
 
               {/* Skills - Simple bordered tags */}
