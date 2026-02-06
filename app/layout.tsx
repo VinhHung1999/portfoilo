@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme";
+import { getPortfolioContent } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Hung Pham - Full-Stack Developer",
-  description: "Portfolio of Hung Pham - Full-Stack Developer specializing in AI/ML, web technologies, and creative solutions",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { personal } = await getPortfolioContent();
+  return {
+    title: `${personal.name} - ${personal.tagline}`,
+    description: personal.bio,
+  };
+}
 
 export default function RootLayout({
   children,
