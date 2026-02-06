@@ -119,9 +119,14 @@ export default function HeroAbout({ data }: { data?: PersonalInfo }) {
                   boxShadow: "var(--shadow-md)",
                 }}
               >
-                <div className="w-full h-full flex items-center justify-center gradient-bg">
-                  <User className="w-32 h-32" style={{ color: "#ffffff" }} />
-                </div>
+                {personalInfo.avatar ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img src={personalInfo.avatar} alt={personalInfo.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center gradient-bg">
+                    <User className="w-32 h-32" style={{ color: "#ffffff" }} />
+                  </div>
+                )}
               </div>
               {/* Glow effect */}
               <div
@@ -381,9 +386,14 @@ export default function HeroAbout({ data }: { data?: PersonalInfo }) {
                   boxShadow: "var(--shadow-md)",
                 }}
               >
-                <div className="w-full h-full flex items-center justify-center gradient-bg">
-                  <User className="w-48 h-48" style={{ color: "#ffffff" }} />
-                </div>
+                {personalInfo.avatar ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img src={personalInfo.avatar} alt={personalInfo.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center gradient-bg">
+                    <User className="w-48 h-48" style={{ color: "#ffffff" }} />
+                  </div>
+                )}
               </div>
               {/* Glow effect */}
               <div

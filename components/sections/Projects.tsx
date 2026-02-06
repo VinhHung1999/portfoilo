@@ -2,7 +2,11 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import { Bot, Palette, ShoppingBag } from "lucide-react";
+import { Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout } from "lucide-react";
+
+const iconMap: Record<string, typeof Bot> = {
+  Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout,
+};
 import { sectionVariants, itemVariants, cardHoverVariants, viewportConfig } from "@/lib/animations";
 import { projects as defaultData } from "@/data/projects";
 import { Project } from "@/data/types";
@@ -137,9 +141,12 @@ export default function Projects({ data }: { data?: Project[] }) {
                     }}
                     className="aspect-video flex items-center justify-center rounded-lg overflow-hidden gradient-bg"
                   >
-                    {project.thumbnail === "Bot" && <Bot className="w-20 h-20 text-white" />}
-                    {project.thumbnail === "Palette" && <Palette className="w-20 h-20 text-white" />}
-                    {project.thumbnail === "ShoppingBag" && <ShoppingBag className="w-20 h-20 text-white" />}
+                    {project.thumbnailUrl ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={project.thumbnailUrl} alt={project.title} className="w-full h-full object-cover" />
+                    ) : (
+                      (() => { const Icon = iconMap[project.thumbnail]; return Icon ? <Icon className="w-20 h-20 text-white" /> : null; })()
+                    )}
                   </motion.div>
 
                   {/* Content */}
@@ -229,11 +236,14 @@ export default function Projects({ data }: { data?: Project[] }) {
                 <div className="px-8 pb-8">
                   {/* Image */}
                   <div
-                    className="aspect-video flex items-center justify-center rounded-xl mb-6 gradient-bg"
+                    className="aspect-video flex items-center justify-center rounded-xl mb-6 gradient-bg overflow-hidden"
                   >
-                    {selectedProject.thumbnail === "Bot" && <Bot className="w-32 h-32 text-white" />}
-                    {selectedProject.thumbnail === "Palette" && <Palette className="w-32 h-32 text-white" />}
-                    {selectedProject.thumbnail === "ShoppingBag" && <ShoppingBag className="w-32 h-32 text-white" />}
+                    {selectedProject.thumbnailUrl ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={selectedProject.thumbnailUrl} alt={selectedProject.title} className="w-full h-full object-cover" />
+                    ) : (
+                      (() => { const Icon = iconMap[selectedProject.thumbnail]; return Icon ? <Icon className="w-32 h-32 text-white" /> : null; })()
+                    )}
                   </div>
 
                   {/* Title */}
