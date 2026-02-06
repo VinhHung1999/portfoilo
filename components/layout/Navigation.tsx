@@ -133,6 +133,7 @@ export default function Navigation() {
             className="md:hidden flex flex-col gap-1.5 w-6 h-6 p-3 -m-3 relative z-50"
             onClick={() => setIsOpen(!isOpen)}
             animate={isOpen ? "open" : "closed"}
+            aria-label="Toggle menu"
           >
             <motion.span
               variants={hamburgerTop}

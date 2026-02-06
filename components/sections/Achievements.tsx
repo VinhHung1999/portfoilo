@@ -81,7 +81,7 @@ export default function Achievements() {
                   <div
                     className="w-16 h-16 rounded-full flex items-center justify-center"
                     style={{
-                      background: "linear-gradient(135deg, var(--gradient-violet) 0%, var(--gradient-blue) 100%)",
+                      background: "linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%)",
                     }}
                   >
                     <IconComponent className="w-8 h-8" style={{ color: "#ffffff" }} />
