@@ -3,9 +3,11 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
-import { skillCategories } from "@/data/skills";
+import { skillCategories as defaultData } from "@/data/skills";
+import type { SkillCategory } from "@/data/types";
 
-export default function Skills() {
+export default function Skills({ data }: { data?: SkillCategory[] }) {
+  const skillCategories = data ?? defaultData;
   const ref = useRef(null);
   const isInView = useInView(ref, viewportConfig);
 

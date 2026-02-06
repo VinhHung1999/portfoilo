@@ -4,10 +4,11 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { Bot, Palette, ShoppingBag } from "lucide-react";
 import { sectionVariants, itemVariants, cardHoverVariants, viewportConfig } from "@/lib/animations";
-import { projects } from "@/data/projects";
+import { projects as defaultData } from "@/data/projects";
 import { Project } from "@/data/types";
 
-export default function Projects() {
+export default function Projects({ data }: { data?: Project[] }) {
+  const projects = data ?? defaultData;
   const ref = useRef(null);
   const isInView = useInView(ref, viewportConfig);
 

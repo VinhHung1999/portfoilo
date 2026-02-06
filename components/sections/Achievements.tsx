@@ -4,7 +4,8 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Trophy, Award, Star, Medal, Sparkles } from "lucide-react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
-import { achievements } from "@/data/achievements";
+import { achievements as defaultData } from "@/data/achievements";
+import type { Achievement } from "@/data/types";
 
 const iconMap = {
   trophy: Trophy,
@@ -14,7 +15,8 @@ const iconMap = {
   sparkles: Sparkles,
 };
 
-export default function Achievements() {
+export default function Achievements({ data }: { data?: Achievement[] }) {
+  const achievements = data ?? defaultData;
   const ref = useRef(null);
   const isInView = useInView(ref, viewportConfig);
 

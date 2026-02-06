@@ -5,8 +5,14 @@ import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
 import Achievements from "@/components/sections/Achievements";
 import Contact from "@/components/sections/Contact";
+import { getPortfolioContent } from "@/lib/content";
 
-export default function Home() {
+// Force dynamic rendering so content is fetched at runtime from Blob
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const content = await getPortfolioContent();
+
   return (
     <>
       <Navigation />
@@ -14,7 +20,7 @@ export default function Home() {
       <main className="overflow-y-auto">
         {/* Section 1: Hero + About (Merged) */}
         <section>
-          <HeroAbout />
+          <HeroAbout data={content.personal} />
         </section>
 
         {/* Separator: Violet → Blue gradient line */}
@@ -22,7 +28,7 @@ export default function Home() {
 
         {/* Section 2: Experience */}
         <section>
-          <Experience />
+          <Experience data={content.experience} />
         </section>
 
         {/* Separator */}
@@ -30,7 +36,7 @@ export default function Home() {
 
         {/* Section 3: Projects */}
         <section>
-          <Projects />
+          <Projects data={content.projects} />
         </section>
 
         {/* Separator */}
@@ -38,7 +44,7 @@ export default function Home() {
 
         {/* Section 4: Skills */}
         <section>
-          <Skills />
+          <Skills data={content.skills} />
         </section>
 
         {/* Separator */}
@@ -46,7 +52,7 @@ export default function Home() {
 
         {/* Section 5: Achievements */}
         <section>
-          <Achievements />
+          <Achievements data={content.achievements} />
         </section>
 
         {/* Separator */}
@@ -54,7 +60,7 @@ export default function Home() {
 
         {/* Section 6: Contact */}
         <section>
-          <Contact />
+          <Contact data={content.personal} />
         </section>
       </main>
     </>
