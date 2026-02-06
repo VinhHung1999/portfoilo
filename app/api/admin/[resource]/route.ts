@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFile } from "fs/promises";
-import { put, list } from "@vercel/blob";
+import { put, del, list } from "@vercel/blob";
 import path from "path";
 
 const VALID_RESOURCES = [
@@ -61,9 +61,20 @@ async function readResource(resource: Resource): Promise<unknown> {
   return JSON.parse(content);
 }
 
-/** Write resource data to Vercel Blob */
+/** Write resource data to Vercel Blob (delete old blob first, then write new) */
 async function writeResource(resource: Resource, data: unknown): Promise<void> {
   const blobKey = getBlobKey(resource);
+
+  // Delete existing blob(s) for this resource to avoid conflicts
+  try {
+    const { blobs } = await list({ prefix: blobKey });
+    if (blobs.length > 0) {
+      await del(blobs.map((b) => b.url));
+    }
+  } catch {
+    // Ignore delete errors — put will still work for first write
+  }
+
   const json = JSON.stringify(data, null, 2);
   await put(blobKey, json, {
     access: "public",
