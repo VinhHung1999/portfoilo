@@ -15,14 +15,14 @@ export default function HeroAbout() {
         hidden: { opacity: 0 },
         show: {
           opacity: 1,
-          transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+          transition: { staggerChildren: 0.05, delayChildren: 0.1 },
         },
       }
     : {
         hidden: { opacity: 0 },
         show: {
           opacity: 1,
-          transition: { staggerChildren: 0.15, delayChildren: 0.3 },
+          transition: { staggerChildren: 0.08, delayChildren: 0.1 },
         },
       };
 
@@ -31,16 +31,16 @@ export default function HeroAbout() {
         hidden: { opacity: 0 },
         show: {
           opacity: 1,
-          transition: { duration: 0.3 },
+          transition: { duration: 0.2 },
         },
       }
     : {
-        hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
+        hidden: { opacity: 0, y: 30, filter: "blur(2px)" },
         show: {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+          transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
         },
       };
 
@@ -49,16 +49,16 @@ export default function HeroAbout() {
         hidden: { opacity: 0 },
         show: {
           opacity: 1,
-          transition: { duration: 0.3 },
+          transition: { duration: 0.2 },
         },
       }
     : {
-        hidden: { opacity: 0, y: 60, filter: "blur(4px)" },
+        hidden: { opacity: 0, y: 30, filter: "blur(2px)" },
         show: {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+          transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
         },
       };
 
@@ -67,16 +67,16 @@ export default function HeroAbout() {
         hidden: { opacity: 0 },
         show: {
           opacity: 1,
-          transition: { duration: 0.3 },
+          transition: { duration: 0.2 },
         },
       }
     : {
-        hidden: { opacity: 0, scale: 0.8, filter: "blur(4px)" },
+        hidden: { opacity: 0, scale: 0.95, filter: "blur(2px)" },
         show: {
           opacity: 1,
           scale: 1,
           filter: "blur(0px)",
-          transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+          transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
         },
       };
 
