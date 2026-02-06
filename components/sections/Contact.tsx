@@ -4,9 +4,11 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail, MapPin, Briefcase, Github, Linkedin, Twitter } from "lucide-react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
-import { personalInfo } from "@/data/personal";
+import { personalInfo as defaultData } from "@/data/personal";
+import type { PersonalInfo } from "@/data/types";
 
-export default function Contact() {
+export default function Contact({ data }: { data?: PersonalInfo }) {
+  const personalInfo = data ?? defaultData;
   const ref = useRef(null);
   const isInView = useInView(ref, viewportConfig);
 

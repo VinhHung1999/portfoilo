@@ -5,9 +5,11 @@ import { MapPin, Target, Briefcase, Globe, User } from "lucide-react";
 import { scrollToSection } from "@/lib/scroll";
 import { scrollIndicatorVariants } from "@/lib/animations";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { personalInfo } from "@/data/personal";
+import { personalInfo as defaultData } from "@/data/personal";
+import type { PersonalInfo } from "@/data/types";
 
-export default function HeroAbout() {
+export default function HeroAbout({ data }: { data?: PersonalInfo }) {
+  const personalInfo = data ?? defaultData;
   const prefersReducedMotion = useReducedMotion();
 
   const container = prefersReducedMotion

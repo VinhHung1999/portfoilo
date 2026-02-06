@@ -3,9 +3,11 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
-import { experiences } from "@/data/experience";
+import { experiences as defaultData } from "@/data/experience";
+import type { Experience as ExperienceType } from "@/data/types";
 
-export default function Experience() {
+export default function Experience({ data }: { data?: ExperienceType[] }) {
+  const experiences = data ?? defaultData;
   const ref = useRef(null);
   const isInView = useInView(ref, viewportConfig);
 
