@@ -63,7 +63,7 @@ export default function Contact({ data }: { data?: PersonalInfo }) {
               </p>
             </div>
             <a
-              href="mailto:hello@hungpham.dev"
+              href={`mailto:${personalInfo.email}`}
               className="text-xl font-medium transition-colors cursor-pointer"
               style={{ color: "var(--text-primary)" }}
               onMouseEnter={(e) => {
@@ -73,7 +73,7 @@ export default function Contact({ data }: { data?: PersonalInfo }) {
                 e.currentTarget.style.color = "var(--text-primary)";
               }}
             >
-              hello@hungpham.dev
+              {personalInfo.email}
             </a>
           </div>
 
@@ -89,7 +89,7 @@ export default function Contact({ data }: { data?: PersonalInfo }) {
               className="text-xl font-medium"
               style={{ color: "var(--text-primary)" }}
             >
-              Ho Chi Minh City, Vietnam
+              {personalInfo.location}
             </p>
           </div>
 
@@ -105,7 +105,7 @@ export default function Contact({ data }: { data?: PersonalInfo }) {
               className="text-xl font-medium"
               style={{ color: "var(--text-primary)" }}
             >
-              Open to opportunities
+              {personalInfo.status}
             </p>
           </div>
 
@@ -160,7 +160,7 @@ export default function Contact({ data }: { data?: PersonalInfo }) {
         {/* Footer */}
         <div className="text-center mt-16">
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            © 2024 Hung Pham
+            © {new Date().getFullYear()} {personalInfo.name}
           </p>
         </div>
       </motion.div>
