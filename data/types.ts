@@ -45,11 +45,16 @@ export interface Experience {
 export interface Project {
   id: string;
   title: string;
-  description: string;
+  shortDescription: string;
+  fullDescription: string;
+  category: "web" | "mobile" | "ai";
+  year: number;
   thumbnail: string; // Icon name from Lucide: "Bot" | "Palette" | "ShoppingBag"
-  tags: string[];
-  link?: string;
-  github?: string;
+  images: string[];
+  techStack: string[];
+  features: string[];
+  liveUrl?: string;
+  codeUrl?: string;
 }
 
 // Skills

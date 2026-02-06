@@ -1,20 +1,4 @@
 import { SkillCategory } from "./types";
+import data from "@/content/skills.json";
 
-export const skillCategories: SkillCategory[] = [
-  {
-    category: "Languages",
-    skills: ["TypeScript", "Python", "JavaScript", "Java", "SQL"],
-  },
-  {
-    category: "AI/ML & LLM",
-    skills: ["LangChain", "Claude API", "OpenAI", "PyTorch", "TensorFlow"],
-  },
-  {
-    category: "Framework & Tools",
-    skills: ["React", "Next.js", "Vue.js", "Node.js", "FastAPI", "PostgreSQL", "Redis", "Docker", "AWS"],
-  },
-  {
-    category: "Method & Leadership",
-    skills: ["Agile", "Scrum", "Team Leadership", "Code Review", "Mentoring"],
-  },
-];
+export const skillCategories: SkillCategory[] = data;

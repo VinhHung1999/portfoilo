@@ -1,39 +1,4 @@
 import { Achievement } from "./types";
+import data from "@/content/achievements.json";
 
-export const achievements: Achievement[] = [
-  {
-    id: "1",
-    title: "Best Engineering Team",
-    description: "Led development of high-impact features serving millions of users",
-    date: "2023",
-    icon: "trophy",
-  },
-  {
-    id: "2",
-    title: "Innovation Award",
-    description: "Pioneered AI-powered solutions that improved user experience",
-    date: "2023",
-    icon: "sparkles",
-  },
-  {
-    id: "3",
-    title: "Technical Excellence",
-    description: "Recognized for outstanding code quality and system architecture",
-    date: "2022",
-    icon: "award",
-  },
-  {
-    id: "4",
-    title: "Team Player Award",
-    description: "Exceptional collaboration and mentorship within engineering team",
-    date: "2022",
-    icon: "medal",
-  },
-  {
-    id: "5",
-    title: "Rising Star",
-    description: "Rapid growth and significant contributions to company success",
-    date: "2021",
-    icon: "star",
-  },
-];
+export const achievements: Achievement[] = data as Achievement[];
