@@ -27,8 +27,8 @@ export default function AdminPage() {
     }
   }, [isLoading, isAuthenticated, router]);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     router.push("/admin/login");
   };
 

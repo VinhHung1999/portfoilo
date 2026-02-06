@@ -14,6 +14,7 @@ export interface PersonalInfo {
   location: string;
   status: string;
   languages: string;
+  avatar?: string; // URL to profile photo
   socialLinks: SocialLink[];
   quickFacts: QuickFact[];
 }
@@ -49,7 +50,8 @@ export interface Project {
   fullDescription: string;
   category: "web" | "mobile" | "ai";
   year: number;
-  thumbnail: string; // Icon name from Lucide: "Bot" | "Palette" | "ShoppingBag"
+  thumbnail: string; // Icon name from Lucide or URL to uploaded image
+  thumbnailUrl?: string; // URL to uploaded thumbnail image
   images: string[];
   techStack: string[];
   features: string[];

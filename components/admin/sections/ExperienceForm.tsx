@@ -31,7 +31,7 @@ export default function ExperienceForm({ onSuccess, onError }: ExperienceFormPro
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/experience", { headers: getAuthHeaders() });
+      const res = await fetch("/api/admin/experience", { headers: getAuthHeaders(), credentials: "include" });
       if (!res.ok) throw new Error("Failed to load");
       const json = await res.json();
       setItems(json);
@@ -53,6 +53,7 @@ export default function ExperienceForm({ onSuccess, onError }: ExperienceFormPro
       const res = await fetch("/api/admin/experience", {
         method: "PATCH",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+        credentials: "include",
         body: JSON.stringify(items),
       });
       if (!res.ok) throw new Error("Save failed");

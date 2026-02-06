@@ -2,25 +2,33 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-const AUTH_KEY = "admin_token";
-
 export function useAdminAuth() {
-  const [token, setToken] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Check auth status by making a lightweight API call
   useEffect(() => {
-    setToken(sessionStorage.getItem(AUTH_KEY));
-    setIsLoading(false);
+    fetch("/api/admin/personal", { credentials: "include" })
+      .then((res) => {
+        setIsAuthenticated(res.ok);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsAuthenticated(false);
+        setIsLoading(false);
+      });
   }, []);
 
   const login = useCallback(async (password: string): Promise<boolean> => {
     try {
-      const res = await fetch("/api/admin/personal", {
-        headers: { Authorization: `Bearer ${password}` },
+      const res = await fetch("/api/admin/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ password }),
       });
       if (res.ok) {
-        sessionStorage.setItem(AUTH_KEY, password);
-        setToken(password);
+        setIsAuthenticated(true);
         return true;
       }
       return false;
@@ -29,16 +37,19 @@ export function useAdminAuth() {
     }
   }, []);
 
-  const logout = useCallback(() => {
-    sessionStorage.removeItem(AUTH_KEY);
-    setToken(null);
+  const logout = useCallback(async () => {
+    await fetch("/api/admin/auth", {
+      method: "DELETE",
+      credentials: "include",
+    });
+    setIsAuthenticated(false);
   }, []);
 
-  return { token, isAuthenticated: !!token, isLoading, login, logout };
+  return { isAuthenticated, isLoading, login, logout };
 }
 
+// Cookie is httpOnly so we don't need to send headers manually.
+// fetch with credentials: "include" will send the cookie automatically.
 export function getAuthHeaders(): Record<string, string> {
-  if (typeof window === "undefined") return {};
-  const token = sessionStorage.getItem(AUTH_KEY);
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  return {};
 }

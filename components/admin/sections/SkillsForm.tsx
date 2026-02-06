@@ -29,7 +29,7 @@ export default function SkillsForm({ onSuccess, onError }: SkillsFormProps) {
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/skills", { headers: getAuthHeaders() });
+      const res = await fetch("/api/admin/skills", { headers: getAuthHeaders(), credentials: "include" });
       if (!res.ok) throw new Error("Failed to load");
       const json = await res.json();
       setItems(json);
@@ -51,6 +51,7 @@ export default function SkillsForm({ onSuccess, onError }: SkillsFormProps) {
       const res = await fetch("/api/admin/skills", {
         method: "PATCH",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+        credentials: "include",
         body: JSON.stringify(items),
       });
       if (!res.ok) throw new Error("Save failed");

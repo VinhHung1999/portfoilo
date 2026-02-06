@@ -32,7 +32,7 @@ export default function AchievementsForm({ onSuccess, onError }: AchievementsFor
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/achievements", { headers: getAuthHeaders() });
+      const res = await fetch("/api/admin/achievements", { headers: getAuthHeaders(), credentials: "include" });
       if (!res.ok) throw new Error("Failed to load");
       const json = await res.json();
       setItems(json);
@@ -54,6 +54,7 @@ export default function AchievementsForm({ onSuccess, onError }: AchievementsFor
       const res = await fetch("/api/admin/achievements", {
         method: "PATCH",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+        credentials: "include",
         body: JSON.stringify(items),
       });
       if (!res.ok) throw new Error("Save failed");

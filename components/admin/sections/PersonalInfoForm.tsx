@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import FormInput from "../forms/FormInput";
 import FormTextarea from "../forms/FormTextarea";
+import ImageUpload from "../forms/ImageUpload";
 import SectionHeader from "./SectionHeader";
 import AddButton from "./AddButton";
 import { SkeletonForm } from "../feedback/Skeleton";
@@ -23,7 +24,7 @@ export default function PersonalInfoForm({ onSuccess, onError }: PersonalInfoFor
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/personal", { headers: getAuthHeaders() });
+      const res = await fetch("/api/admin/personal", { headers: getAuthHeaders(), credentials: "include" });
       if (!res.ok) throw new Error("Failed to load");
       const json = await res.json();
       setData(json);
@@ -49,6 +50,7 @@ export default function PersonalInfoForm({ onSuccess, onError }: PersonalInfoFor
       const res = await fetch("/api/admin/personal", {
         method: "PATCH",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+        credentials: "include",
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error("Save failed");
@@ -112,6 +114,7 @@ export default function PersonalInfoForm({ onSuccess, onError }: PersonalInfoFor
       <FormInput label="Name" value={data.name} onChange={(v) => update("name", v)} required />
       <FormInput label="Tagline" value={data.tagline} onChange={(v) => update("tagline", v)} required />
       <FormTextarea label="Bio" value={data.bio} onChange={(v) => update("bio", v)} required />
+      <ImageUpload label="Profile Photo" value={data.avatar || null} onChange={(v) => update("avatar", v || undefined)} />
 
       {/* Contact & Location */}
       <div className="border-t pt-5 mt-2 mb-5" style={{ borderColor: "var(--border)" }}>
