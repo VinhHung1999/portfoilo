@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFile, writeFile } from "fs/promises";
+import { readFile } from "fs/promises";
+import { put, list } from "@vercel/blob";
 import path from "path";
 
 const VALID_RESOURCES = [
@@ -16,7 +17,11 @@ function isValidResource(resource: string): resource is Resource {
   return VALID_RESOURCES.includes(resource as Resource);
 }
 
-function getContentPath(resource: Resource): string {
+function getBlobKey(resource: Resource): string {
+  return `content/${resource}.json`;
+}
+
+function getLocalPath(resource: Resource): string {
   return path.join(process.cwd(), "content", `${resource}.json`);
 }
 
@@ -32,6 +37,39 @@ function checkAuth(request: NextRequest): boolean {
   if (authHeader?.startsWith("Bearer ") && authHeader.slice(7) === adminPassword) return true;
 
   return false;
+}
+
+/** Read resource data: Blob first, fallback to local JSON file */
+async function readResource(resource: Resource): Promise<unknown> {
+  // Try Vercel Blob first
+  try {
+    const blobKey = getBlobKey(resource);
+    const { blobs } = await list({ prefix: blobKey });
+    if (blobs.length > 0) {
+      const res = await fetch(blobs[0].url);
+      if (res.ok) {
+        return await res.json();
+      }
+    }
+  } catch {
+    // Blob not available (e.g. local dev without token), fall through
+  }
+
+  // Fallback to local filesystem
+  const filePath = getLocalPath(resource);
+  const content = await readFile(filePath, "utf-8");
+  return JSON.parse(content);
+}
+
+/** Write resource data to Vercel Blob */
+async function writeResource(resource: Resource, data: unknown): Promise<void> {
+  const blobKey = getBlobKey(resource);
+  const json = JSON.stringify(data, null, 2);
+  await put(blobKey, json, {
+    access: "public",
+    contentType: "application/json",
+    addRandomSuffix: false,
+  });
 }
 
 export async function GET(
@@ -52,9 +90,8 @@ export async function GET(
   }
 
   try {
-    const filePath = getContentPath(resource);
-    const content = await readFile(filePath, "utf-8");
-    return NextResponse.json(JSON.parse(content));
+    const data = await readResource(resource);
+    return NextResponse.json(data);
   } catch {
     return NextResponse.json(
       { error: "Failed to read content" },
@@ -91,11 +128,8 @@ export async function PATCH(
   }
 
   try {
-    const filePath = getContentPath(resource);
-
-    // Read existing content
-    const existing = await readFile(filePath, "utf-8");
-    const existingData = JSON.parse(existing);
+    // Read existing content (from Blob or local fallback)
+    const existingData = await readResource(resource);
 
     // For array resources, replace the entire array
     // For object resources (personal), merge fields
@@ -109,10 +143,11 @@ export async function PATCH(
       }
       updated = body;
     } else {
-      updated = { ...existingData, ...body };
+      updated = { ...existingData as Record<string, unknown>, ...body };
     }
 
-    await writeFile(filePath, JSON.stringify(updated, null, 2) + "\n", "utf-8");
+    // Write to Vercel Blob (works on serverless)
+    await writeResource(resource, updated);
     return NextResponse.json(updated);
   } catch {
     return NextResponse.json(
