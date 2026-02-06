@@ -76,8 +76,17 @@ export async function PATCH(
     );
   }
 
+  let body;
   try {
-    const body = await request.json();
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      { error: "Invalid JSON in request body" },
+      { status: 400 }
+    );
+  }
+
+  try {
     const filePath = getContentPath(resource);
 
     // Read existing content
