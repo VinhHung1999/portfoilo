@@ -4,78 +4,8 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { Bot, Palette, ShoppingBag } from "lucide-react";
 import { sectionVariants, itemVariants, cardHoverVariants, viewportConfig } from "@/lib/animations";
-
-interface Project {
-  id: string;
-  title: string;
-  shortDescription: string;
-  fullDescription: string;
-  category: "web" | "mobile" | "ai";
-  year: number;
-  thumbnail: string;
-  images: string[];
-  techStack: string[];
-  features: string[];
-  liveUrl?: string;
-  codeUrl?: string;
-}
-
-const projects: Project[] = [
-  {
-    id: "1",
-    title: "AI Multi-Agent System",
-    shortDescription: "Collaborative AI agents working together to solve complex tasks",
-    fullDescription:
-      "Built a multi-agent system using LangChain where AI agents collaborate autonomously. Features include task delegation, inter-agent communication, and real-time progress tracking.",
-    category: "ai",
-    year: 2024,
-    thumbnail: "Bot",
-    images: ["Bot"],
-    techStack: ["Python", "LangChain", "FastAPI", "React", "TypeScript"],
-    features: [
-      "Autonomous agent collaboration with role-based task distribution",
-      "Real-time progress monitoring and agent communication logs",
-      "Scalable architecture supporting multiple concurrent agent teams",
-    ],
-    liveUrl: "https://example.com",
-    codeUrl: "https://github.com",
-  },
-  {
-    id: "2",
-    title: "Portfolio Website",
-    shortDescription: "Modern portfolio with Deep Space Violet theme and smooth animations",
-    fullDescription:
-      "Interactive portfolio website built with Next.js 14, featuring scroll-snap pagination, progressive reveal animations, and a sophisticated Deep Space Violet design system.",
-    category: "web",
-    year: 2024,
-    thumbnail: "Palette",
-    images: ["Palette"],
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    features: [
-      "Pagination scroll with 100vh snap sections",
-      "Progressive reveal animations with blur effects",
-      "Professional motion design with refined easing",
-    ],
-  },
-  {
-    id: "3",
-    title: "E-Commerce Platform",
-    shortDescription: "Full-stack e-commerce with payment integration",
-    fullDescription:
-      "Complete e-commerce solution with product catalog, shopping cart, secure checkout, and payment processing. Admin dashboard for inventory management.",
-    category: "web",
-    year: 2023,
-    thumbnail: "ShoppingBag",
-    images: ["ShoppingBag"],
-    techStack: ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
-    features: [
-      "Secure payment processing with Stripe integration",
-      "Real-time inventory management and order tracking",
-      "Responsive design optimized for mobile shopping",
-    ],
-    liveUrl: "https://example.com",
-  },
-];
+import { projects } from "@/data/projects";
+import { Project } from "@/data/types";
 
 export default function Projects() {
   const ref = useRef(null);

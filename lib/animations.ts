@@ -33,8 +33,8 @@ export const sectionVariants = {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: [0.33, 1, 0.68, 1], // ease-out-cubic
-      when: "beforeChildren",
+      ease: [0.33, 1, 0.68, 1] as const,
+      when: "beforeChildren" as const,
       staggerChildren: 0.08
     }
   }
@@ -48,7 +48,7 @@ export const itemVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: [0.16, 1, 0.3, 1] // ease-out-expo
+      ease: [0.16, 1, 0.3, 1] as const,
     }
   }
 };
@@ -61,7 +61,7 @@ export const titleVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.16, 1, 0.3, 1]
+      ease: [0.16, 1, 0.3, 1] as const,
     }
   }
 };
@@ -75,7 +75,7 @@ export const subtitleVariants = {
     transition: {
       duration: 0.5,
       delay: 0.1,
-      ease: [0.16, 1, 0.3, 1]
+      ease: [0.16, 1, 0.3, 1] as const,
     }
   }
 };
@@ -124,7 +124,7 @@ export const scrollIndicatorVariants = {
     transition: {
       duration: 2,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: "easeInOut" as const,
     }
   }
 };
@@ -134,7 +134,7 @@ export const scrollIndicatorVariants = {
 export const viewportConfig = {
   once: true,
   amount: 0.1,  // Only need 10% visible (was 0.3)
-  margin: "0px"  // No viewport shrink (was -50px)
+  margin: "0px" as `${number}px`,  // No viewport shrink (was -50px)
 };
 
 // Helper to get variants based on reduced motion preference
