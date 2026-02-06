@@ -7,6 +7,7 @@ import FormInput from "../forms/FormInput";
 import FormTextarea from "../forms/FormTextarea";
 import TagInput from "../forms/TagInput";
 import IconSelect from "../forms/IconSelect";
+import ImageUpload from "../forms/ImageUpload";
 import SectionHeader from "./SectionHeader";
 import AddButton from "./AddButton";
 import EmptyState from "../feedback/EmptyState";
@@ -33,7 +34,7 @@ export default function ProjectsForm({ onSuccess, onError }: ProjectsFormProps) 
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/projects", { headers: getAuthHeaders() });
+      const res = await fetch("/api/admin/projects", { headers: getAuthHeaders(), credentials: "include" });
       if (!res.ok) throw new Error("Failed to load");
       const json = await res.json();
       setItems(json);
@@ -55,6 +56,7 @@ export default function ProjectsForm({ onSuccess, onError }: ProjectsFormProps) 
       const res = await fetch("/api/admin/projects", {
         method: "PATCH",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+        credentials: "include",
         body: JSON.stringify(items),
       });
       if (!res.ok) throw new Error("Save failed");
@@ -148,6 +150,7 @@ export default function ProjectsForm({ onSuccess, onError }: ProjectsFormProps) 
                       <IconSelect label="Thumbnail Icon" value={proj.thumbnail} onChange={(v) => updateItem(proj.id, "thumbnail", v)} options={THUMBNAIL_OPTIONS} />
                       <FormInput label="Category" value={proj.category} onChange={(v) => updateItem(proj.id, "category", v)} />
                     </div>
+                    <ImageUpload label="Thumbnail Image" value={proj.thumbnailUrl || null} onChange={(v) => updateItem(proj.id, "thumbnailUrl", v || undefined)} />
                     <TagInput label="Tech Stack" tags={proj.techStack} onChange={(v) => updateItem(proj.id, "techStack", v)} />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                       <FormInput label="Live URL" value={proj.liveUrl || ""} onChange={(v) => updateItem(proj.id, "liveUrl", v || undefined)} />

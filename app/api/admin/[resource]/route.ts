@@ -24,10 +24,14 @@ function checkAuth(request: NextRequest): boolean {
   const adminPassword = process.env.ADMIN_PASSWORD;
   if (!adminPassword) return false;
 
-  const authHeader = request.headers.get("authorization");
-  if (!authHeader?.startsWith("Bearer ")) return false;
+  // Check httpOnly cookie first, then Bearer token fallback
+  const cookieToken = request.cookies.get("admin_token")?.value;
+  if (cookieToken === adminPassword) return true;
 
-  return authHeader.slice(7) === adminPassword;
+  const authHeader = request.headers.get("authorization");
+  if (authHeader?.startsWith("Bearer ") && authHeader.slice(7) === adminPassword) return true;
+
+  return false;
 }
 
 export async function GET(
