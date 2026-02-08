@@ -80,15 +80,14 @@ export const subtitleVariants = {
   }
 };
 
-// Card lift on hover
+// Card lift on hover — uses CSS .card-hover class for theme-aware glow
 export const cardHoverVariants = {
   rest: {
     y: 0,
-    boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+    boxShadow: "0 4px 12px var(--shadow-md-raw, rgba(0,0,0,0.1))"
   },
   hover: {
     y: -8,
-    boxShadow: "0 20px 40px rgba(123, 51, 125, 0.15)",
     transition: { duration: 0.3, ease: [0.33, 1, 0.68, 1] }
   }
 };
@@ -102,16 +101,14 @@ export const imageZoomVariants = {
   }
 };
 
-// Button hover/tap states
+// Button hover/tap states — theme-aware via CSS variables
 export const buttonVariants = {
   hover: {
-    backgroundColor: "#a34da6",
-    boxShadow: "0 0 20px rgba(123, 51, 125, 0.3)",
+    boxShadow: "0 0 20px var(--cta-glow)",
     transition: { duration: 0.2 }
   },
   tap: {
     scale: 0.98,
-    backgroundColor: "#552357",
     transition: { duration: 0.1 }
   }
 };

@@ -12,22 +12,19 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
+  // Read initial theme from DOM (set by inline script in layout.tsx)
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof document !== "undefined") {
+      return (document.documentElement.getAttribute("data-theme") as Theme) || "light";
+    }
+    return "light";
+  });
 
   useEffect(() => {
-    setMounted(true);
-    // Check localStorage or system preference
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    } else {
-      // Default to light mode (professional preference)
-      const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const initialTheme = systemPrefersDark ? "dark" : "light";
-      setTheme(initialTheme);
-      document.documentElement.setAttribute("data-theme", initialTheme);
+    // Sync React state with what the inline script already set
+    const current = document.documentElement.getAttribute("data-theme") as Theme | null;
+    if (current && current !== theme) {
+      setTheme(current);
     }
   }, []);
 
@@ -37,11 +34,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("theme", newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
   };
-
-  // Prevent flash of unstyled content
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
