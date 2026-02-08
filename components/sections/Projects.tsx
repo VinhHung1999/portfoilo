@@ -7,7 +7,7 @@ import { Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Ro
 const iconMap: Record<string, typeof Bot> = {
   Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout,
 };
-import { sectionVariants, itemVariants, cardHoverVariants, viewportConfig } from "@/lib/animations";
+import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 import { projects as defaultData } from "@/data/projects";
 import { Project } from "@/data/types";
 

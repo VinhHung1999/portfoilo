@@ -5,12 +5,14 @@ import { useState, useEffect } from "react";
 import { scrollToSection as scrollTo } from "@/lib/scroll";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useTheme } from "@/lib/theme";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
   const { theme } = useTheme();
+  const activeSection = useActiveSection();
 
   useEffect(() => {
     return scrollY.on("change", (latest) => {
@@ -97,28 +99,44 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <button
-                key={link.name}
-                onClick={() => scrollToSection(link.href.substring(1))}
-                className="text-sm font-medium uppercase tracking-wider transition-colors relative group py-3 px-4 cursor-pointer"
-                style={{
-                  color: "var(--text-secondary)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--cta)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--text-secondary)";
-                }}
-              >
-                {link.name}
-                <span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
-                  style={{ backgroundColor: "var(--cta)" }}
-                />
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const sectionId = link.href.substring(1);
+              const isActive = activeSection === sectionId;
+              return (
+                <button
+                  key={link.name}
+                  onClick={() => scrollToSection(sectionId)}
+                  className="text-sm font-medium uppercase tracking-wider transition-colors relative group py-3 px-4 cursor-pointer"
+                  style={{
+                    color: isActive ? "var(--cta)" : "var(--text-secondary)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) e.currentTarget.style.color = "var(--cta)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) e.currentTarget.style.color = "var(--text-secondary)";
+                  }}
+                >
+                  {link.name}
+                  {/* Hover underline (hidden when active) */}
+                  {!isActive && (
+                    <span
+                      className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
+                      style={{ backgroundColor: "var(--cta)" }}
+                    />
+                  )}
+                  {/* Active gradient underline */}
+                  {isActive && (
+                    <span
+                      className="absolute bottom-0 left-0 w-full h-0.5 rounded-sm"
+                      style={{
+                        background: "linear-gradient(90deg, var(--gradient-start), var(--gradient-end))",
+                      }}
+                    />
+                  )}
+                </button>
+              );
+            })}
 
             {/* Theme Toggle */}
             <ThemeToggle />
@@ -163,24 +181,37 @@ export default function Navigation() {
         className="fixed top-0 right-0 bottom-0 w-80 z-40 md:hidden flex flex-col items-center justify-center gap-8 px-8"
         style={{ backgroundColor: "var(--bg-primary)" }}
       >
-        {navLinks.map((link, index) => (
-          <motion.button
-            key={link.name}
-            onClick={() => scrollToSection(link.href.substring(1))}
-            variants={menuItemVariants}
-            transition={{ delay: index * 0.1 }}
-            className="text-2xl font-semibold transition-all py-4 px-6 min-h-[56px]"
-            style={{ color: "var(--text-primary)" }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = "var(--cta)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = "var(--text-primary)";
-            }}
-          >
-            {link.name}
-          </motion.button>
-        ))}
+        {navLinks.map((link, index) => {
+          const sectionId = link.href.substring(1);
+          const isActive = activeSection === sectionId;
+          return (
+            <motion.button
+              key={link.name}
+              onClick={() => scrollToSection(sectionId)}
+              variants={menuItemVariants}
+              transition={{ delay: index * 0.1 }}
+              className="relative text-2xl font-semibold transition-all py-4 px-6 min-h-[56px]"
+              style={{ color: isActive ? "var(--cta)" : "var(--text-primary)" }}
+              onMouseEnter={(e) => {
+                if (!isActive) e.currentTarget.style.color = "var(--cta)";
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) e.currentTarget.style.color = isActive ? "var(--cta)" : "var(--text-primary)";
+              }}
+            >
+              {/* Active left accent bar */}
+              {isActive && (
+                <span
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-8 rounded-sm"
+                  style={{
+                    background: "linear-gradient(180deg, var(--gradient-start), var(--gradient-end))",
+                  }}
+                />
+              )}
+              {link.name}
+            </motion.button>
+          );
+        })}
       </motion.div>
 
       {/* Mobile Menu Overlay */}
