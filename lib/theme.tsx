@@ -21,11 +21,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    // Sync React state with what the inline script already set
-    const current = document.documentElement.getAttribute("data-theme") as Theme | null;
-    if (current && current !== theme) {
-      setTheme(current);
-    }
+    // After hydration, re-apply theme from localStorage (hydration may strip data-theme)
+    const saved = localStorage.getItem("theme") as Theme | null;
+    const resolved = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", resolved);
+    setTheme(resolved);
   }, []);
 
   const toggleTheme = () => {

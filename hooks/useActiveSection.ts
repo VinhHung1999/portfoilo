@@ -55,12 +55,18 @@ export function useActiveSection(): string {
       }
     };
 
+    // Mobile-friendly: lower threshold + less aggressive bottom margin
+    // On 375px screen, -40% cuts 150px — too much for backward scroll detection
+    const isMobile = window.innerWidth < 768;
+    const threshold = isMobile ? 0.1 : 0.3;
+    const rootMargin = isMobile ? "-64px 0px -20% 0px" : "-80px 0px -40% 0px";
+
     SECTION_IDS.forEach((id) => {
       const el = document.getElementById(id);
       if (el) {
         const observer = new IntersectionObserver(handleIntersect, {
-          threshold: 0.3,
-          rootMargin: "-80px 0px -40% 0px",
+          threshold,
+          rootMargin,
         });
         observer.observe(el);
         observers.push(observer);
