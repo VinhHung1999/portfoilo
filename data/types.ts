@@ -60,9 +60,14 @@ export interface Project {
 }
 
 // Skills
+export interface SkillItem {
+  name: string;
+  proficiency: number; // 0-100
+}
+
 export interface SkillCategory {
   category: string;
-  skills: string[];
+  skills: (string | SkillItem)[];
 }
 
 // Achievements

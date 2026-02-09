@@ -168,6 +168,76 @@
     background-color: var(--bg-primary);
   }
 
+  /* ===== Sprint 11: Gradient Mesh Blob Keyframes ===== */
+  @keyframes blob-drift-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -50px) scale(1.05); }
+    50% { transform: translate(-20px, 20px) scale(0.95); }
+    75% { transform: translate(40px, 30px) scale(1.02); }
+  }
+  @keyframes blob-drift-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-40px, -30px) scale(1.08); }
+    66% { transform: translate(30px, 40px) scale(0.92); }
+  }
+  @keyframes blob-drift-3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-50px, 30px) rotate(30deg); }
+  }
+
+  .hero-blob {
+    position: absolute;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    will-change: transform;
+    pointer-events: none;
+  }
+  .hero-blob-1 {
+    width: 500px; height: 500px;
+    top: -10%; left: 10%;
+    background: rgba(124, 58, 237, 0.08);
+    filter: blur(80px);
+    animation: blob-drift-1 25s infinite;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  .hero-blob-2 {
+    width: 400px; height: 400px;
+    top: 60%; left: 50%;
+    background: rgba(37, 99, 235, 0.06);
+    filter: blur(100px);
+    animation: blob-drift-2 30s infinite;
+    border-radius: 50% 30% 50% 70% / 50% 60% 30% 60%;
+  }
+  .hero-blob-3 {
+    width: 350px; height: 350px;
+    top: -5%; left: 70%;
+    background: rgba(124, 58, 237, 0.05);
+    filter: blur(70px);
+    animation: blob-drift-3 20s infinite;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  [data-theme="dark"] .hero-blob-1 { background: rgba(124, 58, 237, 0.15); }
+  [data-theme="dark"] .hero-blob-2 { background: rgba(59, 130, 246, 0.12); }
+  [data-theme="dark"] .hero-blob-3 { background: rgba(124, 58, 237, 0.10); }
+
+  @media (max-width: 768px) {
+    .hero-blob-1 { width: 350px; height: 350px; }
+    .hero-blob-2 { width: 280px; height: 280px; }
+    .hero-blob-3 { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-blob { animation: none !important; }
+  }
+
+  /* ===== Sprint 11: Skill Bar Hover ===== */
+  .skill-bar-fill {
+    transition: filter 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+  .skill-bar-fill:hover {
+    filter: brightness(1.15);
+    box-shadow: 0 0 12px var(--cta-glow);
+  }
+
   /* Skeleton shimmer animation */
   @keyframes shimmer {
     0% { background-position: 200% 0; }
