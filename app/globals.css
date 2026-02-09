@@ -282,6 +282,67 @@
     background-color: rgba(123, 51, 125, 0.1);
   }
 
+  /* ===== Sprint 12: Chat UI Keyframes ===== */
+  @keyframes typing-dot {
+    0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-3px); }
+  }
+  @keyframes typing-dot-reduced {
+    0%, 60%, 100% { opacity: 0.3; }
+    30% { opacity: 1; }
+  }
+  @keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @keyframes chat-fab-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(124, 58, 237, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+  }
+  [data-theme="dark"] .chat-fab-pulse {
+    animation-name: chat-fab-pulse-dark;
+  }
+  @keyframes chat-fab-pulse-dark {
+    0% { box-shadow: 0 0 0 0 rgba(123, 51, 125, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(123, 51, 125, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(123, 51, 125, 0); }
+  }
+
+  /* Chat markdown styling */
+  .chat-markdown p { margin: 0; }
+  .chat-markdown p + p { margin-top: 8px; }
+  .chat-markdown strong { font-weight: 600; }
+  .chat-markdown code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--bg-secondary);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  [data-theme="dark"] .chat-markdown code {
+    background: var(--bg-tertiary);
+  }
+  .chat-markdown a {
+    color: var(--cta);
+    text-decoration: underline;
+  }
+  .chat-markdown a:hover { color: var(--cta-hover); }
+  .chat-markdown ul, .chat-markdown ol {
+    padding-left: 16px;
+    margin: 4px 0;
+  }
+  .chat-markdown li { color: var(--text-primary); }
+  .chat-markdown li::marker { color: var(--text-muted); }
+
+  /* Chat window scrollbar (webkit) */
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 9999px;
+  }
+
   /* Mobile-specific optimizations */
   @media (max-width: 768px) {
     /* Reduce motion for better mobile performance */
