@@ -28,8 +28,8 @@
     --bg-separator: #E2E8F0;
 
     /* Teal gradient */
-    --gradient-start: #5B8A85;
-    --gradient-end: #3D6B66;
+    --gradient-start: #2A7C72;
+    --gradient-end: #64B5AC;
 
     /* Spacing */
     --space-1: 4px;
@@ -86,8 +86,8 @@
     --accent-primary: #6DB5AD;
 
     /* Teal gradient */
-    --gradient-start: #6DB5AD;
-    --gradient-end: #5B8A85;
+    --gradient-start: #5BADA3;
+    --gradient-end: #92D5CE;
 
     /* Shadows (dark mode) */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
