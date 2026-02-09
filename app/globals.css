@@ -335,6 +335,21 @@
   .chat-markdown li { color: var(--text-primary); }
   .chat-markdown li::marker { color: var(--text-muted); }
 
+  /* Chat header buttons — touch-friendly hover/active via CSS */
+  .chat-header-btn {
+    background: transparent;
+    color: var(--text-muted);
+    transition: background-color 150ms, color 150ms;
+  }
+  .chat-header-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+  .chat-header-btn:active {
+    background-color: var(--border);
+    color: var(--text-primary);
+  }
+
   /* Chat window scrollbar (webkit) */
   .chat-messages::-webkit-scrollbar { width: 4px; }
   .chat-messages::-webkit-scrollbar-track { background: transparent; }
