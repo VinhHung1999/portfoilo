@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { sectionVariants, viewportConfig } from "@/lib/animations";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -15,6 +15,9 @@ export default function Experience({ data }: { data?: ExperienceType[] }) {
   const isInView = useInView(ref, viewportConfig);
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useIsMobile();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   // Scroll-driven timeline line (P0-4)
   const { scrollYProgress } = useScroll({
@@ -23,7 +26,10 @@ export default function Experience({ data }: { data?: ExperienceType[] }) {
   });
   const lineScaleY = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
 
-  // Alternating card variants (desktop: left/right, mobile: slide-up)
+  // Safe-by-default: y-only until hydrated and confirmed desktop
+  const isDesktop = mounted && !isMobile;
+
+  // Alternating card variants (desktop: left/right, mobile/SSR: slide-up)
   const getCardVariants = (index: number) => {
     if (prefersReducedMotion) {
       return {
@@ -31,23 +37,24 @@ export default function Experience({ data }: { data?: ExperienceType[] }) {
         visible: { opacity: 1, transition: { duration: 0.2, delay: index * 0.1 } },
       };
     }
-    if (isMobile) {
+    if (isDesktop) {
+      // Desktop: alternate left/right (only after hydration confirms desktop)
+      const fromRight = index % 2 === 0;
       return {
-        hidden: { opacity: 0, y: 30 },
+        hidden: { opacity: 0, x: fromRight ? 60 : -60 },
         visible: {
           opacity: 1,
-          y: 0,
+          x: 0,
           transition: { duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] as const },
         },
       };
     }
-    // Desktop: alternate left/right
-    const fromRight = index % 2 === 0;
+    // Mobile / SSR default: safe y-only slide-up
     return {
-      hidden: { opacity: 0, x: fromRight ? 60 : -60 },
+      hidden: { opacity: 0, y: 30 },
       visible: {
         opacity: 1,
-        x: 0,
+        y: 0,
         transition: { duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] as const },
       },
     };
