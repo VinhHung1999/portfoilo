@@ -2,34 +2,34 @@
 @import "tailwindcss";
 
 @layer base {
-  /* Light Mode — Charcoal & Warm Stone */
+  /* Light Mode — Slate & Teal */
   :root {
     /* Background Colors */
-    --bg-primary: #FAFAF8;
-    --bg-secondary: #F2F0EC;
-    --bg-tertiary: #E6E3DD;
-    --bg-alternate: #F5F4F0;
+    --bg-primary: #FAFAFA;
+    --bg-secondary: #F0F2F4;
+    --bg-tertiary: #E2E6EA;
+    --bg-alternate: #F4F6F8;
 
     /* Text Colors */
-    --text-primary: #1A1A1A;
-    --text-secondary: #4A4744;
-    --text-muted: #8A8580;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
 
     /* UI Colors */
-    --border: #DDD9D3;
-    --cta: #9B7B6B;
-    --cta-hover: #876758;
-    --cta-glow: rgba(155, 123, 107, 0.2);
+    --border: #E2E8F0;
+    --cta: #5B8A85;
+    --cta-hover: #4A7570;
+    --cta-glow: rgba(91, 138, 133, 0.2);
 
     /* Accent */
-    --accent-primary: #1A1A1A;
+    --accent-primary: #0F172A;
 
     /* Section separator */
-    --bg-separator: #DDD9D3;
+    --bg-separator: #E2E8F0;
 
-    /* Warm stone gradient */
-    --gradient-start: #9B7B6B;
-    --gradient-end: #7A6458;
+    /* Teal gradient */
+    --gradient-start: #5B8A85;
+    --gradient-end: #3D6B66;
 
     /* Spacing */
     --space-1: 4px;
@@ -51,9 +51,9 @@
     --radius-full: 9999px;
 
     /* Shadows (light mode) */
-    --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.04);
-    --shadow-md: 0 4px 12px rgba(26, 26, 26, 0.06);
-    --shadow-lg: 0 8px 24px rgba(26, 26, 26, 0.09);
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.07);
+    --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.10);
     --shadow-glow: 0 0 40px var(--cta-glow);
 
     /* Transitions */
@@ -62,32 +62,32 @@
     --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  /* Dark Mode — Charcoal & Warm Stone */
+  /* Dark Mode — Slate & Teal */
   [data-theme="dark"] {
     /* Background Colors */
-    --bg-primary: #121210;
-    --bg-secondary: #1C1B18;
-    --bg-tertiary: #2A2825;
-    --bg-alternate: #0E0E0C;
-    --bg-separator: #0E0E0C;
+    --bg-primary: #0F172A;
+    --bg-secondary: #1E293B;
+    --bg-tertiary: #334155;
+    --bg-alternate: #0B1222;
+    --bg-separator: #0B1222;
 
     /* Text Colors */
-    --text-primary: #EDE9E3;
-    --text-secondary: #B0AAA2;
-    --text-muted: #706B65;
+    --text-primary: #E2E8F0;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
 
-    /* UI Colors — Warm stone accent */
-    --border: #2E2C28;
-    --cta: #B8957F;
-    --cta-hover: #CCAA96;
-    --cta-glow: rgba(184, 149, 127, 0.2);
+    /* UI Colors — Teal accent */
+    --border: #1E293B;
+    --cta: #6DB5AD;
+    --cta-hover: #85C7C0;
+    --cta-glow: rgba(109, 181, 173, 0.2);
 
     /* Accent */
-    --accent-primary: #B8957F;
+    --accent-primary: #6DB5AD;
 
-    /* Warm stone gradient */
-    --gradient-start: #B8957F;
-    --gradient-end: #9B7B6B;
+    /* Teal gradient */
+    --gradient-start: #6DB5AD;
+    --gradient-end: #5B8A85;
 
     /* Shadows (dark mode) */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
@@ -190,7 +190,7 @@
   .hero-blob-1 {
     width: 500px; height: 500px;
     top: -10%; left: 10%;
-    background: rgba(155, 123, 107, 0.08);
+    background: rgba(91, 138, 133, 0.08);
     filter: blur(80px);
     animation: blob-drift-1 25s infinite;
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
@@ -198,7 +198,7 @@
   .hero-blob-2 {
     width: 400px; height: 400px;
     top: 60%; left: 50%;
-    background: rgba(155, 123, 107, 0.06);
+    background: rgba(91, 138, 133, 0.06);
     filter: blur(100px);
     animation: blob-drift-2 30s infinite;
     border-radius: 50% 30% 50% 70% / 50% 60% 30% 60%;
@@ -206,14 +206,14 @@
   .hero-blob-3 {
     width: 350px; height: 350px;
     top: -5%; left: 70%;
-    background: rgba(155, 123, 107, 0.05);
+    background: rgba(91, 138, 133, 0.05);
     filter: blur(70px);
     animation: blob-drift-3 20s infinite;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
-  [data-theme="dark"] .hero-blob-1 { background: rgba(184, 149, 127, 0.15); }
-  [data-theme="dark"] .hero-blob-2 { background: rgba(155, 123, 107, 0.12); }
-  [data-theme="dark"] .hero-blob-3 { background: rgba(184, 149, 127, 0.10); }
+  [data-theme="dark"] .hero-blob-1 { background: rgba(109, 181, 173, 0.15); }
+  [data-theme="dark"] .hero-blob-2 { background: rgba(91, 138, 133, 0.12); }
+  [data-theme="dark"] .hero-blob-3 { background: rgba(109, 181, 173, 0.10); }
 
   @media (max-width: 768px) {
     .hero-blob-1 { width: 350px; height: 350px; }
@@ -270,12 +270,12 @@
 
   /* Touch feedback */
   .touch-feedback:active {
-    background-color: rgba(155, 123, 107, 0.1);
+    background-color: rgba(91, 138, 133, 0.1);
     transition: background-color 0.1s;
   }
 
   [data-theme="dark"] .touch-feedback:active {
-    background-color: rgba(184, 149, 127, 0.1);
+    background-color: rgba(109, 181, 173, 0.1);
   }
 
   /* Mobile-specific optimizations */
