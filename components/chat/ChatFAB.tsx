@@ -1,17 +1,29 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import ChatWindow from "./ChatWindow";
+import type { Message } from "./MessageBubble";
 
 export default function ChatFAB() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPulse, setShowPulse] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
+  const fabRef = useRef<HTMLButtonElement>(null);
+
+  // BUG 2 FIX: Lift messages state to parent so it persists across open/close
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isStreaming, setIsStreaming] = useState(false);
+
+  // BUG 1 FIX: Track mounted state for SSR-safe animations
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Pulse animation after 3s on page load (once)
   useEffect(() => {
@@ -20,29 +32,46 @@ export default function ChatFAB() {
     return () => clearTimeout(timer);
   }, [reducedMotion]);
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     setIsOpen((prev) => !prev);
     setShowPulse(false);
-  };
+  }, []);
 
-  const handleClose = () => setIsOpen(false);
-  const handleMinimize = () => setIsOpen(false);
+  // BUG 3 FIX: Return focus to FAB on close
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    // Delay to let animation finish, then focus FAB
+    setTimeout(() => fabRef.current?.focus(), 300);
+  }, []);
 
-  // Hide FAB on mobile when chat is open
-  const fabHidden = isMobile && isOpen;
+  const handleMinimize = useCallback(() => {
+    setIsOpen(false);
+    setTimeout(() => fabRef.current?.focus(), 250);
+  }, []);
+
+  // Hide FAB on mobile when chat is open (only after mounted to avoid SSR mismatch)
+  const fabHidden = mounted && isMobile && isOpen;
 
   return (
     <>
-      {/* Chat Window */}
-      <AnimatePresence>
-        {isOpen && (
-          <ChatWindow onClose={handleClose} onMinimize={handleMinimize} />
-        )}
-      </AnimatePresence>
+      {/* BUG 2 FIX: Always render ChatWindow, control visibility via isOpen prop */}
+      {/* BUG 1 FIX: Don't render until mounted to avoid SSR animation mismatch */}
+      {mounted && (
+        <ChatWindow
+          isOpen={isOpen}
+          onClose={handleClose}
+          onMinimize={handleMinimize}
+          messages={messages}
+          setMessages={setMessages}
+          isStreaming={isStreaming}
+          setIsStreaming={setIsStreaming}
+        />
+      )}
 
       {/* FAB Button */}
       {!fabHidden && (
         <button
+          ref={fabRef}
           onClick={handleToggle}
           className="fixed z-40 flex items-center justify-center w-[56px] h-[56px] rounded-full border-none cursor-pointer gradient-bg"
           style={{

@@ -1,7 +1,14 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle } from "lucide-react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -11,25 +18,80 @@ import ChatInput from "./ChatInput";
 import type { Message } from "./MessageBubble";
 
 interface Props {
+  isOpen: boolean;
   onClose: () => void;
   onMinimize: () => void;
+  messages: Message[];
+  setMessages: Dispatch<SetStateAction<Message[]>>;
+  isStreaming: boolean;
+  setIsStreaming: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function ChatWindow({ onClose, onMinimize }: Props) {
+export default function ChatWindow({
+  isOpen,
+  onClose,
+  onMinimize,
+  messages,
+  setMessages,
+  isStreaming,
+  setIsStreaming,
+}: Props) {
   const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
+  // BUG 3 FIX: Focus trap — trap Tab inside chat dialog when open
   useEffect(() => {
+    if (!isOpen) return;
+
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (e.key !== "Tab") return;
+
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
+
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  }, [isOpen, onClose]);
+
+  // BUG 3 FIX: Auto-focus input when chat opens
+  useEffect(() => {
+    if (!isOpen) return;
+    // Small delay to let animation start, then focus first input
+    const timer = setTimeout(() => {
+      const input = dialogRef.current?.querySelector("input");
+      input?.focus();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [isOpen]);
 
   // Cleanup abort controller on unmount
   useEffect(() => {
@@ -55,21 +117,29 @@ export default function ChatWindow({ onClose, onMinimize }: Props) {
         content: "",
       };
 
+      // BUG 4 FIX: Use functional setState to avoid reading stale `messages` during render
       setMessages((prev) => [...prev, userMsg, aiMsg]);
       setIsStreaming(true);
 
-      // Build message history for API
-      const apiMessages = [...messages, userMsg].map((m) => ({
-        role: m.role,
-        content: m.content,
-      }));
+      // Build message history for API using functional approach
+      let apiMessages: { role: string; content: string }[];
+      setMessages((prev) => {
+        // Read current state inside functional update, but don't mutate
+        apiMessages = prev
+          .filter((m) => m.id !== aiMsg.id) // exclude the empty placeholder
+          .map((m) => ({ role: m.role, content: m.content }));
+        return prev; // no change
+      });
+
+      // Wait a tick for the functional setState to execute
+      await new Promise((r) => setTimeout(r, 0));
 
       try {
         abortRef.current = new AbortController();
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: apiMessages }),
+          body: JSON.stringify({ messages: apiMessages! }),
           signal: abortRef.current.signal,
         });
 
@@ -106,19 +176,23 @@ export default function ChatWindow({ onClose, onMinimize }: Props) {
         abortRef.current = null;
       }
     },
-    [isStreaming, messages]
+    [isStreaming, setMessages, setIsStreaming]
   );
 
   const retryLast = useCallback(() => {
-    const lastUserMsg = [...messages].reverse().find((m) => m.role === "user");
-    if (lastUserMsg) {
-      // Remove error state and retry
-      setError(null);
-      sendMessage(lastUserMsg.content);
-    }
-  }, [messages, sendMessage]);
+    setMessages((prev) => {
+      const lastUserMsg = [...prev].reverse().find((m) => m.role === "user");
+      if (lastUserMsg) {
+        setError(null);
+        // Schedule sendMessage outside of this setState
+        setTimeout(() => sendMessage(lastUserMsg.content), 0);
+      }
+      return prev;
+    });
+  }, [sendMessage, setMessages]);
 
-  // Animation variants
+  // BUG 1 FIX: SSR-safe animation variants
+  // isMobile is correct here because ChatWindow is only rendered after mounted=true in ChatFAB
   const desktopVariants = reducedMotion
     ? { hidden: { opacity: 0 }, visible: { opacity: 1 }, exit: { opacity: 0 } }
     : {
@@ -138,59 +212,72 @@ export default function ChatWindow({ onClose, onMinimize }: Props) {
   const variants = isMobile ? mobileVariants : desktopVariants;
 
   return (
-    <motion.div
-      role="dialog"
-      aria-label="Chat with AI assistant"
-      variants={variants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      transition={
-        isMobile
-          ? { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
-          : { duration: 0.25, ease: [0.16, 1, 0.3, 1] }
-      }
-      className={`fixed z-40 flex flex-col ${
-        isMobile
-          ? "inset-0 w-screen"
-          : "bottom-[96px] right-[24px] w-[380px] max-h-[520px] min-h-[360px] rounded-[var(--radius-lg)]"
-      }`}
-      style={{
-        backgroundColor: isMobile ? "var(--bg-primary)" : "var(--bg-primary)",
-        border: isMobile ? "none" : "1px solid var(--border)",
-        boxShadow: isMobile ? "none" : "var(--shadow-lg)",
-        height: isMobile ? "100dvh" : undefined,
-        transformOrigin: isMobile ? undefined : "bottom right",
-      }}
-    >
-      <ChatHeader onClose={onClose} onMinimize={onMinimize} />
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          ref={dialogRef}
+          role="dialog"
+          aria-label="Chat with AI assistant"
+          aria-modal="true"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          transition={
+            isMobile
+              ? { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+              : { duration: 0.25, ease: [0.16, 1, 0.3, 1] }
+          }
+          className={`fixed z-40 flex flex-col ${
+            isMobile
+              ? "inset-0 w-screen"
+              : "bottom-[96px] right-[24px] w-[380px] max-h-[520px] min-h-[360px] rounded-[var(--radius-lg)]"
+          }`}
+          style={{
+            backgroundColor: "var(--bg-primary)",
+            border: isMobile ? "none" : "1px solid var(--border)",
+            boxShadow: isMobile ? "none" : "var(--shadow-lg)",
+            height: isMobile ? "100dvh" : undefined,
+            transformOrigin: isMobile ? undefined : "bottom right",
+          }}
+        >
+          <ChatHeader onClose={onClose} onMinimize={onMinimize} />
 
-      <MessageList
-        messages={messages}
-        isStreaming={isStreaming}
-        onSendSuggestion={sendMessage}
-      />
+          <MessageList
+            messages={messages}
+            isStreaming={isStreaming}
+            onSendSuggestion={sendMessage}
+          />
 
-      {error && (
-        <div className="px-[16px] pb-[8px]">
-          <div
-            className="flex items-center gap-[8px] px-[14px] py-[10px] rounded-[16px_16px_16px_4px] text-[14px]"
-            style={{ backgroundColor: "var(--bg-tertiary)", color: "var(--text-secondary)" }}
-          >
-            <AlertCircle size={16} className="shrink-0" style={{ color: "#EF4444" }} />
-            <span>Oops, something went wrong.</span>
-            <button
-              onClick={retryLast}
-              className="font-medium cursor-pointer border-none bg-transparent hover:underline"
-              style={{ color: "var(--cta)" }}
-            >
-              Retry
-            </button>
-          </div>
-        </div>
+          {error && (
+            <div className="px-[16px] pb-[8px]">
+              <div
+                className="flex items-center gap-[8px] px-[14px] py-[10px] rounded-[16px_16px_16px_4px] text-[14px]"
+                style={{
+                  backgroundColor: "var(--bg-tertiary)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                <AlertCircle
+                  size={16}
+                  className="shrink-0"
+                  style={{ color: "#EF4444" }}
+                />
+                <span>Oops, something went wrong.</span>
+                <button
+                  onClick={retryLast}
+                  className="font-medium cursor-pointer border-none bg-transparent hover:underline"
+                  style={{ color: "var(--cta)" }}
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          )}
+
+          <ChatInput onSend={sendMessage} disabled={isStreaming} />
+        </motion.div>
       )}
-
-      <ChatInput onSend={sendMessage} disabled={isStreaming} />
-    </motion.div>
+    </AnimatePresence>
   );
 }
