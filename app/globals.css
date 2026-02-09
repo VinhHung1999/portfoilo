@@ -2,36 +2,34 @@
 @import "tailwindcss";
 
 @layer base {
-  /* Light Mode - Default (Professional Portfolio) */
+  /* Light Mode — Obsidian & Gold */
   :root {
     /* Background Colors */
     --bg-primary: #FFFFFF;
-    --bg-secondary: #FAFAFA;
-    --bg-tertiary: #F4F4F5;
-    --bg-alternate: #F8F8FA; /* Subtle alternate for visual rhythm */
+    --bg-secondary: #F8F7F5;
+    --bg-tertiary: #EFEDE8;
+    --bg-alternate: #F3F1EC;
 
     /* Text Colors */
-    --text-primary: #09090B;
-    --text-secondary: #3F3F46;
-    --text-muted: #71717A;
+    --text-primary: #1A1A1A;
+    --text-secondary: #4A4A4A;
+    --text-muted: #8A8A8A;
 
     /* UI Colors */
-    --border: #E4E4E7;
-    --cta: #2563EB;
-    --cta-hover: #1D4ED8;
-    --cta-glow: rgba(37, 99, 235, 0.3);
+    --border: #E0DDD6;
+    --cta: #B8860B;
+    --cta-hover: #996F09;
+    --cta-glow: rgba(184, 134, 11, 0.25);
 
-    /* Accent (for highlights) */
-    --accent-primary: #18181B;
-    --accent-light: #3F3F46;
-    --accent-dark: #09090B;
+    /* Accent */
+    --accent-primary: #1A1A1A;
 
     /* Section separator */
-    --bg-separator: #E4E4E7;
+    --bg-separator: #E0DDD6;
 
-    /* Violet to Blue gradient colors */
-    --gradient-start: #7C3AED;
-    --gradient-end: #2563EB;
+    /* Gold gradient */
+    --gradient-start: #B8860B;
+    --gradient-end: #D4A017;
 
     /* Spacing */
     --space-1: 4px;
@@ -52,48 +50,46 @@
     --radius-xl: 24px;
     --radius-full: 9999px;
 
-    /* Shadows (light mode: subtle) */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
-    --shadow-glow: 0 0 40px var(--accent-glow);
+    /* Shadows (light mode) */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10);
+    --shadow-glow: 0 0 40px var(--cta-glow);
 
-    /* Transitions - Professional Only (No Bouncy) */
+    /* Transitions */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
     --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  /* Dark Mode - Professional Developer Theme */
+  /* Dark Mode — Obsidian & Gold */
   [data-theme="dark"] {
     /* Background Colors */
-    --bg-primary: #09090B;
-    --bg-secondary: #18181B;
-    --bg-tertiary: #27272A;
-    --bg-alternate: #000000; /* True black for section separation */
-    --bg-separator: #000000; /* Section dividers */
+    --bg-primary: #0C0C0C;
+    --bg-secondary: #161616;
+    --bg-tertiary: #222222;
+    --bg-alternate: #0A0A0A;
+    --bg-separator: #0A0A0A;
 
     /* Text Colors */
-    --text-primary: #FAFAFA;
-    --text-secondary: #D4D4D8;
-    --text-muted: #71717A;
+    --text-primary: #F5F2EB;
+    --text-secondary: #C8C2B6;
+    --text-muted: #8A8580;
 
-    /* UI Colors - Violet to Blue transition */
-    --border: #3F3F46;
-    --cta: #3B82F6;
-    --cta-hover: #60A5FA;
-    --cta-glow: rgba(59, 130, 246, 0.3);
+    /* UI Colors — Gold accent */
+    --border: #2E2C28;
+    --cta: #D4A017;
+    --cta-hover: #E8B830;
+    --cta-glow: rgba(212, 160, 23, 0.3);
 
-    /* Accent (Violet - for gradients) */
-    --accent-primary: #7B337D;
-    --accent-light: #a34da6;
-    --accent-dark: #552357;
+    /* Accent */
+    --accent-primary: #D4A017;
 
-    /* Violet to Blue gradient colors */
-    --gradient-start: #7B337D;
-    --gradient-end: #3B82F6;
+    /* Gold gradient */
+    --gradient-start: #D4A017;
+    --gradient-end: #B8860B;
 
-    /* Shadows (dark mode: stronger) */
+    /* Shadows (dark mode) */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -194,7 +190,7 @@
   .hero-blob-1 {
     width: 500px; height: 500px;
     top: -10%; left: 10%;
-    background: rgba(124, 58, 237, 0.08);
+    background: rgba(184, 134, 11, 0.08);
     filter: blur(80px);
     animation: blob-drift-1 25s infinite;
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
@@ -202,7 +198,7 @@
   .hero-blob-2 {
     width: 400px; height: 400px;
     top: 60%; left: 50%;
-    background: rgba(37, 99, 235, 0.06);
+    background: rgba(212, 160, 23, 0.06);
     filter: blur(100px);
     animation: blob-drift-2 30s infinite;
     border-radius: 50% 30% 50% 70% / 50% 60% 30% 60%;
@@ -210,14 +206,14 @@
   .hero-blob-3 {
     width: 350px; height: 350px;
     top: -5%; left: 70%;
-    background: rgba(124, 58, 237, 0.05);
+    background: rgba(184, 134, 11, 0.05);
     filter: blur(70px);
     animation: blob-drift-3 20s infinite;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
-  [data-theme="dark"] .hero-blob-1 { background: rgba(124, 58, 237, 0.15); }
-  [data-theme="dark"] .hero-blob-2 { background: rgba(59, 130, 246, 0.12); }
-  [data-theme="dark"] .hero-blob-3 { background: rgba(124, 58, 237, 0.10); }
+  [data-theme="dark"] .hero-blob-1 { background: rgba(212, 160, 23, 0.15); }
+  [data-theme="dark"] .hero-blob-2 { background: rgba(184, 134, 11, 0.12); }
+  [data-theme="dark"] .hero-blob-3 { background: rgba(212, 160, 23, 0.10); }
 
   @media (max-width: 768px) {
     .hero-blob-1 { width: 350px; height: 350px; }
@@ -227,15 +223,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero-blob { animation: none !important; }
-  }
-
-  /* ===== Sprint 11: Skill Bar Hover ===== */
-  .skill-bar-fill {
-    transition: filter 0.2s ease-out, box-shadow 0.2s ease-out;
-  }
-  .skill-bar-fill:hover {
-    filter: brightness(1.15);
-    box-shadow: 0 0 12px var(--cta-glow);
   }
 
   /* Skeleton shimmer animation */
@@ -283,12 +270,12 @@
 
   /* Touch feedback */
   .touch-feedback:active {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: rgba(184, 134, 11, 0.1);
     transition: background-color 0.1s;
   }
 
   [data-theme="dark"] .touch-feedback:active {
-    background-color: rgba(123, 51, 125, 0.1);
+    background-color: rgba(212, 160, 23, 0.1);
   }
 
   /* Mobile-specific optimizations */

@@ -12,12 +12,7 @@ import ConfirmModal from "../feedback/ConfirmModal";
 import { SkeletonList } from "../feedback/Skeleton";
 import { Zap } from "lucide-react";
 import { getAuthHeaders } from "@/lib/admin-auth";
-import type { SkillCategory, SkillItem } from "@/data/types";
-
-/** Extract skill names from mixed string/SkillItem array */
-function getSkillNames(skills: (string | SkillItem)[]): string[] {
-  return skills.map((s) => (typeof s === "string" ? s : s.name));
-}
+import type { SkillCategory } from "@/data/types";
 
 interface SkillsFormProps {
   onSuccess: (msg: string) => void;
@@ -131,7 +126,7 @@ export default function SkillsForm({ onSuccess, onError }: SkillsFormProps) {
                 {editingIdx === idx ? (
                   <div className="p-4 space-y-1">
                     <FormInput label="Category Name" value={cat.category} onChange={(v) => updateItem(idx, "category", v)} required />
-                    <TagInput label="Skills" tags={getSkillNames(cat.skills)} onChange={(v) => updateItem(idx, "skills", v)} />
+                    <TagInput label="Skills" tags={cat.skills} onChange={(v) => updateItem(idx, "skills", v)} />
                     <div className="flex justify-end gap-3 pt-2">
                       <button onClick={() => setEditingIdx(null)} className="px-4 py-2 text-sm rounded-lg border cursor-pointer" style={{ color: "var(--text-secondary)", borderColor: "var(--border)" }}>Done</button>
                     </div>
@@ -140,7 +135,7 @@ export default function SkillsForm({ onSuccess, onError }: SkillsFormProps) {
                   <div className="p-4 flex items-center justify-between">
                     <div>
                       <p className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>{cat.category || "Untitled Category"}</p>
-                      <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{getSkillNames(cat.skills).join(", ")}</p>
+                      <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{cat.skills.join(", ")}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <button onClick={() => setEditingIdx(idx)} className="p-2 rounded transition-colors cursor-pointer" style={{ color: "var(--text-muted)" }} onMouseEnter={(e) => { e.currentTarget.style.color = "var(--cta)"; }} onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-muted)"; }} aria-label="Edit"><Pencil size={16} /></button>

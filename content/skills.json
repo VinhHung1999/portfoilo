@@ -1,46 +1,18 @@
 [
   {
     "category": "Languages",
-    "skills": [
-      { "name": "TypeScript", "proficiency": 92 },
-      { "name": "Python", "proficiency": 88 },
-      { "name": "JavaScript", "proficiency": 85 },
-      { "name": "Java", "proficiency": 65 },
-      { "name": "SQL", "proficiency": 70 }
-    ]
+    "skills": ["TypeScript", "Python", "JavaScript", "Java", "SQL"]
   },
   {
     "category": "AI/ML & LLM",
-    "skills": [
-      { "name": "LangChain", "proficiency": 90 },
-      { "name": "Claude API", "proficiency": 88 },
-      { "name": "OpenAI", "proficiency": 82 },
-      { "name": "PyTorch", "proficiency": 60 },
-      { "name": "TensorFlow", "proficiency": 55 }
-    ]
+    "skills": ["LangChain", "Claude API", "OpenAI", "PyTorch", "TensorFlow"]
   },
   {
     "category": "Framework & Tools",
-    "skills": [
-      { "name": "React", "proficiency": 92 },
-      { "name": "Next.js", "proficiency": 90 },
-      { "name": "Vue.js", "proficiency": 70 },
-      { "name": "Node.js", "proficiency": 85 },
-      { "name": "FastAPI", "proficiency": 82 },
-      { "name": "PostgreSQL", "proficiency": 78 },
-      { "name": "Redis", "proficiency": 72 },
-      { "name": "Docker", "proficiency": 75 },
-      { "name": "AWS", "proficiency": 70 }
-    ]
+    "skills": ["React", "Next.js", "Vue.js", "Node.js", "FastAPI", "PostgreSQL", "Redis", "Docker", "AWS"]
   },
   {
     "category": "Method & Leadership",
-    "skills": [
-      { "name": "Agile", "proficiency": 90 },
-      { "name": "Scrum", "proficiency": 88 },
-      { "name": "Team Leadership", "proficiency": 85 },
-      { "name": "Code Review", "proficiency": 92 },
-      { "name": "Mentoring", "proficiency": 88 }
-    ]
+    "skills": ["Agile", "Scrum", "Team Leadership", "Code Review", "Mentoring"]
   }
 ]

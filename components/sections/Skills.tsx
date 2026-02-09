@@ -5,68 +5,13 @@ import { useRef } from "react";
 import { sectionVariants, viewportConfig } from "@/lib/animations";
 import { skillCategories as defaultData } from "@/data/skills";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useCountUp } from "@/hooks/useCountUp";
-import type { SkillCategory, SkillItem } from "@/data/types";
+import type { SkillCategory } from "@/data/types";
 
-/** Normalize skill data: support both string[] and SkillItem[] formats */
-function normalizeSkill(skill: string | SkillItem, index: number): SkillItem {
-  if (typeof skill === "string") {
-    return { name: skill, proficiency: Math.max(50, 90 - index * 5) };
-  }
-  return skill;
-}
-
-/** Single skill bar with animated fill + counter */
-function SkillBar({
-  skill,
-  inView,
-  delay,
-  prefersReducedMotion,
-}: {
-  skill: SkillItem;
-  inView: boolean;
-  delay: number;
-  prefersReducedMotion: boolean;
-}) {
-  const count = useCountUp(skill.proficiency, inView && !prefersReducedMotion, delay);
-  const displayValue = prefersReducedMotion ? skill.proficiency : count;
-
-  return (
-    <div className="flex items-center gap-3">
-      {/* Bar container */}
-      <div className="flex-1 relative" style={{ height: 32, borderRadius: "var(--radius-full)", backgroundColor: "var(--bg-tertiary)" }}>
-        {/* Skill name inside bar */}
-        <span
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-[13px] font-medium z-[2]"
-          style={{ color: "var(--text-primary)" }}
-        >
-          {skill.name}
-        </span>
-        {/* Animated fill */}
-        <motion.div
-          className="absolute inset-y-0 left-0 skill-bar-fill"
-          style={{
-            borderRadius: "var(--radius-full)",
-            background: "linear-gradient(90deg, var(--gradient-start), var(--gradient-end))",
-          }}
-          initial={{ width: "0%" }}
-          animate={inView ? { width: `${skill.proficiency}%` } : { width: "0%" }}
-          transition={
-            prefersReducedMotion
-              ? { duration: 0 }
-              : { duration: 1.0, delay, ease: [0.16, 1, 0.3, 1] }
-          }
-        />
-      </div>
-      {/* Percentage counter */}
-      <span
-        className="text-[13px] font-semibold w-10 text-right tabular-nums"
-        style={{ color: "var(--cta)" }}
-      >
-        {displayValue}%
-      </span>
-    </div>
-  );
+/** Determine grid span based on skill count */
+function getCardSpan(skillCount: number): string {
+  if (skillCount >= 5) return "col-span-2 row-span-2";
+  if (skillCount >= 3) return "col-span-2 md:col-span-1 row-span-2";
+  return "col-span-1 row-span-1";
 }
 
 export default function Skills({ data }: { data?: SkillCategory[] }) {
@@ -100,49 +45,65 @@ export default function Skills({ data }: { data?: SkillCategory[] }) {
           </p>
         </div>
 
-        {/* Category Cards with Progress Bars */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {skillCategories.map((category, catIndex) => {
-            const normalizedSkills = category.skills.map((s, i) => normalizeSkill(s, i));
-            return (
-              <motion.div
-                key={category.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={
-                  prefersReducedMotion
-                    ? { duration: 0.2 }
-                    : { duration: 0.5, delay: catIndex * 0.15, ease: [0.16, 1, 0.3, 1] }
-                }
-                className="rounded-2xl border p-6"
-                style={{
-                  backgroundColor: "var(--bg-secondary)",
-                  borderColor: "var(--border)",
-                }}
+        {/* Bento Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-min">
+          {skillCategories.map((category, catIndex) => (
+            <motion.div
+              key={category.category}
+              className={`${getCardSpan(category.skills.length)} rounded-2xl border p-5 transition-all cursor-default`}
+              style={{
+                backgroundColor: "var(--bg-secondary)",
+                borderColor: "var(--border)",
+              }}
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, scale: 0.9, y: 20 }
+              }
+              animate={
+                isInView
+                  ? { opacity: 1, scale: 1, y: 0 }
+                  : prefersReducedMotion
+                    ? { opacity: 0 }
+                    : { opacity: 0, scale: 0.9, y: 20 }
+              }
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0.2 }
+                  : { duration: 0.5, delay: catIndex * 0.06, ease: [0.16, 1, 0.3, 1] }
+              }
+              whileHover={{
+                y: -4,
+                boxShadow: "0 12px 32px var(--cta-glow)",
+                borderColor: "var(--cta)",
+                transition: { duration: 0.2 },
+              }}
+            >
+              {/* Category Name */}
+              <h3
+                className="text-xs uppercase tracking-wider font-semibold mb-3"
+                style={{ color: "var(--text-muted)" }}
               >
-                {/* Category Title */}
-                <h3
-                  className="text-sm uppercase tracking-wider font-semibold mb-4"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  {category.category}
-                </h3>
+                {category.category}
+              </h3>
 
-                {/* Skill Bars */}
-                <div className="flex flex-col gap-2.5">
-                  {normalizedSkills.map((skill, skillIndex) => (
-                    <SkillBar
-                      key={skill.name}
-                      skill={skill}
-                      inView={isInView}
-                      delay={catIndex * 0.15 + skillIndex * 0.08}
-                      prefersReducedMotion={prefersReducedMotion}
-                    />
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
+              {/* Skill Pills */}
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium"
+                    style={{
+                      backgroundColor: "var(--bg-tertiary)",
+                      color: "var(--text-secondary)",
+                    }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </motion.div>
     </section>

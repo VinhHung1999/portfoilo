@@ -139,7 +139,7 @@ export default function HeroAbout({ data }: { data?: PersonalInfo }) {
               <div
                 className="absolute inset-0 rounded-3xl opacity-40"
                 style={{
-                  boxShadow: "0 0 40px rgba(123, 51, 125, 0.3)",
+                  boxShadow: "0 0 40px var(--cta-glow)",
                   zIndex: -1,
                 }}
               />
@@ -406,7 +406,7 @@ export default function HeroAbout({ data }: { data?: PersonalInfo }) {
               <div
                 className="absolute inset-0 rounded-3xl opacity-40"
                 style={{
-                  boxShadow: "0 0 40px rgba(123, 51, 125, 0.3)",
+                  boxShadow: "0 0 40px var(--cta-glow)",
                   zIndex: -1,
                 }}
               />
