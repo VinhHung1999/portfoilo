@@ -71,7 +71,7 @@ export default function Experience({ data }: { data?: ExperienceType[] }) {
     <section
       id="experience"
       ref={sectionRef}
-      className="flex flex-col relative py-16 md:py-20"
+      className="flex flex-col relative py-16 md:py-20 overflow-x-hidden"
     >
       <div className="px-6 md:px-12 flex flex-col">
         <motion.div
