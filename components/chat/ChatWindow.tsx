@@ -235,10 +235,10 @@ export default function ChatWindow({
               ? { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
               : { duration: 0.25, ease: [0.16, 1, 0.3, 1] }
           }
-          className={`fixed z-40 flex flex-col ${
+          className={`fixed flex flex-col ${
             isMobile
-              ? "inset-0 w-screen"
-              : "bottom-[96px] right-[24px] w-[380px] max-h-[520px] min-h-[360px] rounded-[var(--radius-lg)]"
+              ? "inset-0 w-screen z-50"
+              : "bottom-[96px] right-[24px] w-[380px] max-h-[520px] min-h-[360px] rounded-[var(--radius-lg)] z-40"
           }`}
           style={{
             backgroundColor: "var(--bg-primary)",
