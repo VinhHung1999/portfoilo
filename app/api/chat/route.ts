@@ -1,81 +1,85 @@
 import { NextRequest } from "next/server";
 import { ChatXAI } from "@langchain/xai";
 import { HumanMessage, SystemMessage, AIMessage } from "@langchain/core/messages";
-import personalData from "@/content/personal.json";
-import skillsData from "@/content/skills.json";
-import experienceData from "@/content/experience.json";
-import projectsData from "@/content/projects.json";
-import achievementsData from "@/content/achievements.json";
+import { list } from "@vercel/blob";
+import { getPortfolioContent } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 
-function buildSystemPrompt(): string {
-  const skills = skillsData
-    .map(
-      (cat: { category: string; skills: string[] }) =>
-        `${cat.category}: ${cat.skills.join(", ")}`
-    )
+/** Read custom context from Vercel Blob, fallback to empty string */
+async function readCustomContext(): Promise<string> {
+  try {
+    const { blobs } = await list({ prefix: "chatbot/custom-context.txt" });
+    if (blobs.length > 0) {
+      const res = await fetch(blobs[0].url, { cache: "no-store" });
+      if (res.ok) return await res.text();
+    }
+  } catch {
+    // Blob not available (local dev)
+  }
+  return "";
+}
+
+async function buildSystemPrompt(): Promise<string> {
+  const { personal, experience, projects, skills, achievements } =
+    await getPortfolioContent();
+
+  const skillsText = skills
+    .map((cat) => `${cat.category}: ${cat.skills.join(", ")}`)
     .join("\n");
 
-  const experience = experienceData
+  const experienceText = experience
     .map(
-      (exp: {
-        company: string;
-        role: string;
-        startDate: string;
-        endDate: string | null;
-        achievements: string[];
-        techStack: string[];
-      }) =>
+      (exp) =>
         `${exp.role} at ${exp.company} (${exp.startDate} – ${exp.endDate ?? "Present"})\n` +
         `  Achievements: ${exp.achievements.join("; ")}\n` +
         `  Tech: ${exp.techStack.join(", ")}`
     )
     .join("\n\n");
 
-  const projects = projectsData
+  const projectsText = projects
     .map(
-      (p: {
-        title: string;
-        shortDescription: string;
-        techStack: string[];
-        features: string[];
-      }) =>
+      (p) =>
         `${p.title}: ${p.shortDescription}\n` +
         `  Tech: ${p.techStack.join(", ")}\n` +
         `  Features: ${p.features.join("; ")}`
     )
     .join("\n\n");
 
-  const achievements = achievementsData
-    .map(
-      (a: { title: string; description: string; date: string }) =>
-        `${a.title} (${a.date}): ${a.description}`
-    )
+  const achievementsText = achievements
+    .map((a) => `${a.title} (${a.date}): ${a.description}`)
     .join("\n");
 
-  return `You are an AI assistant on ${personalData.name}'s portfolio website. You answer questions about ${personalData.name}'s background, skills, experience, and projects.
+  const customContext = await readCustomContext();
 
-Be friendly, concise, and professional. If asked something outside the portfolio context, politely redirect to topics about ${personalData.name}.
+  return `You are an AI assistant on ${personal.name}'s portfolio website.
 
-## About ${personalData.name}
-${personalData.tagline}
-${personalData.bio}
-Location: ${personalData.location}
-Status: ${personalData.status}
-Languages: ${personalData.languages}
+## Instructions
+- Answer questions about ${personal.name}'s background, skills, experience, and projects.
+- Be friendly, concise, and professional. Keep answers short (2-4 sentences) unless the user asks for detail.
+- Detect the language of the user's message and reply in the SAME language. If they write in Vietnamese, reply in Vietnamese. If English, reply in English.
+- If asked something unrelated to ${personal.name}'s portfolio (e.g., general knowledge, coding help, personal opinions), politely redirect: "I'm here to help you learn about ${personal.name}. Feel free to ask about skills, projects, or experience!"
+- Never make up information not present in the data below. If unsure, say so.
+- Use markdown formatting sparingly: bold for emphasis, bullet lists for multiple items.
+
+## About ${personal.name}
+${personal.tagline}
+${personal.bio}
+Location: ${personal.location}
+Status: ${personal.status}
+Languages: ${personal.languages}
 
 ## Skills
-${skills}
+${skillsText}
 
 ## Experience
-${experience}
+${experienceText}
 
 ## Projects
-${projects}
+${projectsText}
 
 ## Achievements
-${achievements}`;
+${achievementsText}${customContext ? `\n\n## Additional Context\n${customContext}` : ""}`;
 }
 
 interface ChatRequestMessage {
@@ -115,7 +119,7 @@ export async function POST(request: NextRequest) {
     temperature: 0.7,
   });
 
-  const systemPrompt = buildSystemPrompt();
+  const systemPrompt = await buildSystemPrompt();
 
   const langchainMessages = [
     new SystemMessage(systemPrompt),
@@ -134,9 +138,7 @@ export async function POST(request: NextRequest) {
       try {
         for await (const chunk of stream) {
           const text =
-            typeof chunk.content === "string"
-              ? chunk.content
-              : "";
+            typeof chunk.content === "string" ? chunk.content : "";
           if (text) {
             controller.enqueue(encoder.encode(text));
           }
@@ -144,9 +146,7 @@ export async function POST(request: NextRequest) {
       } catch (err) {
         const errorMsg =
           err instanceof Error ? err.message : "Stream error";
-        controller.enqueue(
-          encoder.encode(`\n[Error: ${errorMsg}]`)
-        );
+        controller.enqueue(encoder.encode(`\n[Error: ${errorMsg}]`));
       } finally {
         controller.close();
       }
