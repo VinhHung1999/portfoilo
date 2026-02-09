@@ -53,16 +53,7 @@ export default function ChatHeader({ onClose, onMinimize }: Props) {
           {!isMobile && (
             <button
               onClick={onMinimize}
-              className="flex items-center justify-center w-[32px] h-[32px] rounded-[var(--radius-md)] cursor-pointer border-none transition-colors duration-150"
-              style={{ background: "transparent", color: "var(--text-muted)" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "var(--bg-tertiary)";
-                e.currentTarget.style.color = "var(--text-primary)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.color = "var(--text-muted)";
-              }}
+              className="chat-header-btn flex items-center justify-center w-[44px] h-[44px] rounded-[var(--radius-md)] cursor-pointer border-none"
               aria-label="Minimize chat"
             >
               <Minus size={20} />
@@ -70,16 +61,7 @@ export default function ChatHeader({ onClose, onMinimize }: Props) {
           )}
           <button
             onClick={onClose}
-            className="flex items-center justify-center w-[32px] h-[32px] rounded-[var(--radius-md)] cursor-pointer border-none transition-colors duration-150"
-            style={{ background: "transparent", color: "var(--text-muted)" }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--bg-tertiary)";
-              e.currentTarget.style.color = "var(--text-primary)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "var(--text-muted)";
-            }}
+            className="chat-header-btn flex items-center justify-center w-[44px] h-[44px] rounded-[var(--radius-md)] cursor-pointer border-none"
             aria-label="Close chat"
           >
             <X size={20} />
