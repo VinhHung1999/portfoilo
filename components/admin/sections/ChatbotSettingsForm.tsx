@@ -223,10 +223,16 @@ export default function ChatbotSettingsForm({ onSuccess, onError }: Props) {
                 />
                 <button
                   onClick={() => removeQuestion(i)}
-                  className="p-1.5 rounded transition-colors cursor-pointer shrink-0 -mt-5"
-                  style={{ color: "var(--text-muted)" }}
+                  disabled={data.suggestedQuestions.length <= 1}
+                  className="p-1.5 rounded transition-colors shrink-0 -mt-5"
+                  style={{
+                    color: "var(--text-muted)",
+                    cursor: data.suggestedQuestions.length <= 1 ? "not-allowed" : "pointer",
+                    opacity: data.suggestedQuestions.length <= 1 ? 0.3 : 1,
+                  }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "#EF4444";
+                    if (data.suggestedQuestions.length > 1)
+                      e.currentTarget.style.color = "#EF4444";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.color = "var(--text-muted)";
