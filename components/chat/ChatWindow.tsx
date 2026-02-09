@@ -25,6 +25,8 @@ interface Props {
   setMessages: Dispatch<SetStateAction<Message[]>>;
   isStreaming: boolean;
   setIsStreaming: Dispatch<SetStateAction<boolean>>;
+  greeting?: string;
+  suggestedQuestions?: string[];
 }
 
 export default function ChatWindow({
@@ -35,6 +37,8 @@ export default function ChatWindow({
   setMessages,
   isStreaming,
   setIsStreaming,
+  greeting,
+  suggestedQuestions,
 }: Props) {
   const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
@@ -254,6 +258,8 @@ export default function ChatWindow({
             messages={messages}
             isStreaming={isStreaming}
             onSendSuggestion={sendMessage}
+            greeting={greeting}
+            suggestedQuestions={suggestedQuestions}
           />
 
           {error && (

@@ -1,24 +1,10 @@
 import { NextRequest } from "next/server";
 import { ChatXAI } from "@langchain/xai";
 import { HumanMessage, SystemMessage, AIMessage } from "@langchain/core/messages";
-import { list } from "@vercel/blob";
 import { getPortfolioContent } from "@/lib/content";
+import { readChatbotSettings } from "@/app/api/admin/chatbot-context/route";
 
 export const dynamic = "force-dynamic";
-
-/** Read custom context from Vercel Blob, fallback to empty string */
-async function readCustomContext(): Promise<string> {
-  try {
-    const { blobs } = await list({ prefix: "chatbot/custom-context.txt" });
-    if (blobs.length > 0) {
-      const res = await fetch(blobs[0].url, { cache: "no-store" });
-      if (res.ok) return await res.text();
-    }
-  } catch {
-    // Blob not available (local dev)
-  }
-  return "";
-}
 
 async function buildSystemPrompt(): Promise<string> {
   const { personal, experience, projects, skills, achievements } =
@@ -50,7 +36,11 @@ async function buildSystemPrompt(): Promise<string> {
     .map((a) => `${a.title} (${a.date}): ${a.description}`)
     .join("\n");
 
-  const customContext = await readCustomContext();
+  const chatbotSettings = await readChatbotSettings();
+
+  const topicsLine = chatbotSettings.suggestedTopics.length > 0
+    ? `\n- Focus areas: ${chatbotSettings.suggestedTopics.join(", ")}`
+    : "";
 
   return `You are an AI assistant on ${personal.name}'s portfolio website.
 
@@ -60,7 +50,7 @@ async function buildSystemPrompt(): Promise<string> {
 - Detect the language of the user's message and reply in the SAME language. If they write in Vietnamese, reply in Vietnamese. If English, reply in English.
 - If asked something unrelated to ${personal.name}'s portfolio (e.g., general knowledge, coding help, personal opinions), politely redirect: "I'm here to help you learn about ${personal.name}. Feel free to ask about skills, projects, or experience!"
 - Never make up information not present in the data below. If unsure, say so.
-- Use markdown formatting sparingly: bold for emphasis, bullet lists for multiple items.
+- Use markdown formatting sparingly: bold for emphasis, bullet lists for multiple items.${topicsLine}
 
 ## About ${personal.name}
 ${personal.tagline}
@@ -79,7 +69,7 @@ ${experienceText}
 ${projectsText}
 
 ## Achievements
-${achievementsText}${customContext ? `\n\n## Additional Context\n${customContext}` : ""}`;
+${achievementsText}${chatbotSettings.customInstructions ? `\n\n## Additional Context\n${chatbotSettings.customInstructions}` : ""}`;
 }
 
 interface ChatRequestMessage {

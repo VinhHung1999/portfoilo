@@ -13,6 +13,7 @@ import ExperienceForm from "@/components/admin/sections/ExperienceForm";
 import ProjectsForm from "@/components/admin/sections/ProjectsForm";
 import SkillsForm from "@/components/admin/sections/SkillsForm";
 import AchievementsForm from "@/components/admin/sections/AchievementsForm";
+import ChatbotSettingsForm from "@/components/admin/sections/ChatbotSettingsForm";
 import type { AdminSection } from "@/components/admin/layout/AdminSidebar";
 
 export default function AdminPage() {
@@ -55,6 +56,8 @@ export default function AdminPage() {
         return <SkillsForm onSuccess={success} onError={error} />;
       case "achievements":
         return <AchievementsForm onSuccess={success} onError={error} />;
+      case "chatbot":
+        return <ChatbotSettingsForm onSuccess={success} onError={error} />;
     }
   };
 
