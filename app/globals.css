@@ -2,34 +2,36 @@
 @import "tailwindcss";
 
 @layer base {
-  /* Light Mode — Slate & Teal */
+  /* Light Mode - Default (Professional Portfolio) */
   :root {
     /* Background Colors */
-    --bg-primary: #FAFAFA;
-    --bg-secondary: #F0F2F4;
-    --bg-tertiary: #E2E6EA;
-    --bg-alternate: #F4F6F8;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #FAFAFA;
+    --bg-tertiary: #F4F4F5;
+    --bg-alternate: #F8F8FA;
 
     /* Text Colors */
-    --text-primary: #0F172A;
-    --text-secondary: #475569;
-    --text-muted: #94A3B8;
+    --text-primary: #09090B;
+    --text-secondary: #3F3F46;
+    --text-muted: #71717A;
 
     /* UI Colors */
-    --border: #E2E8F0;
-    --cta: #5B8A85;
-    --cta-hover: #4A7570;
-    --cta-glow: rgba(91, 138, 133, 0.2);
+    --border: #E4E4E7;
+    --cta: #2563EB;
+    --cta-hover: #1D4ED8;
+    --cta-glow: rgba(37, 99, 235, 0.3);
 
-    /* Accent */
-    --accent-primary: #0F172A;
+    /* Accent (for highlights) */
+    --accent-primary: #18181B;
+    --accent-light: #3F3F46;
+    --accent-dark: #09090B;
 
     /* Section separator */
-    --bg-separator: #E2E8F0;
+    --bg-separator: #E4E4E7;
 
-    /* Teal gradient */
-    --gradient-start: #2A7C72;
-    --gradient-end: #64B5AC;
+    /* Violet to Blue gradient colors */
+    --gradient-start: #7C3AED;
+    --gradient-end: #2563EB;
 
     /* Spacing */
     --space-1: 4px;
@@ -50,49 +52,51 @@
     --radius-xl: 24px;
     --radius-full: 9999px;
 
-    /* Shadows (light mode) */
-    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
-    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.07);
-    --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.10);
-    --shadow-glow: 0 0 40px var(--cta-glow);
+    /* Shadows (light mode: subtle) */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+    --shadow-glow: 0 0 40px var(--accent-glow);
 
-    /* Transitions */
+    /* Transitions - Professional Only (No Bouncy) */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
     --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  /* Dark Mode — Slate & Teal */
+  /* Dark Mode - Professional Developer Theme */
   [data-theme="dark"] {
     /* Background Colors */
-    --bg-primary: #0F172A;
-    --bg-secondary: #1E293B;
-    --bg-tertiary: #334155;
-    --bg-alternate: #0B1222;
-    --bg-separator: #0B1222;
+    --bg-primary: #09090B;
+    --bg-secondary: #18181B;
+    --bg-tertiary: #27272A;
+    --bg-alternate: #000000;
+    --bg-separator: #000000;
 
     /* Text Colors */
-    --text-primary: #E2E8F0;
-    --text-secondary: #94A3B8;
-    --text-muted: #64748B;
+    --text-primary: #FAFAFA;
+    --text-secondary: #D4D4D8;
+    --text-muted: #71717A;
 
-    /* UI Colors — Teal accent */
-    --border: #1E293B;
-    --cta: #6DB5AD;
-    --cta-hover: #85C7C0;
-    --cta-glow: rgba(109, 181, 173, 0.2);
+    /* UI Colors - Violet to Blue transition */
+    --border: #3F3F46;
+    --cta: #3B82F6;
+    --cta-hover: #60A5FA;
+    --cta-glow: rgba(59, 130, 246, 0.3);
 
-    /* Accent */
-    --accent-primary: #6DB5AD;
+    /* Accent (Violet - for gradients) */
+    --accent-primary: #7B337D;
+    --accent-light: #a34da6;
+    --accent-dark: #552357;
 
-    /* Teal gradient */
-    --gradient-start: #5BADA3;
-    --gradient-end: #92D5CE;
+    /* Violet to Blue gradient colors */
+    --gradient-start: #7B337D;
+    --gradient-end: #3B82F6;
 
-    /* Shadows (dark mode) */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
+    /* Shadows (dark mode: stronger) */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
   }
 
   * {
@@ -190,7 +194,7 @@
   .hero-blob-1 {
     width: 500px; height: 500px;
     top: -10%; left: 10%;
-    background: rgba(91, 138, 133, 0.08);
+    background: rgba(124, 58, 237, 0.08);
     filter: blur(80px);
     animation: blob-drift-1 25s infinite;
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
@@ -198,7 +202,7 @@
   .hero-blob-2 {
     width: 400px; height: 400px;
     top: 60%; left: 50%;
-    background: rgba(91, 138, 133, 0.06);
+    background: rgba(37, 99, 235, 0.06);
     filter: blur(100px);
     animation: blob-drift-2 30s infinite;
     border-radius: 50% 30% 50% 70% / 50% 60% 30% 60%;
@@ -206,14 +210,14 @@
   .hero-blob-3 {
     width: 350px; height: 350px;
     top: -5%; left: 70%;
-    background: rgba(91, 138, 133, 0.05);
+    background: rgba(124, 58, 237, 0.05);
     filter: blur(70px);
     animation: blob-drift-3 20s infinite;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
-  [data-theme="dark"] .hero-blob-1 { background: rgba(109, 181, 173, 0.15); }
-  [data-theme="dark"] .hero-blob-2 { background: rgba(91, 138, 133, 0.12); }
-  [data-theme="dark"] .hero-blob-3 { background: rgba(109, 181, 173, 0.10); }
+  [data-theme="dark"] .hero-blob-1 { background: rgba(123, 51, 125, 0.15); }
+  [data-theme="dark"] .hero-blob-2 { background: rgba(59, 130, 246, 0.12); }
+  [data-theme="dark"] .hero-blob-3 { background: rgba(123, 51, 125, 0.10); }
 
   @media (max-width: 768px) {
     .hero-blob-1 { width: 350px; height: 350px; }
@@ -270,12 +274,12 @@
 
   /* Touch feedback */
   .touch-feedback:active {
-    background-color: rgba(91, 138, 133, 0.1);
+    background-color: rgba(59, 130, 246, 0.1);
     transition: background-color 0.1s;
   }
 
   [data-theme="dark"] .touch-feedback:active {
-    background-color: rgba(109, 181, 173, 0.1);
+    background-color: rgba(123, 51, 125, 0.1);
   }
 
   /* Mobile-specific optimizations */
