@@ -6,6 +6,7 @@ import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
 import Achievements from "@/components/sections/Achievements";
 import Contact from "@/components/sections/Contact";
+import ChatFAB from "@/components/chat/ChatFAB";
 import { getPortfolioContent } from "@/lib/content";
 
 // Force dynamic rendering so content is fetched at runtime from Blob
@@ -65,6 +66,7 @@ export default async function Home() {
           <Contact data={content.personal} />
         </section>
       </main>
+      <ChatFAB />
     </>
   );
 }
