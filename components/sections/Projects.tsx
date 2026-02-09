@@ -3,6 +3,9 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout } from "lucide-react";
+import { useTiltEffect } from "@/hooks/useTiltEffect";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const iconMap: Record<string, typeof Bot> = {
   Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout,
@@ -11,10 +14,45 @@ import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations"
 import { projects as defaultData } from "@/data/projects";
 import { Project } from "@/data/types";
 
+/** 3D Tilt Card Wrapper (P0-3) */
+function TiltCard({
+  children,
+  disabled,
+  ...motionProps
+}: {
+  children: React.ReactNode;
+  disabled: boolean;
+} & React.ComponentProps<typeof motion.div>) {
+  const { ref, tiltStyle, glowStyle, handlers } = useTiltEffect(8);
+
+  if (disabled) {
+    return <motion.div {...motionProps}>{children}</motion.div>;
+  }
+
+  return (
+    <div style={{ perspective: "1000px" }}>
+      <motion.div
+        ref={ref}
+        {...motionProps}
+        style={{ ...motionProps.style, ...tiltStyle }}
+        {...handlers}
+      >
+        {/* Radial glow overlay */}
+        <div style={glowStyle} />
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
 export default function Projects({ data }: { data?: Project[] }) {
   const projects = data ?? defaultData;
   const ref = useRef(null);
   const isInView = useInView(ref, viewportConfig);
+
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
+  const tiltDisabled = isMobile || prefersReducedMotion;
 
   const [activeFilter, setActiveFilter] = useState<"all" | "web" | "mobile" | "ai">("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -109,28 +147,29 @@ export default function Projects({ data }: { data?: Project[] }) {
           <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence>
               {filteredProjects.map((project, index) => (
-                <motion.div
+                <TiltCard
                   key={project.id}
+                  disabled={tiltDisabled}
                   custom={index}
                   variants={cardVariantsWithDelay}
                   initial="hidden"
                   animate="visible"
                   exit={{ opacity: 0, scale: 0.95 }}
-                  whileHover={{
+                  whileHover={tiltDisabled ? {
                     boxShadow: "0 20px 40px var(--cta-glow)",
                     transition: { duration: 0.3, ease: [0.33, 1, 0.68, 1] },
-                  }}
+                  } : undefined}
                   onClick={() => setSelectedProject(project)}
-                  className="rounded-2xl border cursor-pointer overflow-hidden group"
+                  className="rounded-2xl border cursor-pointer overflow-hidden group relative"
                   style={{
                     backgroundColor: "var(--bg-secondary)",
                     borderColor: "var(--border)",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--cta)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--cta)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
                   }}
                 >
                   {/* Image with zoom effect */}
@@ -187,7 +226,7 @@ export default function Projects({ data }: { data?: Project[] }) {
                       View Project →
                     </button>
                   </div>
-                </motion.div>
+                </TiltCard>
               ))}
             </AnimatePresence>
           </motion.div>

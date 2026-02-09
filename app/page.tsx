@@ -1,4 +1,5 @@
 import Navigation from "@/components/layout/Navigation";
+import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import HeroAbout from "@/components/sections/HeroAbout";
 import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
@@ -15,6 +16,7 @@ export default async function Home() {
 
   return (
     <>
+      <ScrollProgressBar />
       <Navigation />
       {/* Linear scroll for all devices - no pagination */}
       <main className="overflow-y-auto">

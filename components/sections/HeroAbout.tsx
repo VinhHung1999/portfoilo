@@ -99,13 +99,20 @@ export default function HeroAbout({ data }: { data?: PersonalInfo }) {
   return (
     <section
       id="hero"
-      className="min-h-[80vh] flex items-center justify-center relative py-16 md:py-20"
+      className="min-h-[80vh] flex items-center justify-center relative py-16 md:py-20 overflow-hidden"
     >
+      {/* Gradient Mesh Blobs (P0-1) */}
+      <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+        <div className="hero-blob hero-blob-1" />
+        <div className="hero-blob hero-blob-2" />
+        <div className="hero-blob hero-blob-3" />
+      </div>
+
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="max-w-6xl mx-auto px-6 md:px-12 w-full"
+        className="max-w-6xl mx-auto px-6 md:px-12 w-full relative z-[1]"
       >
         {/* MOBILE LAYOUT - Vertical Stack (Photo on Top) */}
         <div className="flex flex-col items-center md:hidden gap-8">
