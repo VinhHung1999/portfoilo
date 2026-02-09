@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put, del, list } from "@vercel/blob";
+import { readFile } from "fs/promises";
+import { put, list } from "@vercel/blob";
+import path from "path";
 
 const BLOB_KEY = "chatbot/settings.json";
+const LOCAL_PATH = path.join(process.cwd(), "content", "chatbot.json");
 
 interface ChatbotSettings {
   customInstructions: string;
@@ -35,8 +38,9 @@ function checkAuth(request: NextRequest): boolean {
   return false;
 }
 
-/** Read chatbot settings from Vercel Blob, fallback to defaults */
+/** Read chatbot settings: Blob first → local file fallback → hardcoded defaults */
 export async function readChatbotSettings(): Promise<ChatbotSettings> {
+  // Try Vercel Blob first
   try {
     const { blobs } = await list({ prefix: BLOB_KEY });
     if (blobs.length > 0) {
@@ -47,8 +51,18 @@ export async function readChatbotSettings(): Promise<ChatbotSettings> {
       }
     }
   } catch {
-    // Blob not available
+    // Blob not available (e.g. local dev without token), fall through
   }
+
+  // Fallback to local filesystem
+  try {
+    const content = await readFile(LOCAL_PATH, "utf-8");
+    const data = JSON.parse(content);
+    return { ...DEFAULT_SETTINGS, ...data };
+  } catch {
+    // Local file not available
+  }
+
   return DEFAULT_SETTINGS;
 }
 
@@ -97,17 +111,9 @@ export async function PUT(request: NextRequest) {
     );
   }
 
-  try {
-    // Delete existing blob(s)
-    const { blobs } = await list({ prefix: BLOB_KEY });
-    if (blobs.length > 0) {
-      await del(blobs.map((b) => b.url));
-    }
-  } catch {
-    // Ignore delete errors
-  }
-
   const json = JSON.stringify(updated, null, 2);
+
+  // Write to Blob (overwrite directly — no delete-then-put to avoid consistency gaps)
   await put(BLOB_KEY, json, {
     access: "public",
     contentType: "application/json",
