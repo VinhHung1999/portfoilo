@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 import { put, list } from "@vercel/blob";
 import path from "path";
 
@@ -113,12 +113,16 @@ export async function PUT(request: NextRequest) {
 
   const json = JSON.stringify(updated, null, 2);
 
-  // Write to Blob (overwrite directly — no delete-then-put to avoid consistency gaps)
-  await put(BLOB_KEY, json, {
-    access: "public",
-    contentType: "application/json",
-    addRandomSuffix: false,
-  });
+  // Write: try Blob first, fallback to local file (for local dev without Vercel runtime)
+  try {
+    await put(BLOB_KEY, json, {
+      access: "public",
+      contentType: "application/json",
+      addRandomSuffix: false,
+    });
+  } catch {
+    await writeFile(LOCAL_PATH, json, "utf-8");
+  }
 
   return NextResponse.json(updated);
 }
