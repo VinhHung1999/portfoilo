@@ -20,6 +20,22 @@ export default function ChatFAB() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
 
+  // Sprint 13: Dynamic greeting + suggested questions from admin settings
+  const [greeting, setGreeting] = useState<string | undefined>();
+  const [suggestedQuestions, setSuggestedQuestions] = useState<string[] | undefined>();
+
+  useEffect(() => {
+    fetch("/api/chatbot-settings")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) {
+          if (data.greeting) setGreeting(data.greeting);
+          if (data.suggestedQuestions?.length) setSuggestedQuestions(data.suggestedQuestions);
+        }
+      })
+      .catch(() => {/* use defaults */});
+  }, []);
+
   // BUG 1 FIX: Track mounted state for SSR-safe animations
   useEffect(() => {
     setMounted(true);
@@ -65,6 +81,8 @@ export default function ChatFAB() {
           setMessages={setMessages}
           isStreaming={isStreaming}
           setIsStreaming={setIsStreaming}
+          greeting={greeting}
+          suggestedQuestions={suggestedQuestions}
         />
       )}
 

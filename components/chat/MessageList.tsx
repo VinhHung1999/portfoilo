@@ -8,9 +8,11 @@ interface Props {
   messages: Message[];
   isStreaming: boolean;
   onSendSuggestion: (text: string) => void;
+  greeting?: string;
+  suggestedQuestions?: string[];
 }
 
-export default function MessageList({ messages, isStreaming, onSendSuggestion }: Props) {
+export default function MessageList({ messages, isStreaming, onSendSuggestion, greeting, suggestedQuestions }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function MessageList({ messages, isStreaming, onSendSuggestion }:
   }, [messages]);
 
   if (messages.length === 0) {
-    return <EmptyState onSend={onSendSuggestion} />;
+    return <EmptyState onSend={onSendSuggestion} greeting={greeting} suggestedQuestions={suggestedQuestions} />;
   }
 
   return (

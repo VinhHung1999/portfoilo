@@ -1,7 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import { put, del, list } from "@vercel/blob";
 
-const BLOB_KEY = "chatbot/custom-context.txt";
+const BLOB_KEY = "chatbot/settings.json";
+
+interface ChatbotSettings {
+  customInstructions: string;
+  suggestedTopics: string[];
+  greeting: string;
+  suggestedQuestions: string[];
+}
+
+const DEFAULT_SETTINGS: ChatbotSettings = {
+  customInstructions: "",
+  suggestedTopics: [],
+  greeting: "Hi! I'm Hung's AI assistant. Ask me about his skills, projects, or experience.",
+  suggestedQuestions: [
+    "What are your main skills?",
+    "Tell me about your experience",
+    "Show me your projects",
+  ],
+};
 
 function checkAuth(request: NextRequest): boolean {
   const adminPassword = process.env.ADMIN_PASSWORD;
@@ -17,18 +35,21 @@ function checkAuth(request: NextRequest): boolean {
   return false;
 }
 
-/** Read custom context from Vercel Blob, fallback to empty string */
-async function readCustomContext(): Promise<string> {
+/** Read chatbot settings from Vercel Blob, fallback to defaults */
+export async function readChatbotSettings(): Promise<ChatbotSettings> {
   try {
     const { blobs } = await list({ prefix: BLOB_KEY });
     if (blobs.length > 0) {
       const res = await fetch(blobs[0].url, { cache: "no-store" });
-      if (res.ok) return await res.text();
+      if (res.ok) {
+        const data = await res.json();
+        return { ...DEFAULT_SETTINGS, ...data };
+      }
     }
   } catch {
     // Blob not available
   }
-  return "";
+  return DEFAULT_SETTINGS;
 }
 
 export async function GET(request: NextRequest) {
@@ -36,8 +57,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const context = await readCustomContext();
-  return NextResponse.json({ context });
+  const settings = await readChatbotSettings();
+  return NextResponse.json(settings);
 }
 
 export async function PUT(request: NextRequest) {
@@ -45,16 +66,33 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  let body: { context: string };
+  let body: Partial<ChatbotSettings>;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  if (typeof body.context !== "string") {
+  // Read existing, merge updates
+  const existing = await readChatbotSettings();
+  const updated: ChatbotSettings = { ...existing, ...body };
+
+  // Validate
+  if (updated.customInstructions.length > 2000) {
     return NextResponse.json(
-      { error: "context must be a string" },
+      { error: "customInstructions exceeds 2000 characters" },
+      { status: 400 }
+    );
+  }
+  if (updated.suggestedTopics.length > 10) {
+    return NextResponse.json(
+      { error: "suggestedTopics exceeds 10 items" },
+      { status: 400 }
+    );
+  }
+  if (updated.suggestedQuestions.length > 5) {
+    return NextResponse.json(
+      { error: "suggestedQuestions exceeds 5 items" },
       { status: 400 }
     );
   }
@@ -69,11 +107,12 @@ export async function PUT(request: NextRequest) {
     // Ignore delete errors
   }
 
-  await put(BLOB_KEY, body.context, {
+  const json = JSON.stringify(updated, null, 2);
+  await put(BLOB_KEY, json, {
     access: "public",
-    contentType: "text/plain; charset=utf-8",
+    contentType: "application/json",
     addRandomSuffix: false,
   });
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json(updated);
 }
