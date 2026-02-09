@@ -42,7 +42,7 @@ export default function ChatWindow({
   const abortRef = useRef<AbortController | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
-  // BUG 3 FIX: Focus trap — trap Tab inside chat dialog when open
+  // BUG 3 FIX: Focus trap — intercept ALL Tab presses and manually cycle
   useEffect(() => {
     if (!isOpen) return;
 
@@ -57,25 +57,32 @@ export default function ChatWindow({
 
       if (e.key !== "Tab") return;
 
-      const focusable = dialog.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      // Always prevent default Tab — we manage focus manually
+      e.preventDefault();
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
       );
       if (focusable.length === 0) return;
 
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
+      const currentIndex = focusable.indexOf(
+        document.activeElement as HTMLElement
+      );
 
+      let nextIndex: number;
       if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
+        // Shift+Tab: go backward, wrap to last
+        nextIndex =
+          currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1;
       } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
+        // Tab: go forward, wrap to first
+        nextIndex =
+          currentIndex >= focusable.length - 1 ? 0 : currentIndex + 1;
       }
+
+      focusable[nextIndex].focus();
     };
 
     window.addEventListener("keydown", handleKeyDown);
