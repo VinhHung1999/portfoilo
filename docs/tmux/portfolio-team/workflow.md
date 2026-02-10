@@ -87,6 +87,43 @@ PM --> Boss: Sprint summary
 Boss: Approve/Request changes
 ```
 
+### Phase 4: Sprint Retrospective
+
+**When:** After Boss approves Sprint completion
+
+**Purpose:** Continuous improvement of team processes and role capabilities
+
+**Workflow:**
+```
+1. PM reviews Boss feedback from the sprint
+2. PM identifies improvement areas for each role:
+   - DS: Design decisions, spec quality, responsiveness
+   - DEV: Code quality, speed, bugs found
+   - QA: Test coverage, bug detection, communication
+3. PM updates role prompts:
+   - Add "Lessons Learned" section
+   - Update "Common Mistakes to Avoid"
+   - Add Boss feedback examples
+4. PM documents retro in WHITEBOARD "Notes" section
+5. Team starts next sprint with improved prompts
+```
+
+**Example Retro Updates:**
+
+If Boss said: "Tôi không thấy bạn cập nhật cái whiteboard nha"
+→ Update PM_PROMPT.md: Add reminder to update WHITEBOARD after major events
+
+If Boss said: "Animations too slow"
+→ Update DS_PROMPT.md: Add timing guideline "Initial text should appear within 0.8-1.0s"
+
+If QA missed bugs that Boss found later:
+→ Update QA_PROMPT.md: Add those specific test cases to checklist
+
+**Retro Output:**
+- Updated role prompts in `prompts/` directory
+- Retro notes in WHITEBOARD
+- Team ready for next sprint with lessons applied
+
 ---
 
 ## Design-First Approach

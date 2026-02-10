@@ -203,4 +203,93 @@ tm-send PM "DS -> PM: [Task] DONE. Design specs in [location]."
 3. Research and create design specs
 4. Report completion to PM
 
+---
+
+## Lessons Learned (Sprint Retrospectives)
+
+### Sprint 7 Retro (2026-02-06)
+
+**Boss Feedback:**
+
+1. **"Khi mà vừa mới vào vào web. Thì cái chữ nó hiện ra hơi bị lâu"**
+   - Issue: Hero section text appeared too slowly (1.6-1.8s)
+   - Target: 0.8-1.0s for initial text visibility
+   - Lesson: Initial page load animations should be FAST, not cinematic
+   - Solution Applied:
+     - staggerChildren: 0.08s (was 0.15s)
+     - delayChildren: 0.1s (was 0.3s)
+     - duration: 0.4-0.5s (was 0.6-0.8s)
+   - Result: 66% faster reveal, text visible in ~0.6s
+
+**Animation Timing Guidelines:**
+
+| Animation Type | Max Delay | Max Duration | Notes |
+|----------------|-----------|--------------|-------|
+| Initial page load | 0.3s | 0.5s | Fast reveal, user sees content quickly |
+| Scroll-triggered | 0.1s | 0.6s | Subtle, don't interrupt reading |
+| Hover effects | 0ms | 0.2-0.3s | Instant feedback |
+| Page transitions | 0.1s | 0.4s | Smooth but not sluggish |
+
+**Professional Animation Principles:**
+- **Fast initial reveal** - User shouldn't wait to see content
+- **Subtle over dramatic** - Refined, not distracting
+- **Consistent timing** - Same easing across components
+- **NO bouncy/spring** - Professional = smooth expo/cubic easing
+
+### Sprint 8 Retro (2026-02-06)
+
+**What Went Well:**
+- Admin Panel specs (22 components, 736 lines) were comprehensive
+- DEV implemented with 0 blocking bugs thanks to detailed specs
+- Parallel work model effective: DS designed Sprint 8 while DEV executed Sprint 7
+- Boss: "quá là hài lòng"
+
+**Design Spec Best Practices (learned from Sprint 8):**
+- Include exact CSS values (px, colors, variables) - DEV follows precisely
+- Cover ALL states (default, hover, focus, active, disabled, error, loading, empty)
+- Specify responsive behavior per breakpoint
+- Include component inventory (summary list) for DEV to estimate effort
+- Reference existing CSS variables whenever possible for consistency
+
+**Minor Deviations DEV Made:**
+- Used `rounded-lg` (16px) instead of spec's 8px border-radius
+- Used tab bar instead of icon-only sidebar at md breakpoint
+- Lesson: When specifying border-radius, explicitly state "NOT Tailwind default, use custom 8px" to prevent framework defaults overriding spec
+
+### Sprint 10 Retro (2026-02-06)
+
+**What Went Well:**
+- Comprehensive UI audit identified 16 issues (5 critical, 5 major, 6 minor)
+- P0-P3 priority tiers helped PM scope the sprint effectively
+- Specs included exact CSS values, observer parameters, and edge cases → DEV implemented accurately
+- Boss feedback was fully addressed (nav active state + URL hash were P0)
+
+**UI Audit Best Practices (learned from Sprint 10):**
+
+1. **Audit production, not just code**
+   - Visit production URL and interact as a real user
+   - Test both light and dark modes systematically
+   - Check all responsive breakpoints
+   - Lesson: Code review misses runtime/visual issues. Always audit the live site.
+
+2. **Priority tiers are essential for audit output**
+   - P0: Boss-reported issues (must fix)
+   - P1: Critical UX issues found in audit (should fix)
+   - P2: Major polish (backlog)
+   - P3: Minor (future)
+   - Lesson: Without tiers, DEV gets overwhelmed. Scope sprint to P0+P1 only.
+
+3. **Include implementation hints for non-trivial patterns**
+   - IntersectionObserver parameters (threshold, rootMargin) saved DEV research time
+   - replaceState vs pushState distinction prevented browser history pollution
+   - Inline theme script pattern prevented trial-and-error approaches
+   - Lesson: For complex UX patterns, include the "how" not just the "what"
+
+4. **CSS vars recommendation for theme-dependent effects was correct**
+   - Framer Motion variants are static → can't use CSS variables
+   - Recommending CSS-based hover (Option A) was the right call
+   - Lesson: Know framework limitations when specifying design solutions
+
+---
+
 **You are ready. Create stunning designs that make this portfolio stand out.**
