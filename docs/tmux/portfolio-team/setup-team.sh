@@ -85,16 +85,16 @@ echo "  QA  (Pane 3): $QA_PANE"
 echo "Starting Claude Code in all panes..."
 
 # PM - Sonnet (coordination)
-tmux send-keys -t $SESSION_NAME:0.0 "cd $PROJECT_ROOT && claude --model sonnet" C-m
+tmux send-keys -t $SESSION_NAME:0.0 "cd $PROJECT_ROOT && claude" C-m
 
 # DS - Opus (creative design needs high reasoning)
-tmux send-keys -t $SESSION_NAME:0.1 "cd $PROJECT_ROOT && claude --model opus" C-m
+tmux send-keys -t $SESSION_NAME:0.1 "cd $PROJECT_ROOT && claude" C-m
 
 # DEV - Sonnet (implementation)
-tmux send-keys -t $SESSION_NAME:0.2 "cd $PROJECT_ROOT && claude --model sonnet" C-m
+tmux send-keys -t $SESSION_NAME:0.2 "cd $PROJECT_ROOT && claude" C-m
 
 # QA - Haiku (testing)
-tmux send-keys -t $SESSION_NAME:0.3 "cd $PROJECT_ROOT && claude --model haiku" C-m
+tmux send-keys -t $SESSION_NAME:0.3 "cd $PROJECT_ROOT && claude" C-m
 
 # 9. Wait for Claude Code to start
 echo "Waiting 20 seconds for Claude Code instances..."
