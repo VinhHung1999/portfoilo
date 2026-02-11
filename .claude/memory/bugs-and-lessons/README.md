@@ -55,3 +55,23 @@ DS creating specs before DEV implements reduces back-and-forth significantly. Sk
 - **Cause:** PUT to Vercel Blob returns success, but subsequent GET returns stale data (delete-then-put pattern)
 - **Symptom:** Admin "Saved!" toast shown but data reverts on page reload
 - **Lesson:** Vercel Blob has eventual consistency; test persistence with navigate-away-and-back, not just save response
+
+### Docker Desktop proxy blocks image pull (Sprint 14)
+- **Cause:** Docker Desktop configured with HTTP/HTTPS proxy (`http.docker.internal:3128`) — all pulls hang
+- **Symptom:** `docker pull` hangs indefinitely; host `curl` to registry works fine (401)
+- **Diagnosis:** `docker info` shows proxy settings; host can reach registry but Docker daemon routes through proxy
+- **Fix:** Docker Desktop → Settings → Resources → Proxies → disable proxy → Apply & Restart
+- **Lesson:** When Docker pull hangs, check `docker info | grep Proxy` first — proxy is a common hidden cause
+
+### Next.js standalone doesn't serve dynamically uploaded files from `public/` (Sprint 15)
+- **Cause:** Standalone `server.js` only serves `public/` files known at build time; uploads added later return 404
+- **Fix:** Created `/api/uploads/[...path]` API route to serve files from `public/uploads/` via `fs.readFile`; changed upload API to return `/api/uploads/` URLs
+- **Lesson:** Any user-uploaded content in standalone mode needs an API route or external CDN to serve
+
+### Docker COPY fails when `public/` directory missing (Sprint 15)
+- **Cause:** `COPY --from=builder /app/public ./public` fails if `public/` doesn't exist
+- **Fix:** Create `public/.gitkeep` so the directory is always tracked by git
+
+### Next.js 16 removed `next lint` command (Sprint 15)
+- **Cause:** `next lint` was removed in Next.js 16; `npm run lint` fails with "no such directory: .../lint"
+- **Lesson:** Next.js 16 CLI only has: build, dev, start, info, typegen, upgrade. Use standalone ESLint if needed.

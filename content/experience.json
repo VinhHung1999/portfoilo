@@ -41,10 +41,10 @@
   },
   {
     "id": "3",
-    "company": "StartUp Ventures",
-    "role": "Software Developer",
-    "startDate": "Jun 2018",
-    "endDate": "Feb 2020",
+    "company": "MoMo",
+    "role": "Junior App Developer",
+    "startDate": "Oct 2020",
+    "endDate": "Apr 2022",
     "achievements": [
       "Developed core features for SaaS product from MVP to production",
       "Integrated third-party APIs and payment processing systems",

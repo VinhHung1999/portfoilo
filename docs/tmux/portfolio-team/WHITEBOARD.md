@@ -1,46 +1,60 @@
 # Portfolio Team Whiteboard
 
-**Sprint:** 13 - ✅ CLOSED — Boss Approved
-**Goal:** Admin Chatbot Context + Prompt Tuning
-**Status:** All delivered. Boss approved.
+**Sprint:** 14 - ✅ CLOSED
+**Goal:** Docker Self-Hosted + Cloudflare Tunnel (portfolio.hungphu.work + portfolio-dev.hungphu.work)
+**Status:** Closed. 5/6 tasks done. Task 5 (production QA) carry-over pending Docker fix.
 
 ---
 
 ## Current Status
 
-| Role | Status | Current Task | Last Update |
-|------|--------|--------------|-------------|
-| PM   | 🔄 Coordinating | Sprint 13 kickoff | now |
-| DS   | ✅ Done | Admin chatbot specs | 00:30 |
-| DEV  | ✅ Done | Admin UI + API + 3 bug fixes | now |
-| QA   | ✅ All Pass | 67/67 checks, 3 bugs verified fixed | 01:36 |
+| Role | Status | Last Update |
+|------|--------|-------------|
+| PM   | ✅ Sprint closed | 17:25 |
+| DS   | ⏸️ Standby | 17:25 |
+| DEV  | ⏸️ Standby | 17:25 |
+| QA   | ⏸️ Standby | 17:25 |
 
 ---
 
 ## Active Blockers
 
-- Git push to GitHub failed (SSH/HTTPS timeout) — network issue, retry later
+- **Docker Desktop proxy** (http.docker.internal:3128) blocks image pull. Boss will fix manually. Once fixed: `docker-compose up -d` → production live on :3000.
+
+---
+
+## Sprint 14 Summary
+
+| # | Task | Status |
+|---|------|--------|
+| 1 | Remove `@vercel/blob`, local filesystem | ✅ Done (5dd9ed6) |
+| 2 | Dockerfile + docker-compose.yml | ✅ Done (a011732) |
+| 3 | Cloudflare Tunnel: `portfolio.hungphu.work` → :3000 | ✅ Done (502 until Docker fixed) |
+| 4 | Cloudflare Tunnel: `portfolio-dev.hungphu.work` → :2000 | ✅ Done (verified 200) |
+| 5 | QA: Test production | ⏳ Carry-over (Docker blocker) |
+| 6 | QA: Test dev environment | ✅ Done (15/15 passed) |
+
+**Carry-over to post-Docker fix:** Build image, `docker-compose up`, QA test production.
 
 ---
 
 ## Quick Reference
 
-**Production:** https://portfolio-seven-nu-cnkdguoq1l.vercel.app
-**Admin:** https://portfolio-seven-nu-cnkdguoq1l.vercel.app/admin
+**Production (new):** https://portfolio.hungphu.work
+**Dev (new):** https://portfolio-dev.hungphu.work
+**Production (old/Vercel):** https://portfolio-seven-nu-cnkdguoq1l.vercel.app
 
 **Key Design Specs:**
 - Visual WOW: `docs/design/sprint11-visual-wow-specs.md`
-- Color palettes: `docs/design/sprint11-color-redesign-specs.md`, `docs/design/sprint11-color-v2-specs.md`
-- UI Polish: `docs/design/sprint10-ui-polish-specs.md`
 - Admin Panel: `docs/design/admin-panel-specs.md`
-- Color Palette: Violet→Blue gradient (original, kept)
+- Color Palette: Violet→Blue gradient
 - Typography: Inter (primary), JetBrains Mono (code)
 
 ---
 
 ## Backlog
 
-**Sprint 11 P1 (stretch — not delivered):**
+**Sprint 11 P1 (stretch):**
 
 | ID | Effect | Priority |
 |----|--------|----------|
@@ -75,24 +89,8 @@
 | 11 | Visual WOW: Hero mesh blobs, Skills Bento Grid, 3D tilt cards, scroll timeline, scroll progress bar |
 | 12 | AI Chatbot: LangChain + xAI streaming, 8 chat components, full-screen mobile, focus trap |
 | 13 | Admin Chatbot: settings UI, custom context, prompt tuning, hybrid Blob/local storage |
+| 14 | Docker self-host: Dockerfile, docker-compose, Cloudflare Tunnel (dev verified, prod pending Docker fix) |
 
 ---
 
-## Sprint 13 Tasks
-
-| # | Task | Owner | Status |
-|---|------|-------|--------|
-| 1 | Design admin panel chatbot settings section | DS | ✅ Done |
-| 2 | Backend: API to save/load custom chatbot context (Vercel Blob) | DEV | ✅ Done (commit 8cfa965) |
-| 3 | Tune system prompt (persona, tone, boundaries, auto-detect lang) | DEV | ✅ Done (commit 8cfa965) |
-| 4 | Build admin UI for chatbot context (per DS specs) | DEV | ✅ Done (commit 1cd4c78) |
-| 5 | Merge custom context + portfolio data in /api/chat | DEV | ✅ Done (included in #3) |
-| 6 | QA: Test admin CRUD, context accuracy, edge cases | QA | ✅ Round 1 (61/67) |
-| 7 | FIX: Blob persistence → direct put() + local file fallback | DEV | ✅ Fixed (bc57d86) |
-| 8 | FIX: Last question delete disabled | DEV | ✅ Fixed (bc57d86) |
-| 9 | FIX: Default questions via 3-layer fallback | DEV | ✅ Fixed (bc57d86) |
-| 10 | QA: Retest after fixes | QA | ✅ All Pass (67/67) |
-
----
-
-**Last Updated:** 2026-02-09
+**Last Updated:** 2026-02-11 17:25

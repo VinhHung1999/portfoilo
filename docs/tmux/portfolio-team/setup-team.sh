@@ -5,7 +5,7 @@
 
 set -e  # Exit on error
 
-PROJECT_ROOT="/Users/phuhung/Documents/Studies/AIProjects/portfolio"
+PROJECT_ROOT="/Users/hungphu/Documents/AI_Projects/portfoilo"
 SESSION_NAME="portfolio_team"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
