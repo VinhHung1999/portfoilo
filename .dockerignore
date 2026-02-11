@@ -1,0 +1,12 @@
+node_modules
+.next
+.git
+.gitignore
+.env*.local
+.vercel
+.DS_Store
+docs
+tests
+*.md
+.claude
+.eslintrc.json

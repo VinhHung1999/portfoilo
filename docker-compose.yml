@@ -1,0 +1,11 @@
+services:
+  portfolio:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./content:/app/content
+      - ./public/uploads:/app/public/uploads
+    env_file:
+      - .env
+    restart: unless-stopped
