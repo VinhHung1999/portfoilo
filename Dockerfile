@@ -28,7 +28,7 @@ COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
 # Create directories for persistent data (will be mounted as volumes)
-RUN mkdir -p content public/uploads && chown -R nextjs:nodejs content public/uploads
+RUN mkdir -p content content/conversations public/uploads && chown -R nextjs:nodejs content public/uploads
 
 USER nextjs
 

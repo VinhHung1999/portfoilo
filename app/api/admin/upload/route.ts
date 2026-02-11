@@ -74,7 +74,7 @@ export async function PUT(request: NextRequest) {
     await writeFile(filePath, buffer);
 
     // Return the public URL path
-    const url = `/uploads/${safeName}`;
+    const url = `/api/uploads/${safeName}`;
     return NextResponse.json({ url });
   } catch {
     return NextResponse.json(

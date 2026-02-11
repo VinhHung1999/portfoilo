@@ -20,6 +20,9 @@ export default function ChatFAB() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
 
+  // Sprint 15: Conversation logging — unique ID per session
+  const [conversationId] = useState(() => crypto.randomUUID());
+
   // Sprint 13: Dynamic greeting + suggested questions from admin settings
   const [greeting, setGreeting] = useState<string | undefined>();
   const [suggestedQuestions, setSuggestedQuestions] = useState<string[] | undefined>();
@@ -83,6 +86,7 @@ export default function ChatFAB() {
           setIsStreaming={setIsStreaming}
           greeting={greeting}
           suggestedQuestions={suggestedQuestions}
+          conversationId={conversationId}
         />
       )}
 

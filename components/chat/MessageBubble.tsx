@@ -9,6 +9,7 @@ export interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
+  timestamp?: string; // ISO string for conversation logging
 }
 
 interface Props {

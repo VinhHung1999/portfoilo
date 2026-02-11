@@ -17,6 +17,8 @@ import MessageList from "./MessageList";
 import ChatInput from "./ChatInput";
 import type { Message } from "./MessageBubble";
 
+const INACTIVITY_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
+
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -27,6 +29,7 @@ interface Props {
   setIsStreaming: Dispatch<SetStateAction<boolean>>;
   greeting?: string;
   suggestedQuestions?: string[];
+  conversationId: string;
 }
 
 export default function ChatWindow({
@@ -39,12 +42,68 @@ export default function ChatWindow({
   setIsStreaming,
   greeting,
   suggestedQuestions,
+  conversationId,
 }: Props) {
   const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
+
+  // Sprint 15: Inactivity timer for email transcript
+  const inactivityTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const transcriptSentRef = useRef(false);
+
+  // Save conversation to server
+  const saveConversation = useCallback(
+    (msgs: Message[]) => {
+      if (msgs.length === 0) return;
+      const apiMessages = msgs
+        .filter((m) => m.content.length > 0)
+        .map((m) => ({
+          role: m.role,
+          content: m.content,
+          timestamp: m.timestamp ?? new Date().toISOString(),
+        }));
+      if (apiMessages.length === 0) return;
+
+      fetch("/api/conversations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversationId, messages: apiMessages }),
+      }).catch(() => {
+        // Silent fail — logging is best-effort
+      });
+    },
+    [conversationId]
+  );
+
+  // Reset inactivity timer
+  const resetInactivityTimer = useCallback(() => {
+    if (inactivityTimerRef.current) {
+      clearTimeout(inactivityTimerRef.current);
+    }
+    if (transcriptSentRef.current) return;
+
+    inactivityTimerRef.current = setTimeout(() => {
+      if (transcriptSentRef.current) return;
+      transcriptSentRef.current = true;
+      fetch("/api/conversations/send-transcript", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversationId }),
+      }).catch(() => {});
+    }, INACTIVITY_TIMEOUT_MS);
+  }, [conversationId]);
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+    };
+  }, []);
 
   // BUG 3 FIX: Focus trap — intercept ALL Tab presses and manually cycle
   useEffect(() => {
@@ -116,16 +175,20 @@ export default function ChatWindow({
       if (isStreaming) return;
       setError(null);
 
+      const now = new Date().toISOString();
+
       const userMsg: Message = {
         id: `user-${Date.now()}`,
         role: "user",
         content: text,
+        timestamp: now,
       };
 
       const aiMsg: Message = {
         id: `ai-${Date.now()}`,
         role: "assistant",
         content: "",
+        timestamp: now,
       };
 
       // BUG 4 FIX: Use functional setState to avoid reading stale `messages` during render
@@ -175,6 +238,19 @@ export default function ChatWindow({
             )
           );
         }
+
+        // Sprint 15: Save conversation + reset inactivity timer after streaming completes
+        setMessages((prev) => {
+          // Update AI message timestamp to completion time
+          const updated = prev.map((m) =>
+            m.id === aiMsg.id
+              ? { ...m, timestamp: new Date().toISOString() }
+              : m
+          );
+          saveConversation(updated);
+          return updated;
+        });
+        resetInactivityTimer();
       } catch (err) {
         if (err instanceof Error && err.name === "AbortError") return;
         const errorText =
@@ -187,7 +263,7 @@ export default function ChatWindow({
         abortRef.current = null;
       }
     },
-    [isStreaming, setMessages, setIsStreaming]
+    [isStreaming, setMessages, setIsStreaming, saveConversation, resetInactivityTimer]
   );
 
   const retryLast = useCallback(() => {

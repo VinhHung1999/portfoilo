@@ -1,30 +1,25 @@
 {
-  "name": "Hung Pham",
+  "name": "Hùng Phù",
   "tagline": "Full-Stack Developer & Creative Technologist",
   "bio": "I'm a full-stack developer based in Ho Chi Minh City, Vietnam. I craft interactive digital experiences that merge elegant design with robust engineering - specializing in React, Next.js, and AI technologies.",
-  "email": "hello@hungpham.dev",
+  "email": "phuvinhhung1999@gmail.com",
   "location": "Ho Chi Minh City, Vietnam",
   "status": "Open to opportunities",
   "languages": "Vietnamese, English",
   "socialLinks": [
     {
       "name": "GitHub",
-      "url": "https://github.com/hungson175",
+      "url": "https://github.com/VinhHung1999",
       "icon": "Github"
     },
     {
       "name": "LinkedIn",
-      "url": "https://linkedin.com/in/hungpham",
+      "url": "https://www.linkedin.com/in/h%C3%B9ng-ph%C3%B9-250949174/",
       "icon": "Linkedin"
     },
     {
-      "name": "Twitter",
-      "url": "https://twitter.com/hungpham",
-      "icon": "Twitter"
-    },
-    {
       "name": "Email",
-      "url": "mailto:hello@hungpham.dev",
+      "url": "mailto:phuvinhhung1999@gmail.com",
       "icon": "Mail"
     }
   ],
@@ -49,5 +44,6 @@
       "label": "Languages",
       "value": "Vietnamese, English"
     }
-  ]
+  ],
+  "avatar": "/api/uploads/1770830522144-1735697734277.jpeg"
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { User, Briefcase, FolderOpen, Zap, Award, MessageCircle } from "lucide-react";
+import { User, Briefcase, FolderOpen, Zap, Award, MessageCircle, MessagesSquare } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-export type AdminSection = "personal" | "experience" | "projects" | "skills" | "achievements" | "chatbot";
+export type AdminSection = "personal" | "experience" | "projects" | "skills" | "achievements" | "chatbot" | "conversations";
 
 interface SidebarItem {
   id: AdminSection;
@@ -19,6 +19,7 @@ export const ADMIN_SECTIONS: SidebarItem[] = [
   { id: "skills", label: "Skills", icon: Zap, group: "content" },
   { id: "achievements", label: "Achievements", icon: Award, group: "content" },
   { id: "chatbot", label: "Chatbot", icon: MessageCircle, group: "ai" },
+  { id: "conversations", label: "Conversations", icon: MessagesSquare, group: "ai" },
 ];
 
 interface AdminSidebarProps {
