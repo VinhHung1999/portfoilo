@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFile, writeFile } from "fs/promises";
-import { put, list } from "@vercel/blob";
 import path from "path";
 
-const BLOB_KEY = "chatbot/settings.json";
 const LOCAL_PATH = path.join(process.cwd(), "content", "chatbot.json");
 
 interface ChatbotSettings {
@@ -38,23 +36,8 @@ function checkAuth(request: NextRequest): boolean {
   return false;
 }
 
-/** Read chatbot settings: Blob first → local file fallback → hardcoded defaults */
+/** Read chatbot settings: local file → hardcoded defaults */
 export async function readChatbotSettings(): Promise<ChatbotSettings> {
-  // Try Vercel Blob first
-  try {
-    const { blobs } = await list({ prefix: BLOB_KEY });
-    if (blobs.length > 0) {
-      const res = await fetch(blobs[0].url, { cache: "no-store" });
-      if (res.ok) {
-        const data = await res.json();
-        return { ...DEFAULT_SETTINGS, ...data };
-      }
-    }
-  } catch {
-    // Blob not available (e.g. local dev without token), fall through
-  }
-
-  // Fallback to local filesystem
   try {
     const content = await readFile(LOCAL_PATH, "utf-8");
     const data = JSON.parse(content);
@@ -112,17 +95,7 @@ export async function PUT(request: NextRequest) {
   }
 
   const json = JSON.stringify(updated, null, 2);
-
-  // Write: try Blob first, fallback to local file (for local dev without Vercel runtime)
-  try {
-    await put(BLOB_KEY, json, {
-      access: "public",
-      contentType: "application/json",
-      addRandomSuffix: false,
-    });
-  } catch {
-    await writeFile(LOCAL_PATH, json, "utf-8");
-  }
+  await writeFile(LOCAL_PATH, json, "utf-8");
 
   return NextResponse.json(updated);
 }
