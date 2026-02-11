@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFile, writeFile } from "fs/promises";
-import { put, list } from "@vercel/blob";
 import path from "path";
 
 const VALID_RESOURCES = [
@@ -15,10 +14,6 @@ type Resource = (typeof VALID_RESOURCES)[number];
 
 function isValidResource(resource: string): resource is Resource {
   return VALID_RESOURCES.includes(resource as Resource);
-}
-
-function getBlobKey(resource: Resource): string {
-  return `content/${resource}.json`;
 }
 
 function getLocalPath(resource: Resource): string {
@@ -39,42 +34,17 @@ function checkAuth(request: NextRequest): boolean {
   return false;
 }
 
-/** Read resource data: Blob first, fallback to local JSON file */
+/** Read resource data from local JSON file */
 async function readResource(resource: Resource): Promise<unknown> {
-  // Try Vercel Blob first
-  try {
-    const blobKey = getBlobKey(resource);
-    const { blobs } = await list({ prefix: blobKey });
-    if (blobs.length > 0) {
-      const res = await fetch(blobs[0].url);
-      if (res.ok) {
-        return await res.json();
-      }
-    }
-  } catch {
-    // Blob not available (e.g. local dev without token), fall through
-  }
-
-  // Fallback to local filesystem
   const filePath = getLocalPath(resource);
   const content = await readFile(filePath, "utf-8");
   return JSON.parse(content);
 }
 
-/** Write resource data: try Blob, fallback to local file (for local dev) */
+/** Write resource data to local JSON file */
 async function writeResource(resource: Resource, data: unknown): Promise<void> {
   const json = JSON.stringify(data, null, 2);
-
-  try {
-    await put(getBlobKey(resource), json, {
-      access: "public",
-      contentType: "application/json",
-      addRandomSuffix: false,
-    });
-  } catch {
-    // Blob not available (local dev) — write to local filesystem
-    await writeFile(getLocalPath(resource), json, "utf-8");
-  }
+  await writeFile(getLocalPath(resource), json, "utf-8");
 }
 
 export async function GET(
@@ -133,11 +103,8 @@ export async function PATCH(
   }
 
   try {
-    // Read existing content (from Blob or local fallback)
     const existingData = await readResource(resource);
 
-    // For array resources, replace the entire array
-    // For object resources (personal), merge fields
     let updated;
     if (Array.isArray(existingData)) {
       if (!Array.isArray(body)) {
@@ -151,7 +118,6 @@ export async function PATCH(
       updated = { ...existingData as Record<string, unknown>, ...body };
     }
 
-    // Write to Vercel Blob (works on serverless)
     await writeResource(resource, updated);
     return NextResponse.json(updated);
   } catch {

@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put } from "@vercel/blob";
+import { writeFile, mkdir } from "fs/promises";
+import path from "path";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
+const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 
 function checkAuth(request: NextRequest): boolean {
   // Check cookie first (production), then Bearer token (fallback)
@@ -45,18 +47,35 @@ export async function PUT(request: NextRequest) {
     );
   }
 
+  // Sanitize filename to prevent path traversal
+  const safeName = path.basename(filename);
+
   try {
     const body = request.body;
     if (!body) {
       return NextResponse.json({ error: "Empty request body" }, { status: 400 });
     }
 
-    const blob = await put(`portfolio/${filename}`, body, {
-      access: "public",
-      contentType,
-    });
+    // Ensure upload directory exists
+    await mkdir(UPLOAD_DIR, { recursive: true });
 
-    return NextResponse.json({ url: blob.url });
+    // Read the stream into a buffer
+    const chunks: Uint8Array[] = [];
+    const reader = body.getReader();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+    }
+    const buffer = Buffer.concat(chunks);
+
+    // Write to public/uploads/
+    const filePath = path.join(UPLOAD_DIR, safeName);
+    await writeFile(filePath, buffer);
+
+    // Return the public URL path
+    const url = `/uploads/${safeName}`;
+    return NextResponse.json({ url });
   } catch {
     return NextResponse.json(
       { error: "Upload failed" },
