@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, RefreshCw, Loader2 } from "lucide-react";
 import FormInput from "../forms/FormInput";
 import FormTextarea from "../forms/FormTextarea";
 import TagInput from "../forms/TagInput";
@@ -31,6 +31,7 @@ export default function ProjectsForm({ onSuccess, onError }: ProjectsFormProps) 
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const fetchData = useCallback(async () => {
     try {
@@ -100,6 +101,34 @@ export default function ProjectsForm({ onSuccess, onError }: ProjectsFormProps) 
     setItems(items.filter((item) => item.id !== id));
     setDeleteId(null);
     if (editingId === id) setEditingId(null);
+  };
+
+  const handleSyncGitHub = async () => {
+    setIsSyncing(true);
+    try {
+      const res = await fetch("/api/admin/github-sync", {
+        method: "POST",
+        headers: getAuthHeaders(),
+        credentials: "include",
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        onError(json.error || "Failed to sync from GitHub");
+        return;
+      }
+      const synced: Project[] = json.projects;
+      // Append synced projects (don't replace existing)
+      setItems([...items, ...synced]);
+      // Open the first synced project for editing
+      if (synced.length > 0) {
+        setEditingId(synced[0].id);
+      }
+      onSuccess(`Synced ${synced.length} repo${synced.length !== 1 ? "s" : ""} from GitHub. Review and save when ready.`);
+    } catch {
+      onError("Network error syncing from GitHub");
+    } finally {
+      setIsSyncing(false);
+    }
   };
 
   const deleteTarget = items.find((i) => i.id === deleteId);
@@ -184,7 +213,32 @@ export default function ProjectsForm({ onSuccess, onError }: ProjectsFormProps) 
               </motion.div>
             ))}
           </AnimatePresence>
-          <AddButton label="Add Project" onClick={addItem} />
+          <div className="flex items-center gap-3">
+            <AddButton label="Add Project" onClick={addItem} />
+            <button
+              onClick={handleSyncGitHub}
+              disabled={isSyncing}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                color: "var(--text-secondary)",
+                borderColor: "var(--border)",
+                backgroundColor: "transparent",
+              }}
+              onMouseEnter={(e) => {
+                if (!isSyncing) {
+                  e.currentTarget.style.backgroundColor = "var(--bg-tertiary)";
+                  e.currentTarget.style.color = "var(--text-primary)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+                if (!isSyncing) e.currentTarget.style.color = "var(--text-secondary)";
+              }}
+            >
+              {isSyncing ? <Loader2 size={16} className="animate-spin" /> : <RefreshCw size={16} />}
+              {isSyncing ? "Syncing..." : "Sync from GitHub"}
+            </button>
+          </div>
         </div>
       )}
 
