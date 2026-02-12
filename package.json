@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "next dev --port 2000",
+    "prebuild": "tsx scripts/sync-github.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -40,6 +41,7 @@
     "playwright": "^1.58.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
