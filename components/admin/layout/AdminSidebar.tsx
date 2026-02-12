@@ -1,15 +1,15 @@
 "use client";
 
-import { User, Briefcase, FolderOpen, Zap, Award, MessageCircle, MessagesSquare } from "lucide-react";
+import { User, Briefcase, FolderOpen, Zap, Award, MessageCircle, MessagesSquare, Github } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-export type AdminSection = "personal" | "experience" | "projects" | "skills" | "achievements" | "chatbot" | "conversations";
+export type AdminSection = "personal" | "experience" | "projects" | "skills" | "achievements" | "chatbot" | "conversations" | "github";
 
 interface SidebarItem {
   id: AdminSection;
   label: string;
   icon: LucideIcon;
-  group?: "content" | "ai";
+  group?: "content" | "ai" | "integrations";
 }
 
 export const ADMIN_SECTIONS: SidebarItem[] = [
@@ -20,6 +20,7 @@ export const ADMIN_SECTIONS: SidebarItem[] = [
   { id: "achievements", label: "Achievements", icon: Award, group: "content" },
   { id: "chatbot", label: "Chatbot", icon: MessageCircle, group: "ai" },
   { id: "conversations", label: "Conversations", icon: MessagesSquare, group: "ai" },
+  { id: "github", label: "GitHub", icon: Github, group: "integrations" },
 ];
 
 interface AdminSidebarProps {
@@ -90,6 +91,52 @@ export default function AdminSidebar({ active, onChange }: AdminSidebarProps) {
       </p>
       <nav className="flex flex-col gap-0.5 px-2">
         {ADMIN_SECTIONS.filter((s) => s.group === "ai").map((item) => {
+          const isActive = active === item.id;
+          const Icon = item.icon;
+          return (
+            <button
+              key={item.id}
+              onClick={() => onChange(item.id)}
+              className="flex items-center gap-3 h-11 px-3 text-sm font-medium rounded-r-lg transition-all duration-150 cursor-pointer"
+              style={{
+                backgroundColor: isActive ? "var(--bg-tertiary)" : "transparent",
+                color: isActive ? "var(--cta)" : "var(--text-secondary)",
+                borderLeft: isActive ? "3px solid var(--cta)" : "3px solid transparent",
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.backgroundColor = "var(--bg-tertiary)";
+                  e.currentTarget.style.color = "var(--text-primary)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.color = "var(--text-secondary)";
+                }
+              }}
+            >
+              <Icon
+                size={18}
+                style={{
+                  color: isActive ? "var(--cta)" : "var(--text-muted)",
+                }}
+              />
+              {item.label}
+            </button>
+          );
+        })}
+      </nav>
+      {/* Integrations section separator */}
+      <div className="mx-4 my-3" style={{ borderTop: "1px solid var(--border)" }} />
+      <p
+        className="px-4 mb-2 text-[11px] font-semibold uppercase tracking-wider"
+        style={{ color: "var(--text-muted)" }}
+      >
+        Integrations
+      </p>
+      <nav className="flex flex-col gap-0.5 px-2">
+        {ADMIN_SECTIONS.filter((s) => s.group === "integrations").map((item) => {
           const isActive = active === item.id;
           const Icon = item.icon;
           return (
