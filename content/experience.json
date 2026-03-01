@@ -1,61 +1,64 @@
 [
   {
     "id": "1",
-    "company": "Tech Company Inc",
-    "role": "Senior Full-Stack Developer",
-    "startDate": "Jan 2022",
+    "company": "MService (MoMo) — App Platform Division",
+    "role": "React Native Engineer",
+    "startDate": "2025",
     "endDate": null,
     "achievements": [
-      "Led development of AI-powered multi-agent system serving 10,000+ users",
-      "Architected microservices infrastructure reducing deployment time by 60%",
-      "Mentored team of 5 junior developers and established best practices"
+      "Built and maintained Native Modules using Kotlin for platform-level capabilities",
+      "Architected internal admin system for managing feature flags and mini-app lifecycle within Super App ecosystem",
+      "Designed LLM-powered workflows for internal tooling and automation; leveraged Claude and other LLM tools to accelerate development and structured test generation",
+      "Contributed to platform-level React Native architecture and implemented Kotlin within KMP-based native modules to support multiplatform capabilities"
     ],
     "techStack": [
-      "React",
-      "Next.js",
+      "React Native",
+      "Kotlin",
       "TypeScript",
-      "Python",
-      "AWS",
-      "PostgreSQL"
+      "KMP",
+      "Claude",
+      "LLM"
     ]
   },
   {
     "id": "2",
-    "company": "Innovation Labs",
-    "role": "Full-Stack Developer",
-    "startDate": "Mar 2020",
-    "endDate": "Dec 2021",
+    "company": "MService (MoMo) — Financial Service Division",
+    "role": "Senior React Native Engineer",
+    "startDate": "2021",
+    "endDate": "2024",
     "achievements": [
-      "Built real-time collaboration platform with WebSocket integration",
-      "Implemented CI/CD pipeline increasing deployment frequency by 3x",
-      "Optimized database queries reducing response time by 40%"
+      "Designed and implemented a monorepo-based reusable mobile library (components, screens, service layer, tracking layer) to standardize development across Financial Services mini-apps",
+      "Applied MVVM architecture and separation of concerns to improve maintainability and reduce cross-project defects",
+      "Led development of key fintech mini-apps including Apple Installment and Buy Now Pay Later, contributing to core financial product expansion",
+      "Developed deep understanding of installment-based financing models, credit risk flow, repayment lifecycle, and merchant integration logic",
+      "Developed internal automation testing framework using Jest to improve regression protection for financial transaction flows"
     ],
     "techStack": [
-      "React",
-      "Node.js",
-      "FastAPI",
-      "PostgreSQL",
-      "Redis",
-      "Docker"
+      "React Native",
+      "TypeScript",
+      "MVVM",
+      "Jest",
+      "Monorepo",
+      "JavaScript"
     ]
   },
   {
     "id": "3",
-    "company": "MoMo",
-    "role": "Junior App Developer",
-    "startDate": "Oct 2020",
-    "endDate": "Apr 2022",
+    "company": "MService (MoMo) — App Platform Division",
+    "role": "React Native Engineer",
+    "startDate": "2020",
+    "endDate": "2021",
     "achievements": [
-      "Developed core features for SaaS product from MVP to production",
-      "Integrated third-party APIs and payment processing systems",
-      "Collaborated with design team to implement responsive UI components"
+      "Built and maintained Native Modules using Kotlin for Android platform integration",
+      "Contributed to platform-level React Native architecture supporting the Super App ecosystem",
+      "Collaborated with cross-functional teams on mini-app lifecycle management"
     ],
     "techStack": [
-      "Vue.js",
-      "Python",
-      "Flask",
-      "MongoDB",
-      "Stripe"
+      "React Native",
+      "Kotlin",
+      "TypeScript",
+      "JavaScript",
+      "Android Studio"
     ]
   }
 ]

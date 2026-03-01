@@ -1,11 +1,11 @@
 {
   "name": "Hùng Phù",
-  "tagline": "Full-Stack Developer & Creative Technologist",
-  "bio": "I'm a full-stack developer based in Ho Chi Minh City, Vietnam. I craft interactive digital experiences that merge elegant design with robust engineering - specializing in React, Next.js, and AI technologies.",
+  "tagline": "Senior React Native Engineer | Fintech & AI-Driven Mobile Solutions",
+  "bio": "Senior React Native Engineer with 5+ years of experience building and scaling fintech mini-apps within MoMo's Super App ecosystem. Strong background in mobile architecture (MVVM, monorepo design), secure financial integrations, and automation testing strategy.\n\nExperienced in leading technical initiatives, integrating AI-driven workflows, and designing LLM-powered mobile solutions. Passionate about building scalable financial systems with high reliability and long-term maintainability.",
   "email": "phuvinhhung1999@gmail.com",
   "location": "Ho Chi Minh City, Vietnam",
   "status": "Open to opportunities",
-  "languages": "Vietnamese, English",
+  "languages": "Vietnamese (Native), English (Professional Working Proficiency)",
   "socialLinks": [
     {
       "name": "GitHub",
@@ -32,12 +32,12 @@
     {
       "icon": "Target",
       "label": "Focus",
-      "value": "Full-Stack Development, AI/ML"
+      "value": "React Native, Fintech, AI/Automation"
     },
     {
       "icon": "Briefcase",
-      "label": "Status",
-      "value": "Open to opportunities"
+      "label": "Experience",
+      "value": "5+ years Mobile Development"
     },
     {
       "icon": "Globe",

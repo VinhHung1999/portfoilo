@@ -1,37 +1,30 @@
 [
-    {
-        "id": "1",
-        "title": "Best Engineering Team",
-        "description": "Led development of high-impact features serving millions of users",
-        "date": "2023",
-        "icon": "trophy"
-    },
-    {
-        "id": "2",
-        "title": "Innovation Award",
-        "description": "Pioneered AI-powered solutions that improved user experience",
-        "date": "2023",
-        "icon": "sparkles"
-    },
-    {
-        "id": "3",
-        "title": "Technical Excellence",
-        "description": "Recognized for outstanding code quality and system architecture",
-        "date": "2022",
-        "icon": "award"
-    },
-    {
-        "id": "4",
-        "title": "Team Player Award",
-        "description": "Exceptional collaboration and mentorship within engineering team",
-        "date": "2022",
-        "icon": "medal"
-    },
-    {
-        "id": "5",
-        "title": "Rising Star",
-        "description": "Rapid growth and significant contributions to company success",
-        "date": "2021",
-        "icon": "star"
-    }
+  {
+    "id": "1",
+    "title": "MoMo FS AI Hackathon — 1st Prize",
+    "description": "Led a cross-functional team to design and integrate an AI-powered chatbot into MoMo's Mini-App ecosystem, enabling users to interact with UI through natural language. Defined system architecture for LLM-based interaction layer with chatbot-driven navigation and contextual response handling within financial workflows.",
+    "date": "2024",
+    "icon": "trophy"
+  },
+  {
+    "id": "2",
+    "title": "TechDay 2025 Hackathon — 2nd Prize",
+    "description": "Led development of an AI-driven mobile testing solution capable of executing automated application tests and generating structured test cases for regression coverage. Designed workflow combining AI-based UI inspection and test case synthesis to reduce manual QA effort.",
+    "date": "2025",
+    "icon": "award"
+  },
+  {
+    "id": "3",
+    "title": "Internal Automation & Engineering Initiative",
+    "description": "Initiated and developed internal automation testing framework to improve regression reliability for financial mini-apps. Promoted automation-first mindset within development workflow, supporting QA and reducing manual testing overhead.",
+    "date": "2023",
+    "icon": "sparkles"
+  },
+  {
+    "id": "4",
+    "title": "B.Sc. Information Technology — GPA 3.4/4.0",
+    "description": "Graduated from University of Science, Ho Chi Minh City. Relevant coursework: Data Structures & Algorithms, Object-Oriented Programming, Software Engineering.",
+    "date": "2021",
+    "icon": "star"
+  }
 ]

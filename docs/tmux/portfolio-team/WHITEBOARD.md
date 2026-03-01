@@ -1,8 +1,8 @@
 # Portfolio Team Whiteboard
 
-**Sprint:** 14 - ✅ CLOSED
-**Goal:** Docker Self-Hosted + Cloudflare Tunnel (portfolio.hungphu.work + portfolio-dev.hungphu.work)
-**Status:** Closed. 5/6 tasks done. Task 5 (production QA) carry-over pending Docker fix.
+**Sprint:** 17 - ✅ COMPLETE
+**Goal:** Populate portfolio with real CV data (Phù Vĩnh Hùng)
+**Status:** DONE — All content files updated, build passed. Awaiting Boss review.
 
 ---
 
@@ -10,31 +10,16 @@
 
 | Role | Status | Last Update |
 |------|--------|-------------|
-| PM   | ✅ Sprint closed | 17:25 |
-| DS   | ⏸️ Standby | 17:25 |
-| DEV  | ⏸️ Standby | 17:25 |
-| QA   | ⏸️ Standby | 17:25 |
+| PM   | ✅ Sprint 17 done | 2026-03-01 |
+| DS   | ⏸️ Standby | 2026-03-01 |
+| DEV  | ⏸️ Standby | 2026-03-01 |
+| QA   | ⏸️ Standby | 2026-03-01 |
 
 ---
 
 ## Active Blockers
 
 - **Docker Desktop proxy** (http.docker.internal:3128) blocks image pull. Boss will fix manually. Once fixed: `docker-compose up -d` → production live on :3000.
-
----
-
-## Sprint 14 Summary
-
-| # | Task | Status |
-|---|------|--------|
-| 1 | Remove `@vercel/blob`, local filesystem | ✅ Done (5dd9ed6) |
-| 2 | Dockerfile + docker-compose.yml | ✅ Done (a011732) |
-| 3 | Cloudflare Tunnel: `portfolio.hungphu.work` → :3000 | ✅ Done (502 until Docker fixed) |
-| 4 | Cloudflare Tunnel: `portfolio-dev.hungphu.work` → :2000 | ✅ Done (verified 200) |
-| 5 | QA: Test production | ⏳ Carry-over (Docker blocker) |
-| 6 | QA: Test dev environment | ✅ Done (15/15 passed) |
-
-**Carry-over to post-Docker fix:** Build image, `docker-compose up`, QA test production.
 
 ---
 
@@ -53,6 +38,10 @@
 ---
 
 ## Backlog
+
+**Sprint 17+ Backlog:**
+
+---
 
 **Sprint 11 P1 (stretch):**
 
@@ -90,7 +79,9 @@
 | 12 | AI Chatbot: LangChain + xAI streaming, 8 chat components, full-screen mobile, focus trap |
 | 13 | Admin Chatbot: settings UI, custom context, prompt tuning, hybrid Blob/local storage |
 | 14 | Docker self-host: Dockerfile, docker-compose, Cloudflare Tunnel (dev verified, prod pending Docker fix) |
+| 15 | Conversation logging, email transcript, admin panel enhancements |
+| 16 | GitHub Sync: GraphQL client, admin settings, sync API, build-time sync (QA 53/53) |
 
 ---
 
-**Last Updated:** 2026-02-11 17:25
+**Last Updated:** 2026-03-01

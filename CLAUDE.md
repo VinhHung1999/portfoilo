@@ -17,9 +17,26 @@ No test suite exists yet. Playwright is installed as a dev dependency.
 
 ## Team
 
-This project is built by a **multi-agent tmux team** with 4 roles: PM (coordination), DS (design), DEV (implementation), QA (testing). The workflow is design-first: DS specs → DEV implements → QA tests → PM reports to Boss. All communication flows through PM via `tm-send`. See [.claude/memory/team/](.claude/memory/team/README.md) for full details.
+This project is built by a **multi-agent tmux team** (`portfolio_team` session) with 4 roles:
 
-Team docs live in `docs/tmux/portfolio-team/` (workflow, whiteboard, role prompts).
+| Role | Pane | Purpose | Model |
+|------|------|---------|-------|
+| PM | 0 | Sprint coordination, team communication hub | Sonnet |
+| DS | 1 | UI/UX design specs, creative direction | Opus |
+| DEV | 2 | Full-stack implementation | Sonnet |
+| QA | 3 | Black-box testing, UX validation | Haiku |
+
+**Workflow:** Design-first — DS specs → DEV implements → QA tests → PM reports to Boss.
+
+**Boss (user) also acts as BM:** Boss may delegate sprint tasks directly to PM via `tm-send`, or implement features directly alongside the team. The whiteboard (`docs/tmux/portfolio-team/WHITEBOARD.md`) is the shared backlog — add sprint tasks there for the team to pick up.
+
+**Communication:** All inter-agent communication flows through PM via `tm-send`. Boss sends tasks to PM who coordinates the team.
+
+**Key docs:**
+- `docs/tmux/portfolio-team/WHITEBOARD.md` — sprint status + backlog (source of truth)
+- `docs/tmux/portfolio-team/workflow.md` — full team workflow
+- `docs/tmux/portfolio-team/prompts/` — role prompts (PM, DS, DEV, QA)
+- `.claude/memory/team/` — team memory & lessons learned
 
 ## Architecture
 
