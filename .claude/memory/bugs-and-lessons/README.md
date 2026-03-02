@@ -75,3 +75,8 @@ DS creating specs before DEV implements reduces back-and-forth significantly. Sk
 ### Next.js 16 removed `next lint` command (Sprint 15)
 - **Cause:** `next lint` was removed in Next.js 16; `npm run lint` fails with "no such directory: .../lint"
 - **Lesson:** Next.js 16 CLI only has: build, dev, start, info, typegen, upgrade. Use standalone ESLint if needed.
+
+### Git author shows wrong contributor on GitHub (Sprint 17)
+- **Cause:** No git user.name/user.email configured → defaults to hostname-based identity (`hungphu@Hungs-Mac-mini.local`). GitHub can't match this to any account. Co-Authored-By trailer made Claude appear as contributor instead.
+- **Fix:** `git config user.name` + `user.email` set to match GitHub account; amend commit without Co-Authored-By
+- **Lesson:** Always verify git config email matches GitHub account email before pushing. Skip Co-Authored-By if Boss doesn't want it.

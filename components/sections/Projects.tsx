@@ -1,14 +1,14 @@
 "use client";
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
-import { Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout } from "lucide-react";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout, Heart, Mic, Terminal, Film, MessageSquare, BookOpen } from "lucide-react";
 import { useTiltEffect } from "@/hooks/useTiltEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 const iconMap: Record<string, typeof Bot> = {
-  Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout,
+  Bot, Palette, ShoppingBag, Globe, Code, Smartphone, Database, Brain, Rocket, Layout, Heart, Mic, Terminal, Film, MessageSquare, BookOpen,
 };
 import { sectionVariants, itemVariants, viewportConfig } from "@/lib/animations";
 import { projects as defaultData } from "@/data/projects";
@@ -56,6 +56,18 @@ export default function Projects({ data }: { data?: Project[] }) {
 
   const [activeFilter, setActiveFilter] = useState<"all" | "web" | "mobile" | "ai">("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const closeModal = useCallback(() => setSelectedProject(null), []);
+
+  // BUG #1 fix: Close modal on Escape key
+  useEffect(() => {
+    if (!selectedProject) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeModal();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [selectedProject, closeModal]);
 
   const filteredProjects =
     activeFilter === "all"

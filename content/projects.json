@@ -1,76 +1,143 @@
 [
-    {
-        "id": "1",
-        "title": "AI Multi-Agent System",
-        "shortDescription": "Collaborative AI agents working together to solve complex tasks",
-        "fullDescription": "Built a multi-agent system using LangChain where AI agents collaborate autonomously. Features include task delegation, inter-agent communication, and real-time progress tracking.",
-        "category": "ai",
-        "year": 2024,
-        "thumbnail": "Bot",
-        "images": [
-            "Bot"
-        ],
-        "techStack": [
-            "Python",
-            "LangChain",
-            "FastAPI",
-            "React",
-            "TypeScript"
-        ],
-        "features": [
-            "Autonomous agent collaboration with role-based task distribution",
-            "Real-time progress monitoring and agent communication logs",
-            "Scalable architecture supporting multiple concurrent agent teams"
-        ],
-        "liveUrl": "https://example.com",
-        "codeUrl": "https://github.com"
-    },
-    {
-        "id": "2",
-        "title": "Portfolio Website",
-        "shortDescription": "Modern portfolio with Deep Space Violet theme and smooth animations",
-        "fullDescription": "Interactive portfolio website built with Next.js 14, featuring scroll-snap pagination, progressive reveal animations, and a sophisticated Deep Space Violet design system.",
-        "category": "web",
-        "year": 2024,
-        "thumbnail": "Palette",
-        "images": [
-            "Palette"
-        ],
-        "techStack": [
-            "Next.js",
-            "TypeScript",
-            "Tailwind CSS",
-            "Framer Motion"
-        ],
-        "features": [
-            "Pagination scroll with 100vh snap sections",
-            "Progressive reveal animations with blur effects",
-            "Professional motion design with refined easing"
-        ]
-    },
-    {
-        "id": "3",
-        "title": "E-Commerce Platform",
-        "shortDescription": "Full-stack e-commerce with payment integration",
-        "fullDescription": "Complete e-commerce solution with product catalog, shopping cart, secure checkout, and payment processing. Admin dashboard for inventory management.",
-        "category": "web",
-        "year": 2023,
-        "thumbnail": "ShoppingBag",
-        "images": [
-            "ShoppingBag"
-        ],
-        "techStack": [
-            "React",
-            "Node.js",
-            "PostgreSQL",
-            "Stripe",
-            "AWS"
-        ],
-        "features": [
-            "Secure payment processing with Stripe integration",
-            "Real-time inventory management and order tracking",
-            "Responsive design optimized for mobile shopping"
-        ],
-        "liveUrl": "https://example.com"
-    }
-]
+  {
+    "id": "1",
+    "title": "Love Memories",
+    "shortDescription": "A private couples app for saving memories, tracking food spots, and managing shared goals together",
+    "fullDescription": "Love Memories is a beautifully designed PWA for couples to capture their relationship — from daily moments and love letters to favorite food spots on an interactive map. It features scrum-style goal tracking, date planning, recipe sharing, budget management, and Instagram-style monthly recaps, all in a mobile-first Vietnamese UI built for two.",
+    "category": "web",
+    "year": 2026,
+    "thumbnail": "Heart",
+    "images": ["Heart"],
+    "techStack": [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS v4",
+      "Express.js",
+      "Prisma ORM",
+      "PostgreSQL",
+      "Mapbox GL JS",
+      "PWA",
+      "JWT Auth"
+    ],
+    "features": [
+      "Moments & Photo Booth — capture and relive memories with multi-photo uploads and background processing",
+      "Interactive Food Map — pin favorite restaurants on a Mapbox-powered map with location search",
+      "Love Letters with voice memos — write letters with photo attachments and audio recordings",
+      "Scrum Goals & Kanban — drag-and-drop goal management organized in sprints",
+      "Monthly Recap Stories — Instagram-style full-screen animated recap of the couple's month"
+    ],
+    "liveUrl": "https://love-scrum.hungphu.work",
+    "codeUrl": "https://github.com/VinhHung1999/love-memories"
+  },
+  {
+    "id": "2",
+    "title": "VoiceEverywhere",
+    "shortDescription": "Native macOS menubar app chuyển giọng nói thành text real-time với AI post-processing",
+    "fullDescription": "VoiceEverywhere là ứng dụng macOS menubar giúp chuyển đổi giọng nói thành văn bản real-time qua Soniox speech-to-text API, hỗ trợ tiếng Việt và tiếng Anh. App tự động gõ text vào bất kỳ ứng dụng nào đang focus thông qua Accessibility API, với tùy chọn LLM post-processing (xAI) để rewrite/translate/format trước khi type.",
+    "category": "ai",
+    "year": 2025,
+    "thumbnail": "Mic",
+    "images": ["Mic"],
+    "techStack": [
+      "Swift",
+      "SwiftUI",
+      "Carbon Framework",
+      "AVAudioEngine",
+      "WebSocket",
+      "Soniox STT API",
+      "xAI API (Grok)",
+      "macOS Accessibility API"
+    ],
+    "features": [
+      "Real-time speech-to-text với Soniox streaming (Vietnamese + English)",
+      "Tự động type text vào bất kỳ app nào qua Accessibility API (CGEvent keyboard simulation)",
+      "LLM post-processing tùy chọn qua xAI API — rewrite, translate, format text",
+      "Format presets — tạo và quản lý các bộ instructions cho LLM formatting",
+      "Global hotkey (Ctrl+Option+Space) toggle recording từ bất kỳ đâu, menubar-only lightweight"
+    ],
+    "codeUrl": "https://github.com/VinhHung1999/voice-everywhere"
+  },
+  {
+    "id": "4",
+    "title": "WebPhim",
+    "shortDescription": "A Netflix-like movie streaming platform with full video management and user features",
+    "fullDescription": "WebPhim is a full-stack Netflix clone that supports video uploading, HLS transcoding, and adaptive streaming. It features user authentication, content browsing by genre, search with filters, watchlist management, continue watching, and a complete admin panel for content management.",
+    "category": "web",
+    "year": 2025,
+    "thumbnail": "Film",
+    "images": ["Film"],
+    "techStack": [
+      "Next.js 14",
+      "React",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Node.js/Express",
+      "PostgreSQL",
+      "HLS Video Streaming",
+      "NextAuth.js"
+    ],
+    "features": [
+      "HLS adaptive video streaming with upload and auto-transcoding",
+      "Browse by genre, search with maturity filters and keyword chips",
+      "User profiles with watchlist, continue watching, and watch history",
+      "Responsive design for desktop, tablet, and mobile",
+      "Admin panel for content and video management"
+    ],
+    "liveUrl": "https://movie.hungphu.work",
+    "codeUrl": "https://github.com/VinhHung1999/movie"
+  },
+  {
+    "id": "5",
+    "title": "HungPhu Code",
+    "shortDescription": "A study/clone of Claude Code to understand how AI coding agents work internally",
+    "fullDescription": "A CLI chat agent inspired by Claude Code that enables autonomous coding assistance through multiple LLM providers with built-in tool calling. Implements the agent loop pattern where the LLM decides which tools to invoke, executes them, and iterates until completing tasks. Supports autonomous file operations, code search, shell execution, and multi-step workflows.",
+    "category": "ai",
+    "year": 2026,
+    "thumbnail": "Terminal",
+    "images": ["Terminal"],
+    "techStack": [
+      "TypeScript",
+      "Node.js",
+      "LangChain",
+      "Zod",
+      "xAI",
+      "OpenRouter"
+    ],
+    "features": [
+      "Agent loop pattern with autonomous tool calling and multi-step task execution",
+      "9 specialized tools: file edit, glob, grep, bash, sub-agent spawning, and more",
+      "Multi-provider LLM support with runtime switching (xAI, OpenRouter, DTA Proxy)",
+      "Interactive REPL with slash commands and terminal UI with colored output",
+      "Autonomous project scaffolding from single natural language prompts"
+    ],
+    "codeUrl": "https://github.com/VinhHung1999/hungphucode"
+  },
+  {
+    "id": "6",
+    "title": "Portfolio Website",
+    "shortDescription": "Modern interactive portfolio with Violet→Blue gradient theme and smooth animations",
+    "fullDescription": "Interactive portfolio website featuring scroll-snap sections, AI chatbot with streaming responses, admin panel for content management, Docker self-hosting with Cloudflare Tunnel, and GitHub repo auto-sync. Built with a design-first multi-agent team workflow across 17+ sprints.",
+    "category": "web",
+    "year": 2026,
+    "thumbnail": "Palette",
+    "images": ["Palette"],
+    "techStack": [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Framer Motion",
+      "LangChain",
+      "Docker"
+    ],
+    "features": [
+      "Scroll-triggered animations with mesh blobs, 3D tilt cards, and bento grid",
+      "AI chatbot with LangChain + xAI streaming and custom admin context",
+      "Full admin panel with image upload, content CRUD, and GitHub sync",
+      "Docker self-hosting with Cloudflare Tunnel for custom domain",
+      "Built by a 4-agent tmux team (PM, Designer, Dev, QA) workflow"
+    ],
+    "liveUrl": "https://portfolio.hungphu.work",
+    "codeUrl": "https://github.com/VinhHung1999/portfoilo"
+  }]

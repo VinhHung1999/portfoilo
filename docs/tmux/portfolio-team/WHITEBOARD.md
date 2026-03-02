@@ -1,8 +1,8 @@
 # Portfolio Team Whiteboard
 
-**Sprint:** 17 - ✅ COMPLETE
-**Goal:** Populate portfolio with real CV data (Phù Vĩnh Hùng)
-**Status:** DONE — All content files updated, build passed. Awaiting Boss review.
+**Sprint:** 18 - 🚀 ACTIVE
+**Goal:** Update Projects section with real project data from Boss's GitHub/portfolio
+**Status:** IN PROGRESS — PM coordinating team
 
 ---
 
@@ -10,10 +10,21 @@
 
 | Role | Status | Last Update |
 |------|--------|-------------|
-| PM   | ✅ Sprint 17 done | 2026-03-01 |
-| DS   | ⏸️ Standby | 2026-03-01 |
-| DEV  | ⏸️ Standby | 2026-03-01 |
-| QA   | ⏸️ Standby | 2026-03-01 |
+| PM   | 🚀 Coordinating Sprint 18 | 2026-03-01 |
+| DS   | 📋 Assigned: Review project cards design | 2026-03-01 |
+| DEV  | 📋 Assigned: Update projects.json with real data | 2026-03-01 |
+| QA   | ⏸️ Waiting for DEV | 2026-03-01 |
+
+---
+
+## Sprint 18 Tasks
+
+| # | Task | Owner | Status |
+|---|------|-------|--------|
+| 1 | Research Boss's GitHub repos (VinhHung1999) for real projects | DEV | ✅ Done |
+| 2 | Collect project info from all tmux teams (love_scrum, voice, webphim, xteink) | PM | ✅ Done |
+| 3 | Update `content/projects.json` with verified team info | PM | ✅ Done (build passed) |
+| 4 | QA test project cards on dev | QA | 📋 Assigned |
 
 ---
 
@@ -81,7 +92,8 @@
 | 14 | Docker self-host: Dockerfile, docker-compose, Cloudflare Tunnel (dev verified, prod pending Docker fix) |
 | 15 | Conversation logging, email transcript, admin panel enhancements |
 | 16 | GitHub Sync: GraphQL client, admin settings, sync API, build-time sync (QA 53/53) |
+| 17 | Populate portfolio with real CV data (personal, experience, skills, achievements) |
 
 ---
 
-**Last Updated:** 2026-03-01
+**Last Updated:** 2026-03-01 (Sprint 18 started)

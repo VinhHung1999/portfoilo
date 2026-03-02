@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useState, useEffect, useMemo } from "react";
 import { scrollToSection as scrollTo } from "@/lib/scroll";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useTheme } from "@/lib/theme";
@@ -10,15 +10,17 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
   const { theme } = useTheme();
   const activeSection = useActiveSection();
 
   useEffect(() => {
-    return scrollY.on("change", (latest) => {
-      setIsScrolled(latest > 50);
-    });
-  }, [scrollY]);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    handleScroll(); // Check initial scroll position
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Smooth scroll to section and close mobile menu
   const scrollToSection = (sectionId: string) => {
@@ -38,7 +40,7 @@ export default function Navigation() {
   // Theme-aware header colors
   const isLightMode = theme === "light";
 
-  const headerVariants = {
+  const headerVariants = useMemo(() => ({
     top: {
       backgroundColor: "rgba(0, 0, 0, 0)",
       borderColor: "rgba(0, 0, 0, 0)",
@@ -48,7 +50,7 @@ export default function Navigation() {
       backdropFilter: "blur(12px)",
       borderColor: isLightMode ? "rgba(228, 228, 231, 1)" : "rgba(26, 26, 26, 1)",
     },
-  };
+  }), [isLightMode]);
 
   const mobileMenuVariants = {
     closed: { x: "100%" },
