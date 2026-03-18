@@ -6,8 +6,10 @@
     "fullDescription": "Love Memories is a beautifully designed PWA for couples to capture their relationship — from daily moments and love letters to favorite food spots on an interactive map. It features scrum-style goal tracking, date planning, recipe sharing, budget management, and Instagram-style monthly recaps, all in a mobile-first Vietnamese UI built for two.",
     "category": "web",
     "year": 2026,
-    "thumbnail": "Heart",
-    "images": ["Heart"],
+    "thumbnail": "Globe",
+    "images": [
+      "Heart"
+    ],
     "techStack": [
       "React 19",
       "TypeScript",
@@ -37,8 +39,10 @@
     "fullDescription": "VoiceEverywhere là ứng dụng macOS menubar giúp chuyển đổi giọng nói thành văn bản real-time qua Soniox speech-to-text API, hỗ trợ tiếng Việt và tiếng Anh. App tự động gõ text vào bất kỳ ứng dụng nào đang focus thông qua Accessibility API, với tùy chọn LLM post-processing (xAI) để rewrite/translate/format trước khi type.",
     "category": "ai",
     "year": 2025,
-    "thumbnail": "Mic",
-    "images": ["Mic"],
+    "thumbnail": "Smartphone",
+    "images": [
+      "Mic"
+    ],
     "techStack": [
       "Swift",
       "SwiftUI",
@@ -65,8 +69,10 @@
     "fullDescription": "WebPhim is a full-stack Netflix clone that supports video uploading, HLS transcoding, and adaptive streaming. It features user authentication, content browsing by genre, search with filters, watchlist management, continue watching, and a complete admin panel for content management.",
     "category": "web",
     "year": 2025,
-    "thumbnail": "Film",
-    "images": ["Film"],
+    "thumbnail": "Globe",
+    "images": [
+      "Film"
+    ],
     "techStack": [
       "Next.js 14",
       "React",
@@ -94,8 +100,10 @@
     "fullDescription": "A CLI chat agent inspired by Claude Code that enables autonomous coding assistance through multiple LLM providers with built-in tool calling. Implements the agent loop pattern where the LLM decides which tools to invoke, executes them, and iterates until completing tasks. Supports autonomous file operations, code search, shell execution, and multi-step workflows.",
     "category": "ai",
     "year": 2026,
-    "thumbnail": "Terminal",
-    "images": ["Terminal"],
+    "thumbnail": "Brain",
+    "images": [
+      "Terminal"
+    ],
     "techStack": [
       "TypeScript",
       "Node.js",
@@ -121,7 +129,9 @@
     "category": "web",
     "year": 2026,
     "thumbnail": "Palette",
-    "images": ["Palette"],
+    "images": [
+      "Palette"
+    ],
     "techStack": [
       "Next.js 16",
       "React 19",
@@ -140,4 +150,5 @@
     ],
     "liveUrl": "https://portfolio.hungphu.work",
     "codeUrl": "https://github.com/VinhHung1999/portfoilo"
-  }]
+  }
+]
