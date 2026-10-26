@@ -43,7 +43,14 @@ export default function HeroAbout({ data, featured }: HeroAboutProps) {
         {featured && stat && (
           <a className="promo intro" href="#projects">
             <span className="tag">Side project</span>
-            {`${featured.title}: ${stat.value} ${stat.label}`} <span className="ar">→</span>
+            {/* on mobile the text scrolls as a one-line marquee; the duplicate makes the loop seamless */}
+            <span className="mq">
+              <span className="mq-in">
+                <span>{`${featured.title}: ${stat.value} ${stat.label}`}</span>
+                <span className="mq-dup" aria-hidden="true">{`${featured.title}: ${stat.value} ${stat.label}`}</span>
+              </span>
+            </span>
+            <span className="ar">→</span>
           </a>
         )}
         <div className="who intro d1">

@@ -1,3 +1,4 @@
+import type { Viewport } from "next";
 import Navigation from "@/components/layout/Navigation";
 import HeroAbout, { QuickFacts } from "@/components/sections/HeroAbout";
 import Experience from "@/components/sections/Experience";
@@ -12,6 +13,9 @@ import "./portfolio.css";
 
 // Force dynamic rendering so content is fetched at runtime from Blob
 export const dynamic = "force-dynamic";
+
+// Mobile browser chrome matches the top of the sky hero
+export const viewport: Viewport = { themeColor: "#0a5a94", colorScheme: "dark" };
 
 export default async function Home() {
   const content = await getPortfolioContent();
