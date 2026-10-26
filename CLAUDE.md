@@ -55,23 +55,26 @@ All display content lives in `/data/` as typed TypeScript exports. Components im
 
 ### Page Structure
 
-`app/page.tsx` renders a single scrollable page composed of section components in order: HeroAbout → Experience → Skills → Projects → Achievements → Contact. Navigation uses smooth scroll to section `id` anchors (no client-side routing).
+`app/page.tsx` renders a single scrollable page inside a `<div className="pf">` wrapper: HeroAbout (sky hero + MoMo-themed phone) → a dark `.sheet` containing QuickFacts → Experience → Projects → Skills → Achievements → Contact. `ChatFAB` sits outside `.pf`. Navigation uses smooth scroll to section `id` anchors (no client-side routing).
 
 ### Component Organization
 
-- `components/sections/` — full-page sections (HeroAbout, Experience, Projects, Skills, Achievements, Contact)
-- `components/layout/` — Navigation (fixed header, mobile hamburger)
-- `components/ui/` — reusable primitives (ThemeToggle, Skeleton)
+- `components/sections/` — sections (HeroAbout + QuickFacts, HeroPhone, Experience, Projects, Skills, Achievements, Contact)
+- `components/layout/` — Navigation (fixed header, turns solid after scrolling)
+- `components/ui/` — primitives (Reveal scroll-in, Avatar with initials fallback; ThemeToggle/Skeleton are legacy)
+- `data/heroPhone.ts` — static hero phone content (notifications, apps) and bio emphasis phrases
 
-All section components are `"use client"` and follow the same pattern: import data from `/data/`, use Framer Motion for scroll-triggered animations, check `useReducedMotion()` for accessibility.
+Projects support optional presentation fields (`featured`, `theme`, `extraCategories`, `stats`, `highlights`, `workflow`) and skills support optional display `groups`; the admin forms don't edit these but preserve them on save.
 
-### Theme System
+### Design System (public page)
 
-CSS variables in `app/globals.css` define the design system (colors, spacing, shadows, gradients). Light/dark mode toggles via `data-theme` attribute on `<html>`, managed by a React Context provider in `lib/theme.tsx` with localStorage persistence. The color palette uses a Violet→Blue gradient system (`--gradient-start`, `--gradient-end`).
+The approved design spec is `docs/design/prototypes/origin-redesign.html`; the implementation was matched to it pixel-for-pixel, so change the spec and the code together. Styles live in `app/portfolio.css` with **every selector scoped under `.pf`** (keyframes prefixed `pf-`) so `/admin` and the chat widget are unaffected. Fonts load via `next/font` in `app/fonts.ts`, but CSS references the real family names (not the `--f-*` variables) so missing glyphs fall back like the prototype; Inter is loaded only up to 600 on purpose. Side-project cards use each product's own theme (Tử Vi Ngày Mai, BlissDay, Steady).
+
+`app/globals.css` (light/dark `data-theme`, Violet→Blue tokens, Tailwind) still serves the admin panel and chat widget. Two of its global rules leak into the page and are neutralized in `portfolio.css`: the mobile 44px min-size on `a`/`button`, and Tailwind preflight's `sup` offsets.
 
 ### Animation System
 
-`lib/animations.ts` exports reusable Framer Motion variants (fade-in, slide-up, scale, stagger). All animations respect `prefers-reduced-motion` via the `hooks/useReducedMotion.ts` hook — when enabled, animations are reduced to simple opacity fades.
+Public page: CSS transitions plus small client components — `Reveal` (IntersectionObserver adds `.in`), hero blur-in and digit roll, and `HeroPhone`'s scroll-driven iOS notification stack. All respect `prefers-reduced-motion`. The legacy Framer Motion variants in `lib/animations.ts` are no longer used by the public page.
 
 ### Utilities
 
