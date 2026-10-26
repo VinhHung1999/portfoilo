@@ -209,8 +209,8 @@ export default function Projects({ data }: { data?: Project[] }) {
         ))}
       </div>
 
-      {/* featured project stays visible under every filter, as in the approved prototype */}
-      {featured && (
+      {/* featured project (and its "How I built it" block) follows the filter like every other card */}
+      {featured && show(featured) && (
         <>
           <Featured project={featured} />
           {featured.workflow && <Flow workflow={featured.workflow} />}
