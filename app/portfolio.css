@@ -240,8 +240,10 @@ html:has(.pf),html:has(.pf) body{background:#0a0a0b;color-scheme:dark}
 .pf .contact h2{font-size:clamp(48px,7vw,92px);line-height:1}
 .pf .contact h2 em{font-style:italic}
 .pf .contact>p{color:rgba(255,255,255,.85);margin:18px auto 34px}
-.pf .cinfo{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:760px;margin:0 auto 30px;border-radius:18px;overflow:hidden;background:rgba(255,255,255,.2);text-align:left}
-.pf .cinfo div{background:rgba(10,40,70,.35);backdrop-filter:blur(12px);padding:16px 18px;font-size:14.5px}
+.pf .cinfo{display:grid;grid-template-columns:repeat(3,1fr);max-width:760px;margin:0 auto 30px;border-radius:18px;overflow:hidden;background:rgba(10,40,70,.35);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);text-align:left}
+/* blur lives on the rounded container: Chrome does not clip a child backdrop-filter to the parent radius */
+.pf .cinfo div{padding:16px 18px;font-size:14.5px}
+.pf .cinfo div+div{border-left:1px solid rgba(255,255,255,.2)}
 .pf .cinfo .kick{color:rgba(255,255,255,.7);display:block;margin-bottom:4px}
 .pf footer{display:flex;justify-content:space-between;color:var(--dim);font-size:13px;padding:36px 0 60px;flex-wrap:wrap;gap:12px}
 /* reveal */
@@ -280,6 +282,7 @@ html:has(.pf),html:has(.pf) body{background:#0a0a0b;color-scheme:dark}
 .pf .facts{grid-template-columns:1fr 1fr}
 .pf .stats{grid-template-columns:1fr 1fr}
 .pf .flow .steps,.pf .projs,.pf .awards,.pf .skills,.pf .cinfo{grid-template-columns:1fr}
+  .pf .cinfo div+div{border-left:0;border-top:1px solid rgba(255,255,255,.2)}
 .pf .job{padding:24px}
 .pf .sh{padding:100px 0 40px}
 .pf .contact{padding:80px 20px}
