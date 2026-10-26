@@ -1,97 +1,123 @@
 [
   {
-    "id": "1",
-    "title": "Love Memories",
-    "shortDescription": "A private couples app for saving memories, tracking food spots, and managing shared goals together",
-    "fullDescription": "Love Memories is a beautifully designed PWA for couples to capture their relationship — from daily moments and love letters to favorite food spots on an interactive map. It features scrum-style goal tracking, date planning, recipe sharing, budget management, and Instagram-style monthly recaps, all in a mobile-first Vietnamese UI built for two.",
-    "category": "web",
-    "year": 2026,
-    "thumbnail": "Globe",
-    "images": [
-      "Heart"
-    ],
-    "techStack": [
-      "React 19",
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS v4",
-      "Express.js",
-      "Prisma ORM",
-      "PostgreSQL",
-      "Mapbox GL JS",
-      "PWA",
-      "JWT Auth"
-    ],
-    "features": [
-      "Moments & Photo Booth — capture and relive memories with multi-photo uploads and background processing",
-      "Interactive Food Map — pin favorite restaurants on a Mapbox-powered map with location search",
-      "Love Letters with voice memos — write letters with photo attachments and audio recordings",
-      "Scrum Goals & Kanban — drag-and-drop goal management organized in sprints",
-      "Monthly Recap Stories — Instagram-style full-screen animated recap of the couple's month"
-    ],
-    "liveUrl": "https://love-scrum.hungphu.work",
-    "codeUrl": "https://github.com/VinhHung1999/love-memories"
-  },
-  {
-    "id": "2",
-    "title": "VoiceEverywhere",
-    "shortDescription": "Native macOS menubar app chuyển giọng nói thành text real-time với AI post-processing",
-    "fullDescription": "VoiceEverywhere là ứng dụng macOS menubar giúp chuyển đổi giọng nói thành văn bản real-time qua Soniox speech-to-text API, hỗ trợ tiếng Việt và tiếng Anh. App tự động gõ text vào bất kỳ ứng dụng nào đang focus thông qua Accessibility API, với tùy chọn LLM post-processing (xAI) để rewrite/translate/format trước khi type.",
+    "id": "6",
+    "title": "Tử Vi Ngày Mai",
+    "featured": true,
+    "theme": "tuvi",
+    "role": "Co-founder & Product Engineer",
+    "period": "May 2026 — Present",
+    "shortDescription": "AI-powered Vietnamese astrology app, grown to 33,400 users in 6 months.",
+    "fullDescription": "AI-powered Vietnamese astrology app. I own product and tech end to end: UI/UX, frontend, backend, AI features (chart reading, AI chat guide), VietQR payments, and analytics.",
     "category": "ai",
-    "year": 2025,
-    "thumbnail": "Smartphone",
-    "images": [
-      "Mic"
-    ],
+    "year": 2026,
+    "thumbnail": "Sparkles",
+    "images": [],
     "techStack": [
-      "Swift",
-      "SwiftUI",
-      "Carbon Framework",
-      "AVAudioEngine",
-      "WebSocket",
-      "Soniox STT API",
-      "xAI API (Grok)",
-      "macOS Accessibility API"
+      "Next.js",
+      "FastAPI",
+      "PostgreSQL",
+      "LLM",
+      "VietQR"
     ],
-    "features": [
-      "Real-time speech-to-text với Soniox streaming (Vietnamese + English)",
-      "Tự động type text vào bất kỳ app nào qua Accessibility API (CGEvent keyboard simulation)",
-      "LLM post-processing tùy chọn qua xAI API — rewrite, translate, format text",
-      "Format presets — tạo và quản lý các bộ instructions cho LLM formatting",
-      "Global hotkey (Ctrl+Option+Space) toggle recording từ bất kỳ đâu, menubar-only lightweight"
+    "features": [],
+    "stats": [
+      {
+        "value": "33,400",
+        "label": "users in 6 months",
+        "plus": true
+      },
+      {
+        "value": "15,000",
+        "label": "AI chat questions",
+        "plus": true
+      },
+      {
+        "value": "184",
+        "label": "paid orders"
+      }
     ],
-    "codeUrl": "https://github.com/VinhHung1999/voice-everywhere"
+    "highlights": [
+      {
+        "label": "01 · Audience",
+        "title": "Found who it's really for",
+        "body": "At 10,800 monthly users, analytics and user research showed the audience was Gen Z (median age 23, 65% female). Redesigned mobile-first with a voice that fits them."
+      },
+      {
+        "label": "02 · Growth",
+        "title": "Organic over paid",
+        "body": "Shifted acquisition from paid ads to organic Threads, now the largest user source (~6,700 new users)."
+      },
+      {
+        "label": "03 · Monetization",
+        "title": "Self-serve KOC affiliate",
+        "body": "Signup, commission wallet, payouts, and consent/terms."
+      }
+    ],
+    "workflow": {
+      "title": "A small team's output, built solo.",
+      "steps": [
+        {
+          "title": "Full product cycle with AI agents",
+          "body": "Research and JTBD, rapid prototypes validated with real users, then phased implementation with clear acceptance criteria."
+        },
+        {
+          "title": "Orchestrated PO · Dev · QC team",
+          "body": "Shared knowledge base, mobile approvals via Lark. Every change is gated:",
+          "tags": [
+            "TDD",
+            "Code review",
+            "Security review"
+          ]
+        },
+        {
+          "title": "Agent-driven QA & triage",
+          "body": "Real simulators and browsers with screenshot evidence. I review every diff and own all money-flow decisions."
+        }
+      ]
+    },
+    "liveUrl": "https://tuvingaymai.com"
   },
   {
-    "id": "4",
-    "title": "WebPhim",
-    "shortDescription": "A Netflix-like movie streaming platform with full video management and user features",
-    "fullDescription": "WebPhim is a full-stack Netflix clone that supports video uploading, HLS transcoding, and adaptive streaming. It features user authentication, content browsing by genre, search with filters, watchlist management, continue watching, and a complete admin panel for content management.",
-    "category": "web",
-    "year": 2025,
-    "thumbnail": "Globe",
-    "images": [
-      "Film"
-    ],
+    "id": "7",
+    "title": "BlissDay",
+    "theme": "blissday",
+    "shortDescription": "AI wedding planner: plan a Vietnamese wedding by chatting, from timeline and budget to guests and vendors.",
+    "fullDescription": "Plan a Vietnamese wedding just by chatting: timeline, budget, guest list and vendors, with no spreadsheets.",
+    "category": "ai",
+    "year": 2026,
+    "thumbnail": "Heart",
+    "images": [],
     "techStack": [
-      "Next.js 14",
-      "React",
-      "Tailwind CSS",
-      "Framer Motion",
-      "Node.js/Express",
-      "PostgreSQL",
-      "HLS Video Streaming",
-      "NextAuth.js"
+      "Next.js",
+      "Python",
+      "LLM agent"
     ],
-    "features": [
-      "HLS adaptive video streaming with upload and auto-transcoding",
-      "Browse by genre, search with maturity filters and keyword chips",
-      "User profiles with watchlist, continue watching, and watch history",
-      "Responsive design for desktop, tablet, and mobile",
-      "Admin panel for content and video management"
+    "features": [],
+    "liveUrl": "https://www.blissday.vn",
+    "extraCategories": [
+      "web"
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Steady",
+    "theme": "steady",
+    "shortDescription": "Privacy-first iOS habit tracker with on-device AI insights. No account, no cloud, works fully offline. Live on the App Store.",
+    "fullDescription": "Steady is a privacy-first habit tracker: no account, no cloud, no subscription, with on-device AI insights.",
+    "category": "mobile",
+    "year": 2026,
+    "thumbnail": "Smartphone",
+    "images": [],
+    "techStack": [
+      "iOS",
+      "On-device AI",
+      "★ 4.8 App Store"
     ],
-    "liveUrl": "https://movie.hungphu.work",
-    "codeUrl": "https://github.com/VinhHung1999/movie"
+    "features": [],
+    "liveUrl": "https://apps.apple.com/vn/app/steady-build-better-habits/id6761040376",
+    "extraCategories": [
+      "ai"
+    ]
   },
   {
     "id": "5",
@@ -119,36 +145,7 @@
       "Interactive REPL with slash commands and terminal UI with colored output",
       "Autonomous project scaffolding from single natural language prompts"
     ],
-    "codeUrl": "https://github.com/VinhHung1999/hungphucode"
-  },
-  {
-    "id": "6",
-    "title": "Portfolio Website",
-    "shortDescription": "Modern interactive portfolio with Violet→Blue gradient theme and smooth animations",
-    "fullDescription": "Interactive portfolio website featuring scroll-snap sections, AI chatbot with streaming responses, admin panel for content management, Docker self-hosting with Cloudflare Tunnel, and GitHub repo auto-sync. Built with a design-first multi-agent team workflow across 17+ sprints.",
-    "category": "web",
-    "year": 2026,
-    "thumbnail": "Palette",
-    "images": [
-      "Palette"
-    ],
-    "techStack": [
-      "Next.js 16",
-      "React 19",
-      "TypeScript",
-      "Tailwind CSS v4",
-      "Framer Motion",
-      "LangChain",
-      "Docker"
-    ],
-    "features": [
-      "Scroll-triggered animations with mesh blobs, 3D tilt cards, and bento grid",
-      "AI chatbot with LangChain + xAI streaming and custom admin context",
-      "Full admin panel with image upload, content CRUD, and GitHub sync",
-      "Docker self-hosting with Cloudflare Tunnel for custom domain",
-      "Built by a 4-agent tmux team (PM, Designer, Dev, QA) workflow"
-    ],
-    "liveUrl": "https://portfolio.hungphu.work",
-    "codeUrl": "https://github.com/VinhHung1999/portfoilo"
+    "codeUrl": "https://github.com/VinhHung1999/hungphucode",
+    "theme": "night"
   }
 ]

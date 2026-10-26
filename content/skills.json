@@ -2,7 +2,7 @@
   {
     "category": "Mobile Development",
     "skills": [
-      "React Native (5+ years)",
+      "React Native (6+ years)",
       "React",
       "TypeScript",
       "JavaScript (ES6+)",
@@ -30,13 +30,60 @@
     ]
   },
   {
-    "category": "AI & Automation",
+    "category": "AI",
     "skills": [
+      "Claude Code",
+      "OpenCode",
+      "Codex",
+      "Claude",
+      "ChatGPT",
+      "Agent Harness",
+      "Multi-agent orchestration (PO · Dev · QC)",
+      "Shared knowledge base",
       "LLM Workflow Design",
       "AI-Assisted Development",
       "Prompt Structuring",
-      "Claude",
-      "ChatGPT"
+      "AI chat & chart reading features"
+    ],
+    "groups": [
+      {
+        "label": "Coding agents",
+        "skills": [
+          "Claude Code",
+          "OpenCode",
+          "Codex",
+          "Claude",
+          "ChatGPT"
+        ]
+      },
+      {
+        "label": "Agent engineering",
+        "skills": [
+          "Agent Harness",
+          "Multi-agent orchestration (PO · Dev · QC)",
+          "Shared knowledge base"
+        ]
+      },
+      {
+        "label": "LLM product & workflow",
+        "skills": [
+          "LLM Workflow Design",
+          "AI-Assisted Development",
+          "Prompt Structuring",
+          "AI chat & chart reading features"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Automation",
+    "skills": [
+      "Jest",
+      "Automation Testing Framework",
+      "AI-Driven Mobile Testing",
+      "Agent-Driven QA on simulators & browsers",
+      "TDD-gated changes",
+      "Regression Coverage"
     ]
   },
   {

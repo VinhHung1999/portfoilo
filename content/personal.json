@@ -1,7 +1,7 @@
 {
   "name": "Hùng Phù",
-  "tagline": "Senior React Native Engineer | Fintech & AI-Driven Mobile Solutions",
-  "bio": "Senior React Native Engineer with 5+ years of experience building and scaling fintech mini-apps within MoMo's Super App ecosystem. Strong background in mobile architecture (MVVM, monorepo design), secure financial integrations, and automation testing strategy.\n\nExperienced in leading technical initiatives, integrating AI-driven workflows, and designing LLM-powered mobile solutions. Passionate about building scalable financial systems with high reliability and long-term maintainability.",
+  "tagline": "Senior React Native Engineer",
+  "bio": "6+ years building fintech mini-apps in MoMo's Super App. Co-founder of Tử Vi Ngày Mai, an AI astrology app I grew to 33,400 users, built solo with an AI-native agent workflow.",
   "email": "phuvinhhung1999@gmail.com",
   "location": "Ho Chi Minh City, Vietnam",
   "status": "Open to opportunities",
@@ -37,7 +37,7 @@
     {
       "icon": "Briefcase",
       "label": "Experience",
-      "value": "5+ years Mobile Development"
+      "value": "6+ years Mobile Development"
     },
     {
       "icon": "Globe",

@@ -57,12 +57,42 @@ export interface Project {
   features: string[];
   liveUrl?: string;
   codeUrl?: string;
+  // Optional presentation fields (not edited by the admin form; preserved on save)
+  featured?: boolean; // rendered as the large card at the top of Projects
+  extraCategories?: Project["category"][]; // also listed under these filters
+  theme?: ProjectTheme; // card art uses the product's own visual theme
+  role?: string;
+  period?: string;
+  stats?: ProjectStat[];
+  highlights?: ProjectHighlight[];
+  workflow?: ProjectWorkflow;
+}
+
+export type ProjectTheme = "tuvi" | "blissday" | "steady" | "night";
+
+export interface ProjectStat {
+  value: string;
+  label: string;
+  plus?: boolean;
+}
+
+export interface ProjectHighlight {
+  label: string;
+  title: string;
+  body: string;
+}
+
+export interface ProjectWorkflow {
+  title: string;
+  steps: { title: string; body: string; tags?: string[] }[];
 }
 
 // Skills
 export interface SkillCategory {
   category: string;
   skills: string[];
+  // Optional display grouping of `skills` (skills stays the flat source for admin/chatbot)
+  groups?: { label: string; skills: string[] }[];
 }
 
 // Achievements
