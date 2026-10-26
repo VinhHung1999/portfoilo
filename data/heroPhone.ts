@@ -16,8 +16,8 @@ export const heroPhone = {
   greeting: "Xin chào, mình là Hùng",
   years: 6,
   apps: [
-    { icon: "⌁", label: "Installment" },
-    { icon: "◷", label: "Pay Later" },
+    { icon: "⌁", label: "Apple Installment" },
+    { icon: "◷", label: "BNPL" },
     { icon: "⬡", label: "Native · KMP" },
     { icon: "✦", label: "AI tools" },
   ],
