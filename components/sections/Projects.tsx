@@ -79,7 +79,7 @@ function Featured({ project }: { project: Project }) {
         </div>
         {project.liveUrl && (
           <a className="tv-btn" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-            Visit {host} ↗
+            Visit →
           </a>
         )}
       </div>

@@ -246,7 +246,7 @@ html:has(.pf),html:has(.pf) body{background:#0a0a0b;color-scheme:dark}
 .pf .cinfo div{padding:16px 18px;font-size:14.5px}
 .pf .cinfo div+div{border-left:1px solid rgba(255,255,255,.2)}
 .pf .cinfo .kick{color:rgba(255,255,255,.7);display:block;margin-bottom:4px}
-.pf footer{display:flex;justify-content:space-between;color:var(--dim);font-size:13px;padding:36px 0 60px;flex-wrap:wrap;gap:12px}
+.pf footer{display:flex;justify-content:space-between;color:var(--dim);font-size:13px;padding:36px 0 112px;flex-wrap:wrap;gap:12px} /* bottom room so the chat FAB never covers the footer */
 /* reveal */
 .pf .rv{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
 .pf .rv.in{opacity:1;transform:none}
@@ -334,7 +334,7 @@ html:has(.pf),html:has(.pf) body{background:#0a0a0b;color-scheme:dark}
   .pf .contact > p{margin:14px auto 24px}
   .pf .cinfo{margin-bottom:22px}
   .pf .cinfo div{padding:12px 14px}
-  .pf footer{padding:22px 0 36px}
+  .pf footer{padding:22px 0 96px}
   .pf .mm-head{padding:24px 16px 16px}
   .pf .mm-apps{margin:0 10px 14px}
   .pf .notis{margin:0 6px}
