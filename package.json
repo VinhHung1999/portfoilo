@@ -9,7 +9,7 @@
     "dev": "next dev --port 2000",
     "prebuild": "tsx scripts/sync-github.ts",
     "build": "next build",
-    "postbuild": "cp -r public .next/standalone/public && cp -r .next/static .next/standalone/.next/static && rm -rf dist && cp -r .next/standalone dist",
+    "postbuild": "mkdir -p .next/standalone/public .next/standalone/.next/static && cp -R public/. .next/standalone/public/ && cp -R .next/static/. .next/standalone/.next/static/ && rm -rf dist && cp -r .next/standalone dist",
     "start": "next start",
     "lint": "next lint"
   },
@@ -19,6 +19,7 @@
   "description": "",
   "dependencies": {
     "@langchain/core": "^1.1.19",
+    "@langchain/openai": "1.2.5",
     "@langchain/xai": "^1.3.1",
     "framer-motion": "^12.30.0",
     "langchain": "^1.2.18",

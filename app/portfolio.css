@@ -29,6 +29,7 @@ html:has(.pf),html:has(.pf) body{background:#0a0a0b;color-scheme:dark}
 .pf nav.top.solid{background:rgba(10,10,11,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
 .pf nav.top .w{display:flex;align-items:center;justify-content:space-between;height:68px}
 .pf .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px}
+.pf .logo img{width:28px;height:28px;border-radius:8px;border:1px solid rgba(255,255,255,.2)}
 .pf .logo b{width:30px;height:30px;border-radius:9px;border:1.5px solid #fff;display:grid;place-items:center;font:400 14px var(--serif)}
 .pf .links{display:flex;align-items:center;gap:26px;font-size:14px;color:rgba(255,255,255,.85)}
 .pf .links a:not(.btn):hover{color:#fff}

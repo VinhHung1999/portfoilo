@@ -3,12 +3,19 @@ import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import { getConversation } from "@/lib/conversations";
 import { sendTranscriptEmail } from "@/lib/email";
+import { rateLimit, tooManyRequests, readJsonBody, HOUR, DAY } from "@/lib/rateLimit";
+
+// Each call can email Boss: keep it from being used to spam the inbox
+const TRANSCRIPT_LIMITS = [
+  { limit: 3, windowMs: HOUR },
+  { limit: 50, windowMs: DAY, global: true },
+];
 
 export async function POST(request: NextRequest) {
-  let body: { conversationId?: string };
-  try {
-    body = await request.json();
-  } catch {
+  if (!rateLimit(request, "transcript", TRANSCRIPT_LIMITS)) return tooManyRequests();
+
+  const body = await readJsonBody<{ conversationId?: string }>(request, 4 * 1024);
+  if (!body) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 

@@ -1,13 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { saveConversation } from "@/lib/conversations";
 import type { ConversationMessage } from "@/lib/conversations";
+import { rateLimit, tooManyRequests, readJsonBody, MINUTE, DAY } from "@/lib/rateLimit";
+
+// Each call writes a file to disk: cap per visitor and globally
+const SAVE_LIMITS = [
+  { limit: 30, windowMs: MINUTE },
+  { limit: 3000, windowMs: DAY, global: true },
+];
 
 export async function POST(request: NextRequest) {
-  let body: { conversationId?: string; messages?: ConversationMessage[] };
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  if (!rateLimit(request, "conversations", SAVE_LIMITS)) return tooManyRequests();
+
+  const body = await readJsonBody<{ conversationId?: string; messages?: ConversationMessage[] }>(
+    request,
+    300 * 1024
+  );
+  if (!body) {
+    return NextResponse.json({ error: "Invalid or too large request" }, { status: 400 });
   }
 
   const { conversationId, messages } = body;
@@ -28,7 +38,14 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const conversation = await saveConversation(conversationId, messages);
+    // Store only known fields with bounded sizes; never trust client timestamps
+    const now = new Date().toISOString();
+    const clean: ConversationMessage[] = messages.slice(-60).map((m) => ({
+      role: m?.role === "assistant" ? "assistant" : "user",
+      content: String(m?.content ?? "").slice(0, 4000),
+      timestamp: typeof m?.timestamp === "string" && m.timestamp.length <= 40 && !isNaN(Date.parse(m.timestamp)) && Date.parse(m.timestamp) <= Date.now() + 60_000 ? m.timestamp : now,
+    }));
+    const conversation = await saveConversation(conversationId, clean);
     return NextResponse.json({ success: true, id: conversation.id });
   } catch (err) {
     console.error("[conversations] Save error:", err);

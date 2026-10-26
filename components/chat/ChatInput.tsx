@@ -35,6 +35,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
       <input
         ref={inputRef}
         type="text"
+        maxLength={1000}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {

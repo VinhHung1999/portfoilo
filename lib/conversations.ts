@@ -67,7 +67,7 @@ export async function saveConversation(
   const conversation: Conversation = {
     id,
     messages,
-    startedAt: existing?.startedAt ?? messages[0]?.timestamp ?? now,
+    startedAt: existing?.startedAt ?? now, // server clock: cleanup relies on it
     lastMessageAt: messages[messages.length - 1]?.timestamp ?? now,
     transcriptSent: existing?.transcriptSent ?? false,
   };

@@ -1,8 +1,9 @@
 import { NextRequest } from "next/server";
-import { ChatXAI } from "@langchain/xai";
+import { ChatOpenAI } from "@langchain/openai";
 import { HumanMessage, SystemMessage, AIMessage } from "@langchain/core/messages";
 import { getPortfolioContent } from "@/lib/content";
 import { readChatbotSettings } from "@/app/api/admin/chatbot-context/route";
+import { rateLimit, tooManyRequests, readJsonBody, MINUTE, DAY } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
 
@@ -23,12 +24,27 @@ async function buildSystemPrompt(): Promise<string> {
     )
     .join("\n\n");
 
+  // Feed every project field the page shows, so the bot can answer in depth
   const projectsText = projects
-    .map(
-      (p) =>
-        `${p.title}: ${p.shortDescription}\n` +
-        `  Tech: ${p.techStack.join(", ")}\n` +
-        `  Features: ${p.features.join("; ")}`
+    .map((p) =>
+      [
+        `${p.title}: ${p.shortDescription}`,
+        p.role && `  Role: ${p.role}${p.period ? ` (${p.period})` : ""}`,
+        p.fullDescription && `  Details: ${p.fullDescription}`,
+        `  Tech: ${p.techStack.join(", ")}`,
+        p.features.length > 0 && `  Features: ${p.features.join("; ")}`,
+        p.stats?.length &&
+          `  Stats: ${p.stats.map((s) => `${s.value}${s.plus ? "+" : ""} ${s.label}`).join("; ")}`,
+        p.highlights?.length &&
+          `  Highlights:\n${p.highlights.map((h) => `    - ${h.title}: ${h.body}`).join("\n")}`,
+        p.workflow &&
+          `  How it was built: ${p.workflow.title} ${p.workflow.steps
+            .map((s) => `${s.title}: ${s.body}${s.tags?.length ? ` (${s.tags.join(", ")})` : ""}`)
+            .join(" | ")}`,
+        p.liveUrl && `  Link: ${p.liveUrl}`,
+      ]
+        .filter(Boolean)
+        .join("\n")
     )
     .join("\n\n");
 
@@ -77,12 +93,21 @@ interface ChatRequestMessage {
   content: string;
 }
 
+// Every call costs LLM tokens: cap per visitor and set a global daily ceiling
+const CHAT_LIMITS = [
+  { limit: 8, windowMs: MINUTE },
+  { limit: 60, windowMs: DAY },
+  { limit: 1500, windowMs: DAY, global: true },
+];
+const MAX_MESSAGES = 20;
+const MAX_CHARS = 1000; // per message
+const MAX_BODY_BYTES = 64 * 1024;
+
 export async function POST(request: NextRequest) {
-  let body: { messages: ChatRequestMessage[] };
-  try {
-    body = await request.json();
-  } catch {
-    return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+  if (!rateLimit(request, "chat", CHAT_LIMITS)) return tooManyRequests();
+  const body = await readJsonBody<{ messages: ChatRequestMessage[] }>(request, MAX_BODY_BYTES);
+  if (!body) {
+    return new Response(JSON.stringify({ error: "Invalid or too large request" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
@@ -95,17 +120,33 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const apiKey = process.env.XAI_API_KEY;
+  // Long assistant replies are trimmed, not rejected, so long chats keep working
+  const messages = body.messages.slice(-MAX_MESSAGES).filter(
+    (m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string"
+  ).map((m) => (m.role === "assistant" ? { ...m, content: m.content.slice(0, MAX_CHARS * 4) } : m));
+  const last = messages[messages.length - 1];
+  if (!last || last.role !== "user" || messages.some((m) => m.role === "user" && m.content.length > MAX_CHARS)) {
+    return new Response(
+      JSON.stringify({ error: `Each message must be at most ${MAX_CHARS} characters` }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
     return new Response(
-      JSON.stringify({ error: "XAI_API_KEY not configured" }),
+      JSON.stringify({ error: "OPENROUTER_API_KEY not configured" }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 
-  const model = new ChatXAI({
+  const model = new ChatOpenAI({
     apiKey,
-    model: "grok-3-mini-fast",
+    model: "deepseek/deepseek-v4.1-flash",
+    configuration: { baseURL: "https://openrouter.ai/api/v1" },
+    // OpenRouter: turn off DeepSeek thinking for faster, cheaper replies
+    modelKwargs: { reasoning: { enabled: false } },
+    maxTokens: 800,
     temperature: 0.7,
   });
 
@@ -113,7 +154,7 @@ export async function POST(request: NextRequest) {
 
   const langchainMessages = [
     new SystemMessage(systemPrompt),
-    ...body.messages.map((msg) =>
+    ...messages.map((msg) =>
       msg.role === "user"
         ? new HumanMessage(msg.content)
         : new AIMessage(msg.content)

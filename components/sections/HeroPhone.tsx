@@ -110,8 +110,8 @@ export default function HeroPhone({ avatar, name }: { avatar?: string; name: str
             <span className="wd" style={wd(1)}>years</span>{" "}
             <span className="wd" style={wd(2)}>building</span>
             <br />
-            <span className="wd" style={wd(3)}>money</span>{" "}
-            <span className="wd" style={wd(4)}>apps</span>{" "}
+            <span className="wd" style={wd(3)}>Finance</span>{" "}
+            <span className="wd" style={wd(4)}>Apps</span>{" "}
             <span className="wd" style={wd(5)}>at</span>{" "}
             <span className="wd" style={wd(6)}>MoMo.</span>
           </h3>

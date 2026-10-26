@@ -219,7 +219,8 @@ export default function ChatWindow({
         // Read current state inside functional update, but don't mutate
         apiMessages = prev
           .filter((m) => m.id !== aiMsg.id) // exclude the empty placeholder
-          .map((m) => ({ role: m.role, content: m.content }));
+          .map((m) => ({ role: m.role, content: m.content }))
+          .slice(-20); // server only uses the last 20
         return prev; // no change
       });
 
@@ -236,7 +237,11 @@ export default function ChatWindow({
         });
 
         if (!res.ok) {
-          throw new Error(`Server error: ${res.status}`);
+          throw new Error(
+            res.status === 429
+              ? "You're sending messages too fast. Please wait a minute and try again."
+              : `Server error: ${res.status}`
+          );
         }
 
         const reader = res.body?.getReader();

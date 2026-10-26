@@ -7,7 +7,7 @@
     "role": "Co-founder & Product Engineer",
     "period": "May 2026 — Present",
     "shortDescription": "AI-powered Vietnamese astrology app, grown to 33,400 users in 6 months.",
-    "fullDescription": "AI-powered Vietnamese astrology app. I own product and tech end to end: UI/UX, frontend, backend, AI features (chart reading, AI chat guide), VietQR payments, and analytics.",
+    "fullDescription": "AI-powered Vietnamese astrology app. I own product and tech end to end: UI/UX, frontend, backend, AI features (chart reading, AI chat guide), MoMo and VietQR payments, and analytics. The backend runs a 12-step Tam Hợp chart engine (14 main stars, minor stars, decade cycles), and LLM readings are cached per birth chart so repeat lookups cost nothing. Built test-first with a 1,300+ test suite and 1,700+ commits in 6 months.",
     "category": "ai",
     "year": 2026,
     "thumbnail": "Sparkles",
@@ -17,9 +17,18 @@
       "FastAPI",
       "PostgreSQL",
       "LLM",
+      "MoMo",
       "VietQR"
     ],
-    "features": [],
+    "features": [
+      "Free Tử Vi birth chart drawn as a 12-palace grid",
+      "AI-written readings: overview, personality, career, love, decade and yearly cycles, per-palace detail",
+      "\"Hỏi Thầy\" AI chat that knows your chart, with a two-layer safety guard (keyword filter + LLM judge)",
+      "MoMo and VietQR payments (pay in the MoMo app or any banking app), Google login, discount codes and time-limited offers",
+      "Self-serve KOC affiliate program with commission wallet and payouts",
+      "Content hub (palaces, stars, yearly forecasts, I Ching) for SEO",
+      "Vietnamese first, English supported"
+    ],
     "stats": [
       {
         "value": "33,400",
@@ -82,42 +91,67 @@
     "title": "BlissDay",
     "theme": "blissday",
     "shortDescription": "AI wedding planner: plan a Vietnamese wedding by chatting, from timeline and budget to guests and vendors.",
-    "fullDescription": "Plan a Vietnamese wedding just by chatting: timeline, budget, guest list and vendors, with no spreadsheets.",
+    "fullDescription": "Plan a Vietnamese wedding just by chatting: timeline, budget, guest list and vendors, with no spreadsheets. I led the build with an AI agent team (PO, Dev, QC). The core is a function-calling LLM agent: I consolidated its 32 tools into 17, made it read a record before changing it, added a three-layer guard so it never claims an action it didn't take, and track quality with a 57-case evaluation set. Monitoring runs on Grafana Cloud with alerts sent to Lark.",
     "category": "ai",
     "year": 2026,
     "thumbnail": "Heart",
     "images": [],
     "techStack": [
       "Next.js",
-      "Python",
-      "LLM agent"
+      "FastAPI",
+      "PostgreSQL",
+      "LLM agent",
+      "OpenRouter"
     ],
-    "features": [],
+    "features": [
+      "BlissDay Concierge: a chat agent that builds and edits the whole wedding plan",
+      "Onboarding for 6 traditional Vietnamese ceremonies and 6 wedding styles",
+      "Budget tracker across 16 categories with deposits and payments",
+      "Checklist and guest list management",
+      "Vendor directory by category, package and price range, with map lookup",
+      "Reminders for milestones, payments, overdue tasks and budget limits via web push, email and in-app",
+      "Every action works by chat or by tapping cards, on the same data"
+    ],
     "liveUrl": "https://www.blissday.vn",
     "extraCategories": [
       "web"
-    ]
+    ],
+    "role": "Lead Engineer",
+    "period": "May 2026 — Present"
   },
   {
     "id": "8",
     "title": "Steady",
     "theme": "steady",
-    "shortDescription": "Privacy-first iOS habit tracker with on-device AI insights. No account, no cloud, works fully offline. Live on the App Store.",
-    "fullDescription": "Steady is a privacy-first habit tracker: no account, no cloud, no subscription, with on-device AI insights.",
+    "shortDescription": "Privacy-first iOS habit tracker with on-device insights. No account, no cloud sync, works fully offline. Live on the App Store.",
+    "fullDescription": "Steady is a privacy-first habit tracker: no account, no cloud sync, no subscription. All habit data stays on the device, and insights (best days, habit correlations, mood trends) are computed locally. Built solo with React Native + Expo, with native Swift widgets and a Live Activity. Shipped v1.0 in about 3 weeks (first commit 7 Mar, App Store 31 Mar 2026) across 16 sprints run with an AI agent team. Monetized with a one-time $4.99 Pro unlock instead of a subscription.",
     "category": "mobile",
     "year": 2026,
     "thumbnail": "Smartphone",
     "images": [],
     "techStack": [
-      "iOS",
-      "On-device AI",
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Swift WidgetKit",
+      "WatermelonDB",
       "★ 4.8 App Store"
     ],
-    "features": [],
+    "features": [
+      "Habits scheduled by time, day of week or interval",
+      "Heatmap calendar with streaks, completion rates and personal bests",
+      "Weekly insights and habit correlations (e.g. \"When you exercise, you meditate 90% of the time\")",
+      "Quick mood journaling after each habit",
+      "Interactive home-screen and lock-screen widgets, plus a habit-timer Live Activity",
+      "Dark, light and true-black themes with alternate app icons",
+      "Free for 3 habits; one-time Pro purchase unlocks unlimited"
+    ],
     "liveUrl": "https://apps.apple.com/vn/app/steady-build-better-habits/id6761040376",
     "extraCategories": [
       "ai"
-    ]
+    ],
+    "role": "Solo Developer",
+    "period": "Mar 2026 — Present"
   },
   {
     "id": "5",

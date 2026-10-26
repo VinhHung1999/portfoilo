@@ -50,6 +50,8 @@ export default function Navigation({ name = "Hùng Phù" }: { name?: string }) {
     <nav ref={navRef} className={`top${solid || open ? " solid" : ""}`} aria-label="Primary">
       <div className="w">
         <a className="logo" href="#hero">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/icon.svg" alt="" />
           {name}
         </a>
         <div className="links">
