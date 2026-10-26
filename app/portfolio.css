@@ -3,7 +3,7 @@
 .pf{
   --ink:#0a0a0b;--card:#141416;--card2:#1b1b1e;--line:#26262a;
   --tx:#f4f4f2;--mut:#9a9aa0;--dim:#5f5f66;
-  --serif:"Newsreader",Georgia,serif;--sans:"Inter",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace; /* real family names (loaded by next/font) so missing glyphs fall back like the prototype, not to next/font's Arial fallback */
+  --serif:"Newsreader",Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif;--mono:ui-monospace,"SF Mono",SFMono-Regular,"JetBrains Mono",monospace; /* SF Pro / SF Mono on Apple devices (system fonts, not embeddable), Inter / JetBrains Mono elsewhere; real family names (loaded by next/font) so missing glyphs fall back like the prototype, not to next/font's Arial fallback */
 }
 .pf, .pf *{box-sizing:border-box;margin:0;padding:0}
 .pf{background:var(--ink);color:var(--tx);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip;position:relative}

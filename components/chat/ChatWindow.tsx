@@ -345,7 +345,7 @@ export default function ChatWindow({
             border: isMobile ? "none" : "1px solid #2c2c32",
             boxShadow: isMobile ? "none" : "0 20px 60px rgba(0,0,0,.5)",
             color: "#f4f4f2",
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif',
             overflow: "hidden",
             height: isMobile ? "100dvh" : undefined,
             transformOrigin: isMobile ? undefined : "bottom right",

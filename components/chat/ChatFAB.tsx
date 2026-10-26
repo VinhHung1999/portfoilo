@@ -117,7 +117,7 @@ export default function ChatFAB({ avatar, name }: FABProps = {}) {
             boxShadow: "0 10px 30px rgba(0,0,0,.4)",
             color: "#fff",
             fontSize: "14px",
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif',
             transition: "transform 200ms cubic-bezier(0.16, 1, 0.3, 1)",
           }}
           onMouseEnter={(e) => {

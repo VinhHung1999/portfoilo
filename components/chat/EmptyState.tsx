@@ -40,7 +40,7 @@ export default function EmptyState({ onSend, greeting, suggestedQuestions }: Pro
         </p>
         <p
           className="text-[14px] leading-[1.5] mt-[6px]"
-          style={{ color: "#9a9aa0", fontFamily: '"Inter", system-ui, sans-serif' }}
+          style={{ color: "#9a9aa0", fontFamily: '-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif' }}
         >
           {subtitle}
         </p>
@@ -55,7 +55,7 @@ export default function EmptyState({ onSend, greeting, suggestedQuestions }: Pro
               backgroundColor: "#24242a",
               border: "1px solid #2e2e34",
               color: "#f4f4f2",
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif',
             }}
           >
             {text}

@@ -50,7 +50,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
           backgroundColor: "#141416",
           border: "1px solid #2c2c32",
           color: "#f4f4f2",
-          fontFamily: '"Inter", system-ui, sans-serif',
+          fontFamily: '-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif',
           fontStyle: disabled ? "italic" : "normal",
         }}
       />

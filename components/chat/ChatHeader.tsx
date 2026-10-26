@@ -40,7 +40,7 @@ export default function ChatHeader({ onClose, onMinimize, avatar, name }: Props)
             style={{
               color: "#9a9aa0",
               letterSpacing: ".1em",
-              fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+              fontFamily: 'ui-monospace,"SF Mono",SFMono-Regular,"JetBrains Mono",monospace',
             }}
           >
             <span

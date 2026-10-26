@@ -35,8 +35,8 @@ export default function MessageBubble({ message, isStreaming }: Props) {
         }`}
         style={
           isUser
-            ? { backgroundColor: "#fff", color: "#0a0a0b", fontFamily: '"Inter", system-ui, sans-serif' }
-            : { backgroundColor: "#24242a", color: "#e6e6e9", fontFamily: '"Inter", system-ui, sans-serif' }
+            ? { backgroundColor: "#fff", color: "#0a0a0b", fontFamily: '-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif' }
+            : { backgroundColor: "#24242a", color: "#e6e6e9", fontFamily: '-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif' }
         }
       >
         {isUser ? (

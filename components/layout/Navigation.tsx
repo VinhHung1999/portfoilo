@@ -23,7 +23,6 @@ export default function Navigation({ name = "Hùng Phù" }: { name?: string }) {
     <nav className={`top${solid ? " solid" : ""}`} aria-label="Primary">
       <div className="w">
         <a className="logo" href="#hero">
-          <b>HP</b>
           {name}
         </a>
         <div className="links">
