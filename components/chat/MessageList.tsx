@@ -28,7 +28,7 @@ export default function MessageList({ messages, isStreaming, onSendSuggestion, g
       className="flex-1 overflow-y-auto flex flex-col gap-[12px] p-[16px] md:p-[16px] max-md:p-[12px]"
       style={{
         scrollbarWidth: "thin",
-        scrollbarColor: "var(--border) transparent",
+        scrollbarColor: "#2c2c32 transparent",
       }}
       aria-live="polite"
     >

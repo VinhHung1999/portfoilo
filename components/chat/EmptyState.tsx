@@ -1,7 +1,5 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
-
 const DEFAULT_GREETING = "Hi! I'm Hung's AI assistant.";
 const DEFAULT_SUBTITLE = "Ask me about his skills, projects, or experience.";
 const DEFAULT_SUGGESTIONS = [
@@ -29,41 +27,35 @@ export default function EmptyState({ onSend, greeting, suggestedQuestions }: Pro
 
   return (
     <div className="flex flex-col items-center justify-center h-full px-[16px] py-[24px] gap-[16px]">
-      <div className="gradient-bg flex items-center justify-center w-[48px] h-[48px] rounded-full">
-        <Sparkles size={24} className="text-white" />
-      </div>
       <div className="text-center">
         <p
-          className="text-[16px] font-semibold"
-          style={{ color: "var(--text-primary)" }}
+          className="text-[24px] leading-[1.2]"
+          style={{
+            color: "#f4f4f2",
+            fontFamily: '"Newsreader", Georgia, serif',
+            fontWeight: 400,
+          }}
         >
           {title}
         </p>
         <p
-          className="text-[14px] mt-[4px]"
-          style={{ color: "var(--text-muted)" }}
+          className="text-[14px] leading-[1.5] mt-[6px]"
+          style={{ color: "#9a9aa0", fontFamily: '"Inter", system-ui, sans-serif' }}
         >
           {subtitle}
         </p>
       </div>
-      <div className="flex flex-col gap-[8px] w-full max-w-[280px]">
+      <div className="flex flex-wrap justify-center gap-[6px] w-full">
         {suggestions.map((text) => (
           <button
             key={text}
             onClick={() => onSend(text)}
-            className="px-[16px] py-[8px] text-[13px] rounded-full cursor-pointer transition-colors duration-200"
+            className="chat-dark-focus chat-dark-chip px-[11px] py-[7px] text-[12.5px] rounded-full cursor-pointer transition-colors duration-200"
             style={{
-              backgroundColor: "var(--bg-tertiary)",
-              border: "1px solid var(--border)",
-              color: "var(--text-secondary)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(37, 99, 235, 0.1)";
-              e.currentTarget.style.color = "var(--cta)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--bg-tertiary)";
-              e.currentTarget.style.color = "var(--text-secondary)";
+              backgroundColor: "#24242a",
+              border: "1px solid #2e2e34",
+              color: "#f4f4f2",
+              fontFamily: '"Inter", system-ui, sans-serif',
             }}
           >
             {text}

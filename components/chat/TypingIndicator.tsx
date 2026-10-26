@@ -6,13 +6,13 @@ export default function TypingIndicator() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <div className="flex items-center gap-[4px] px-[14px] py-[10px]">
+    <div className="flex items-center gap-[4px] py-[4px]">
       {[0, 1, 2].map((i) => (
         <span
           key={i}
           className="block w-[6px] h-[6px] rounded-full"
           style={{
-            backgroundColor: "var(--text-muted)",
+            backgroundColor: "#77777f",
             animation: reducedMotion
               ? "typing-dot-reduced 1.4s infinite"
               : "typing-dot 1.4s infinite",

@@ -34,7 +34,7 @@ export default async function Home() {
         </main>
       </div>
       {/* outside .pf so the chatbot keeps the global Tailwind styling */}
-      <ChatFAB />
+      <ChatFAB avatar={content.personal.avatar} name={content.personal.name} />
     </>
   );
 }

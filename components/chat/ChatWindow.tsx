@@ -19,6 +19,20 @@ import type { Message } from "./MessageBubble";
 
 const INACTIVITY_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
 
+// Scoped dark-theme overrides: the chat looks the same regardless of data-theme.
+const CHAT_DARK_CSS = `
+.chat-dark .chat-markdown a{color:#fff;text-decoration:underline}
+.chat-dark .chat-markdown a:hover{color:#fff;opacity:.8}
+.chat-dark .chat-markdown code{background:#2c2c32;color:#f4f4f2}
+.chat-dark .chat-markdown ul{list-style:disc;padding-left:1.1em}
+.chat-dark .chat-markdown ol{list-style:decimal;padding-left:1.3em}
+.chat-dark .chat-markdown li{color:#e6e6e9}
+.chat-dark .chat-markdown li::marker{color:#9a9aa0}
+.chat-dark .chat-dark-chip:hover{border-color:#3a3a40}
+.chat-dark .chat-dark-input::placeholder{color:#5f5f66;opacity:1}
+.chat-dark .chat-dark-input:focus{border-color:#5f5f66}
+`;
+
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -30,6 +44,8 @@ interface Props {
   greeting?: string;
   suggestedQuestions?: string[];
   conversationId: string;
+  avatar?: string;
+  name?: string;
 }
 
 export default function ChatWindow({
@@ -43,6 +59,8 @@ export default function ChatWindow({
   greeting,
   suggestedQuestions,
   conversationId,
+  avatar,
+  name,
 }: Props) {
   const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
@@ -315,20 +333,26 @@ export default function ChatWindow({
               ? { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
               : { duration: 0.25, ease: [0.16, 1, 0.3, 1] }
           }
-          className={`fixed flex flex-col ${
+          className={`chat-dark fixed flex flex-col ${
             isMobile
               ? "inset-0 w-screen z-50"
-              : "bottom-[96px] right-[24px] w-[380px] max-h-[520px] min-h-[360px] rounded-[var(--radius-lg)] z-40"
+              : "bottom-[76px] right-[20px] w-[380px] max-h-[520px] min-h-[360px] rounded-[22px] z-40"
           }`}
           style={{
-            backgroundColor: "var(--bg-primary)",
-            border: isMobile ? "none" : "1px solid var(--border)",
-            boxShadow: isMobile ? "none" : "var(--shadow-lg)",
+            backgroundColor: "rgba(20,20,22,.96)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            border: isMobile ? "none" : "1px solid #2c2c32",
+            boxShadow: isMobile ? "none" : "0 20px 60px rgba(0,0,0,.5)",
+            color: "#f4f4f2",
+            fontFamily: '"Inter", system-ui, sans-serif',
+            overflow: "hidden",
             height: isMobile ? "100dvh" : undefined,
             transformOrigin: isMobile ? undefined : "bottom right",
           }}
         >
-          <ChatHeader onClose={onClose} onMinimize={onMinimize} />
+          <style>{CHAT_DARK_CSS}</style>
+          <ChatHeader onClose={onClose} onMinimize={onMinimize} avatar={avatar} name={name} />
 
           <MessageList
             messages={messages}
@@ -343,20 +367,20 @@ export default function ChatWindow({
               <div
                 className="flex items-center gap-[8px] px-[14px] py-[10px] rounded-[16px_16px_16px_4px] text-[14px]"
                 style={{
-                  backgroundColor: "var(--bg-tertiary)",
-                  color: "var(--text-secondary)",
+                  backgroundColor: "rgba(248,113,113,.1)",
+                  color: "#f87171",
                 }}
               >
                 <AlertCircle
                   size={16}
                   className="shrink-0"
-                  style={{ color: "#EF4444" }}
+                  style={{ color: "#f87171" }}
                 />
                 <span>Oops, something went wrong.</span>
                 <button
                   onClick={retryLast}
-                  className="font-medium cursor-pointer border-none bg-transparent hover:underline"
-                  style={{ color: "var(--cta)" }}
+                  className="chat-dark-focus font-medium cursor-pointer border-none bg-transparent underline rounded-[4px]"
+                  style={{ color: "#fff" }}
                 >
                   Retry
                 </button>

@@ -29,8 +29,8 @@ export default function ChatInput({ onSend, disabled }: Props) {
 
   return (
     <div
-      className="flex items-center gap-[8px] px-[12px] py-[8px]"
-      style={{ borderTop: "1px solid var(--border)" }}
+      className="flex items-center gap-[8px] px-[12px] py-[10px]"
+      style={{ borderTop: "1px solid #26262a" }}
     >
       <input
         ref={inputRef}
@@ -45,21 +45,22 @@ export default function ChatInput({ onSend, disabled }: Props) {
         }}
         placeholder={disabled ? "Thinking..." : "Ask about my experience..."}
         disabled={disabled}
-        className="flex-1 h-[40px] px-[16px] text-[14px] rounded-full border-none outline-none"
+        className="chat-dark-input flex-1 h-[44px] px-[14px] text-[14px] rounded-[14px] outline-none"
         style={{
-          backgroundColor: "var(--bg-tertiary)",
-          color: "var(--text-primary)",
+          backgroundColor: "#141416",
+          border: "1px solid #2c2c32",
+          color: "#f4f4f2",
+          fontFamily: '"Inter", system-ui, sans-serif',
           fontStyle: disabled ? "italic" : "normal",
         }}
       />
       <button
         onClick={handleSubmit}
         disabled={!canSend}
-        className="flex items-center justify-center w-[40px] h-[40px] rounded-full border-none cursor-pointer transition-transform duration-200"
+        className="chat-dark-focus flex items-center justify-center w-[44px] h-[44px] rounded-full border-none cursor-pointer transition-transform duration-200 disabled:cursor-default"
         style={{
-          background: canSend
-            ? "linear-gradient(135deg, var(--gradient-start), var(--gradient-end))"
-            : "var(--bg-tertiary)",
+          background: "#fff",
+          opacity: canSend ? 1 : 0.4,
         }}
         onMouseEnter={(e) => {
           if (canSend) e.currentTarget.style.transform = "scale(1.05)";
@@ -77,7 +78,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
       >
         <Send
           size={18}
-          style={{ color: canSend ? "#FFFFFF" : "var(--text-muted)" }}
+          style={{ color: "#0a0a0b" }}
         />
       </button>
     </div>
